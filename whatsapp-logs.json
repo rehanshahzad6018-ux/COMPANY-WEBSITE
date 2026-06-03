@@ -1,0 +1,21 @@
+[
+  {
+    "from": "+1234567890",
+    "name": "Test User",
+    "lastSeen": "2026-05-31T16:08:13.170Z",
+    "sentiment": "neutral",
+    "leadScore": 0,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello, tell me about your services",
+        "time": "2026-05-31T16:08:13.170Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello! I'm ARIA, the AI assistant for TECHNO Studio. I can answer questions about our services, pricing, team, and portfolio — or help you book a discovery call. What can I help you with?",
+        "time": "2026-05-31T16:08:13.170Z"
+      }
+    ]
+  }
+]

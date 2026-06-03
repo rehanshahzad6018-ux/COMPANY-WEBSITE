@@ -1,0 +1,66 @@
+{
+  "wa:+1234567890": {
+    "userId": "wa:+1234567890",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello, tell me about your services",
+        "time": "2026-05-31T13:06:32.974Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Thanks for reaching out to TECHNO Studio! We'll get back to you at studio@techno.dev within 48 hours.",
+        "time": "2026-05-31T13:06:32.978Z"
+      },
+      {
+        "role": "user",
+        "content": "Hello, tell me about your services",
+        "time": "2026-05-31T13:15:36.152Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello! I'm ARIA, the AI assistant for TECHNO Studio. I can answer questions about our services, pricing, team, and portfolio — or help you book a discovery call. What can I help you with?",
+        "time": "2026-05-31T13:15:36.155Z"
+      },
+      {
+        "role": "user",
+        "content": "Hello, tell me about your services",
+        "time": "2026-05-31T13:22:24.090Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello! I'm ARIA, the AI assistant for TECHNO Studio. I can answer questions about our services, pricing, team, and portfolio — or help you book a discovery call. What can I help you with?",
+        "time": "2026-05-31T13:22:24.091Z"
+      },
+      {
+        "role": "user",
+        "content": "Hello, tell me about your services",
+        "time": "2026-05-31T13:22:32.747Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello! I'm ARIA, the AI assistant for TECHNO Studio. I can answer questions about our services, pricing, team, and portfolio — or help you book a discovery call. What can I help you with?",
+        "time": "2026-05-31T13:22:32.748Z"
+      },
+      {
+        "role": "user",
+        "content": "Hello, tell me about your services",
+        "time": "2026-05-31T16:08:13.169Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello! I'm ARIA, the AI assistant for TECHNO Studio. I can answer questions about our services, pricing, team, and portfolio — or help you book a discovery call. What can I help you with?",
+        "time": "2026-05-31T16:08:13.169Z"
+      }
+    ],
+    "profile": {
+      "name": null,
+      "email": null,
+      "language": "en",
+      "channel": "whatsapp-test"
+    },
+    "leadScore": 0,
+    "lastSeen": "2026-05-31T16:08:13.170Z",
+    "totalTurns": 5
+  }
+}
