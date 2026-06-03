@@ -133,8 +133,6 @@ button { font-family: inherit; cursor: crosshair; background: none; border: none
 .nav__links a:not(.nav__cta).is-active::after {
   content: ''; position: absolute; left: 0; right: 0; bottom: -7px; height: 1px; background: currentColor;
 }
-.nav__admin-btn { display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid rgba(183,198,194,.18);color:rgba(183,198,194,.5);transition:color .3s,border-color .3s,background .3s;text-decoration:none;flex-shrink:0; }
-.nav__admin-btn:hover { color:var(--white);border-color:rgba(183,198,194,.4);background:rgba(183,198,194,.08); }
 .nav__burger { display: none; flex-direction: column; gap: 5px; }
 .nav__burger span { width: 26px; height: 2px; background: var(--white); display: block; transition: transform 0.35s var(--ease-fluid), opacity 0.35s; }
 
