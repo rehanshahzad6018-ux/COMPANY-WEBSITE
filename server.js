@@ -17,7 +17,8 @@ require('dotenv').config();
 const app  = express();
 const PORT = process.env.PORT || 3000;
 
-const LEADS_FILE = path.join(__dirname, 'leads.json');
+const LEADS_FILE   = path.join(__dirname, 'leads.json');
+const PRICING_FILE = path.join(__dirname, 'pricing.json');
 
 // ── Mount agents BEFORE json body parser (Twilio uses urlencoded) ──
 const voiceAgent     = require('./voice-agent');
@@ -52,6 +53,18 @@ app.post('/api/leads', (req, res) => {
 });
 
 app.delete('/api/leads', (req, res) => { writeLeads([]); res.json({ ok: true }); });
+
+// ── Pricing ────────────────────────────────────────────────────
+app.get('/api/pricing', (req, res) => {
+  try { res.json(JSON.parse(fs.readFileSync(PRICING_FILE, 'utf8'))); }
+  catch (e) { res.status(500).json({ error: 'Could not read pricing data' }); }
+});
+
+app.put('/api/pricing', (req, res) => {
+  if (!Array.isArray(req.body)) return res.status(400).json({ error: 'Expected array' });
+  fs.writeFileSync(PRICING_FILE, JSON.stringify(req.body, null, 2));
+  res.json({ ok: true });
+});
 
 // ── AI Brain status ────────────────────────────────────────────
 app.get('/api/brain/status', (req, res) => {
@@ -110,7 +123,6 @@ app.listen(PORT, () => {
   console.log(` ║  ✉️  Email       →  /api/chat`);
   console.log(` ║  📞 Voice       →  /voice/incoming     ${twilioReady ? '✓' : '⚠ needs Twilio'}`);
   console.log(' ╠══════════════════════════════════════════════╣');
-  console.log(' ║  Admin Panel   →  /admin.html');
   console.log(' ╚══════════════════════════════════════════════╝\n');
 
   if (!openaiReady && !geminiReady) {
