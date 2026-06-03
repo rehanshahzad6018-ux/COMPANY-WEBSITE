@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TECHNO — Services</title>
+<link rel="stylesheet" href="techno.css" />
+<style>
+  .page-hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+  }
+  .page-hero .wrap { width: 100%; }
+  .page-hero h1 {
+    font-family: var(--display);
+    text-transform: uppercase;
+    font-size: clamp(58px, 13.5vw, 210px);
+    line-height: 0.84;
+    letter-spacing: -0.02em;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="Techno.html" class="nav__logo">TECHNO</a>
+  <div class="nav__links">
+    <a href="Techno.html">Home</a>
+    <a href="our-ceo.html">Our CEO</a>
+    <a href="team.html">Team</a>
+    <a href="service.html" class="is-active">Service</a>
+    <a href="our-work.html">Our Work</a>
+    <a href="contact.html" class="nav__cta">Contact</a>
+  </div>
+  <a href="admin.html" class="nav__admin-btn" title="Admin panel">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+  </a>
+  <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mnav">
+  <a href="Techno.html">Home</a>
+  <a href="our-ceo.html">Our CEO</a>
+  <a href="team.html">Team</a>
+  <a href="service.html" class="is-active">Service</a>
+  <a href="our-work.html">Our Work</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- HERO -->
+<header class="page-hero">
+  <div class="orb" style="background:var(--soft-blue); top:0; left:-4%; animation-delay:-2s;"></div>
+  <div class="orb" style="background:var(--neon); bottom:-8%; right:6%; animation-delay:-4s; opacity:0.07;"></div>
+  <div class="wrap page-hero__inner">
+    <h1>Our<br />Services</h1>
+  </div>
+</header>
+
+<!-- SERVICE ROWS -->
+<section class="section section--white">
+  <div class="wrap">
+    <a class="svc-row reveal" href="contact.html">
+      <div class="svc-row__num">01</div>
+      <div>
+        <div class="svc-row__title">Product Design</div>
+      </div>
+      <div class="svc-row__desc">Interfaces engineered for clarity and depth — from research to shipped, design systems included. We own the full product design lifecycle: discovery workshops, user research, information architecture, interaction design, visual design, component libraries and handoff-ready specs.</div>
+      <div class="svc-row__arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </div>
+    </a>
+    <a class="svc-row reveal" href="contact.html">
+      <div class="svc-row__num">02</div>
+      <div><div class="svc-row__title">3D &amp; WebGL</div></div>
+      <div class="svc-row__desc">Real-time 3D environments, custom shaders and interactive scenes that run smooth on every device. From product configurators to full spatial interfaces, we build 3D experiences that feel native to the web — no plugins, no compromise on performance.</div>
+      <div class="svc-row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+    </a>
+    <a class="svc-row reveal" href="contact.html">
+      <div class="svc-row__num">03</div>
+      <div><div class="svc-row__title">Motion Design</div></div>
+      <div class="svc-row__desc">Signature transitions, micro-interactions and brand films that make products feel alive. We define the kinetic language of your product — from a 12ms hover state to a two-minute launch film — ensuring motion is systematic, not accidental.</div>
+      <div class="svc-row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+    </a>
+    <a class="svc-row reveal" href="contact.html">
+      <div class="svc-row__num">04</div>
+      <div><div class="svc-row__title">Brand Systems</div></div>
+      <div class="svc-row__desc">Identities, type and visual languages built to scale across every surface and team. We create brand systems that work as well on a billboard as they do inside a 14px tooltip — documented, flexible and built to outlast the next rebrand cycle.</div>
+      <div class="svc-row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+    </a>
+    <a class="svc-row reveal" href="contact.html">
+      <div class="svc-row__num">05</div>
+      <div><div class="svc-row__title">Engineering</div></div>
+      <div class="svc-row__desc">Front-end builds that match the design pixel-for-pixel — performant, accessible, maintainable. We write the code that ships, not just the prototype that demos. React, Next.js, WebGL, GSAP — we choose the right tool, not the fashionable one.</div>
+      <div class="svc-row__arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+    </a>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section section--navy">
+  <div class="wrap">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(44px,8vw,120px); align-items:start; margin-bottom:clamp(60px,9vw,120px);">
+      <div class="reveal">
+        <div class="eyebrow" style="color:var(--taupe); margin-bottom:20px;">Our Process</div>
+        <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(34px,5vw,72px); line-height:0.88; letter-spacing:-0.02em;">How We<br />Work</h2>
+      </div>
+      <div class="reveal" style="padding-top:8px;">
+        <p style="color:var(--taupe); font-size:16px; line-height:1.8; margin-bottom:18px;">We do not run cookie-cutter sprints. Every engagement is shaped around the specific problem and the team we are working with. That said, we do follow a consistent rhythm.</p>
+        <p style="color:var(--taupe); font-size:16px; line-height:1.8;">Most projects move through four phases: Discover, Define, Design, Deliver. Each phase has clear inputs and outputs, and we share work continuously — never disappearing for three weeks only to reappear with a big reveal.</p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(20px,3vw,40px);">
+      <div class="reveal" style="border-top:1px solid rgba(183,198,194,0.2); padding-top:28px;">
+        <div style="font-family:var(--display); font-size:clamp(44px,5vw,72px); line-height:0.85; color:rgba(183,198,194,0.15); margin-bottom:14px;">01</div>
+        <div style="font-family:var(--display); text-transform:uppercase; font-size:clamp(16px,1.6vw,22px); margin-bottom:14px;">Discover</div>
+        <p style="color:var(--taupe); font-size:13px; line-height:1.7;">Stakeholder interviews, competitive audit, user research. We build a shared understanding of the problem before touching any tool.</p>
+        <div style="margin-top:16px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--neon-bright);">1–2 weeks</div>
+      </div>
+      <div class="reveal" style="border-top:1px solid rgba(183,198,194,0.2); padding-top:28px;">
+        <div style="font-family:var(--display); font-size:clamp(44px,5vw,72px); line-height:0.85; color:rgba(183,198,194,0.15); margin-bottom:14px;">02</div>
+        <div style="font-family:var(--display); text-transform:uppercase; font-size:clamp(16px,1.6vw,22px); margin-bottom:14px;">Define</div>
+        <p style="color:var(--taupe); font-size:13px; line-height:1.7;">Strategy brief, information architecture, creative direction. We align on the north star and get explicit agreement before design work begins.</p>
+        <div style="margin-top:16px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--neon-bright);">1 week</div>
+      </div>
+      <div class="reveal" style="border-top:1px solid rgba(183,198,194,0.2); padding-top:28px;">
+        <div style="font-family:var(--display); font-size:clamp(44px,5vw,72px); line-height:0.85; color:rgba(183,198,194,0.15); margin-bottom:14px;">03</div>
+        <div style="font-family:var(--display); text-transform:uppercase; font-size:clamp(16px,1.6vw,22px); margin-bottom:14px;">Design</div>
+        <p style="color:var(--taupe); font-size:13px; line-height:1.7;">Iterative design and prototyping in weekly cycles. Live Figma, recorded reviews, async feedback loops — no waiting for the big reveal.</p>
+        <div style="margin-top:16px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--neon-bright);">4–12 weeks</div>
+      </div>
+      <div class="reveal" style="border-top:1px solid rgba(183,198,194,0.2); padding-top:28px;">
+        <div style="font-family:var(--display); font-size:clamp(44px,5vw,72px); line-height:0.85; color:rgba(183,198,194,0.15); margin-bottom:14px;">04</div>
+        <div style="font-family:var(--display); text-transform:uppercase; font-size:clamp(16px,1.6vw,22px); margin-bottom:14px;">Deliver</div>
+        <p style="color:var(--taupe); font-size:13px; line-height:1.7;">Handoff-ready specs, design system documentation, engineering support and QA review at launch. We stay close until it ships right.</p>
+        <div style="margin-top:16px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--neon-bright);">1–2 weeks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING / ENGAGEMENT -->
+<section class="section section--charcoal">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:clamp(44px,6vw,80px);">
+      <div class="eyebrow" style="color:var(--taupe); margin-bottom:16px;">Engagement Models</div>
+      <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(32px,4.5vw,66px); line-height:0.9; letter-spacing:-0.02em;">We Work<br />Your Way</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,3vw,40px);">
+      <div class="reveal" style="background:rgba(255,255,255,0.04); border:1px solid rgba(183,198,194,0.12); border-radius:8px; padding:clamp(24px,3vw,44px);">
+        <div style="font-family:var(--display); text-transform:uppercase; font-size:clamp(18px,2vw,26px); margin-bottom:16px;">Sprint</div>
+        <div style="font-family:var(--display); font-size:clamp(28px,3.5vw,48px); color:var(--sage); line-height:0.9; margin-bottom:20px;">2–4<br /><span style="font-size:0.5em; color:var(--taupe);">Weeks</span></div>
+        <p style="color:var(--taupe); font-size:13px; line-height:1.7; margin-bottom:20px;">A focused, time-boxed engagement for a specific problem — a new feature, a design audit, a motion language definition, or a landing page.</p>
+        <div style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--neon-bright);">From $15,000</div>
+      </div>
+      <div class="reveal" style="background:rgba(168,85,247,0.08); border:1px solid rgba(168,85,247,0.3); border-radius:8px; padding:clamp(24px,3vw,44px); position:relative;">
+        <div style="position:absolute; top:16px; right:16px; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--neon-bright); border:1px solid rgba(168,85,247,0.4); padding:4px 10px; border-radius:20px;">Most Popular</div>
+        <div style="font-family:var(--display); text-transform:uppercase; font-size:clamp(18px,2vw,26px); margin-bottom:16px;">Project</div>
+        <div style="font-family:var(--display); font-size:clamp(28px,3.5vw,48px); color:var(--sage); line-height:0.9; margin-bottom:20px;">6–16<br /><span style="font-size:0.5em; color:var(--taupe);">Weeks</span></div>
+        <p style="color:var(--taupe); font-size:13px; line-height:1.7; margin-bottom:20px;">Full product design engagement from discovery through delivery. This is how most of our best work gets done — a clear brief, dedicated team, full ownership.</p>
+        <div style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--neon-bright);">From $45,000</div>
+      </div>
+      <div class="reveal" style="background:rgba(255,255,255,0.04); border:1px solid rgba(183,198,194,0.12); border-radius:8px; padding:clamp(24px,3vw,44px);">
+        <div style="font-family:var(--display); text-transform:uppercase; font-size:clamp(18px,2vw,26px); margin-bottom:16px;">Retainer</div>
+        <div style="font-family:var(--display); font-size:clamp(28px,3.5vw,48px); color:var(--sage); line-height:0.9; margin-bottom:20px;">Ongoing<br /><span style="font-size:0.5em; color:var(--taupe);">Monthly</span></div>
+        <p style="color:var(--taupe); font-size:13px; line-height:1.7; margin-bottom:20px;">A monthly allocation of studio time for teams that need a senior design partner on-call — ongoing feature work, design reviews, and system evolution.</p>
+        <div style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--neon-bright);">From $8,000/mo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="quote-sec">
+  <div class="quote-mark">"</div>
+  <div class="wrap quote-sec__inner reveal">
+    <blockquote>They took our half-formed idea and returned it to us as something we were <span class="text-outline">proud</span> to ship to a million people.</blockquote>
+    <div class="quote-bio">
+      <div class="quote-bio__av"><img src="https://images.unsplash.com/photo-1560250097-0dc05329d0ea?q=80&w=200&auto=format&fit=crop" alt="" /></div>
+      <div>
+        <div class="quote-bio__name">James Osei</div>
+        <div class="quote-bio__role">CEO, Pulse Lab</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section--navy">
+  <div class="wrap" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:18px;">
+    <span class="eyebrow" style="color:var(--neon-bright);">Have a project in mind?</span>
+    <h2 class="display reveal" style="font-size:clamp(40px,6vw,96px);">Let's build it</h2>
+    <p class="reveal" style="color:var(--taupe); max-width:480px; text-align:center; line-height:1.7; font-size:15px;">Tell us what you are working on. We reply to every serious enquiry within 48 hours and take on three or four new projects each year.</p>
+    <a href="contact.html" class="neon-btn reveal" data-text="Start a Project" style="display:inline-flex; margin-top:8px;">
+      <span class="neon-btn__dot"></span>
+      <span class="neon-btn__label">Start a Project</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <h2 class="reveal">Let's<br />Create</h2>
+    <a href="mailto:studio@techno.dev" class="footer__email reveal">studio@techno.dev</a>
+    <div class="footer__bottom">
+      <span>© 2026 Techno Studio</span>
+      <div class="footer__legal">
+        <a href="#">Instagram</a>
+        <a href="#">Dribbble</a>
+        <a href="#">LinkedIn</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="store.js"></script>
+<script src="site.js"></script>
+<script src="techno.js"></script>
+</body>
+</html>
