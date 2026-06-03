@@ -688,15 +688,15 @@ button { font-family: inherit; cursor: crosshair; background: none; border: none
   display: block;
   position: relative;
 }
-.work:nth-child(even) { margin-top: 64px; }
+.work:nth-child(even) { margin-top: 40px; }
 .work__media {
   position: relative;
   overflow: hidden;
   border-radius: 6px;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 16 / 9;
   background: var(--gray-50);
 }
-.work__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-fluid); }
+.work__media img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.8s var(--ease-fluid); }
 .work:hover .work__media img { transform: scale(1.1); }
 .work__overlay {
   position: absolute; inset: 0;
