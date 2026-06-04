@@ -107,6 +107,73 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+// ── Jobs & Applications ────────────────────────────────────────
+const JOBS_FILE = path.join(__dirname, 'jobs.json');
+const APPS_FILE = path.join(__dirname, 'applications.json');
+
+function readJobs()      { try { return JSON.parse(fs.readFileSync(JOBS_FILE, 'utf8')); } catch(e) { return []; } }
+function writeJobs(list) { fs.writeFileSync(JOBS_FILE, JSON.stringify(list, null, 2)); }
+function readApps()      { try { return JSON.parse(fs.readFileSync(APPS_FILE, 'utf8')); } catch(e) { return []; } }
+function writeApps(list) { fs.writeFileSync(APPS_FILE, JSON.stringify(list, null, 2)); }
+
+app.get('/api/jobs', (req, res) => res.json(readJobs()));
+
+app.post('/api/jobs', (req, res) => {
+  const { title, department, type, location, description, requirements } = req.body || {};
+  if (!title) return res.status(400).json({ error: 'title required' });
+  const job = {
+    id: 'J' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+    title,
+    department: department || 'General',
+    type: type || 'full-time',
+    location: location || 'Remote',
+    description: description || '',
+    requirements: requirements || '',
+    createdAt: new Date().toISOString()
+  };
+  const list = readJobs(); list.unshift(job); writeJobs(list);
+  console.log(`[jobs] added: ${title}`);
+  res.json(job);
+});
+
+app.delete('/api/jobs/:id', (req, res) => {
+  const list = readJobs().filter(j => j.id !== req.params.id);
+  writeJobs(list);
+  res.json({ ok: true });
+});
+
+app.get('/api/applications', (req, res) => res.json(readApps()));
+
+app.post('/api/applications', (req, res) => {
+  const { name, email, phone, position, message, portfolio } = req.body || {};
+  if (!name || !email) return res.status(400).json({ error: 'name and email required' });
+  const entry = {
+    id: 'A' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+    name, email,
+    phone: phone || '',
+    position: position || 'General Application',
+    message: message || '',
+    portfolio: portfolio || '',
+    appliedAt: new Date().toISOString(),
+    read: false
+  };
+  const list = readApps(); list.unshift(entry); writeApps(list);
+  console.log(`[application] ${name} <${email}> applied for: ${entry.position}`);
+  res.json(entry);
+});
+
+app.delete('/api/applications/:id', (req, res) => {
+  const list = readApps().filter(a => a.id !== req.params.id);
+  writeApps(list);
+  res.json({ ok: true });
+});
+
+app.patch('/api/applications/:id/read', (req, res) => {
+  const list = readApps().map(a => a.id === req.params.id ? { ...a, read: true } : a);
+  writeApps(list);
+  res.json({ ok: true });
+});
+
 // ── Startup log ────────────────────────────────────────────────
 app.listen(PORT, () => {
   const openaiReady  = !!(process.env.OPENAI_API_KEY  && process.env.OPENAI_API_KEY  !== 'your_openai_key_here');

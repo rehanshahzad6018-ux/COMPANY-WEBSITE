@@ -62,19 +62,19 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
 
 /* ---------- Contact form — AI auto-reply + real email ---------- */
 (function () {
-  const form = document.querySelector(‘.form’);
+  const form = document.querySelector('.form');
   if (!form) return;
-  const msgEl = form.querySelector(‘.form-msg’);
-  const submitBtn = form.querySelector(‘button[type="submit"]’);
+  const msgEl = form.querySelector('.form-msg');
+  const submitBtn = form.querySelector('button[type="submit"]');
 
   // ── Read credentials saved from admin Settings panel ──────────
   function getCfg() {
     return {
-      geminiKey:  localStorage.getItem(‘autoreply_gemini_key’)  || ‘’,
-      ejsPubKey:  localStorage.getItem(‘autoreply_ejs_pub’)     || ‘’,
-      ejsService: localStorage.getItem(‘autoreply_ejs_service’) || ‘’,
-      tplNotify:  localStorage.getItem(‘autoreply_tpl_notify’)  || ‘’,
-      tplReply:   localStorage.getItem(‘autoreply_tpl_reply’)   || ‘’,
+      geminiKey:  localStorage.getItem('autoreply_gemini_key')  || '',
+      ejsPubKey:  localStorage.getItem('autoreply_ejs_pub')     || '',
+      ejsService: localStorage.getItem('autoreply_ejs_service') || '',
+      tplNotify:  localStorage.getItem('autoreply_tpl_notify')  || '',
+      tplReply:   localStorage.getItem('autoreply_tpl_reply')   || '',
     };
   }
 
@@ -83,7 +83,7 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
     const prompt =
       `You are the professional assistant at TECHNO Studio, a premium product design agency in Lisbon, Portugal.\n` +
       `Write a warm, professional email reply to this website enquiry.\n\n` +
-      `Sender: ${name}\nBudget: ${budget || ‘not specified’}\nMessage: ${message}\n\n` +
+      `Sender: ${name}\nBudget: ${budget || 'not specified'}\nMessage: ${message}\n\n` +
       `Instructions:\n` +
       `- Thank them by first name\n` +
       `- Show genuine interest in their project\n` +
@@ -95,17 +95,17 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
     const res = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
       {
-        method: ‘POST’,
-        headers: { ‘Content-Type’: ‘application/json’ },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ role: ‘user’, parts: [{ text: prompt }] }],
+          contents: [{ role: 'user', parts: [{ text: prompt }] }],
           generationConfig: { maxOutputTokens: 400, temperature: 0.7 }
         })
       }
     );
-    if (!res.ok) throw new Error(‘gemini-’ + res.status);
+    if (!res.ok) throw new Error('gemini-' + res.status);
     const d = await res.json();
-    return d.candidates?.[0]?.content?.parts?.map(p => p.text).join(‘’) || ‘’;
+    return d.candidates?.[0]?.content?.parts?.map(p => p.text).join('') || '';
   }
 
   // ── Fallback reply if Gemini/EmailJS not configured ───────────
@@ -113,34 +113,34 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
     return `Hi ${name},\n\nThank you for reaching out to TECHNO Studio! We have received your message and really appreciate your interest in working with us.\n\nOur team will review your enquiry and get back to you within 48 hours with more details on how we can bring your project to life.\n\nWarm regards,\nThe TECHNO Studio Team\nstudio@techno.dev`;
   }
 
-  form.addEventListener(‘submit’, async (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = {
-      name:    form.querySelector(‘#name’)?.value.trim()    || ‘’,
-      email:   form.querySelector(‘#email’)?.value.trim()   || ‘’,
-      budget:  form.querySelector(‘#budget’)?.value.trim()  || ‘’,
-      message: form.querySelector(‘#message’)?.value.trim() || ‘’,
+      name:    form.querySelector('#name')?.value.trim()    || '',
+      email:   form.querySelector('#email')?.value.trim()   || '',
+      budget:  form.querySelector('#budget')?.value.trim()  || '',
+      message: form.querySelector('#message')?.value.trim() || '',
     };
     if (!data.name || !data.email || !data.message) return;
 
     // UI: loading state
     if (submitBtn) submitBtn.disabled = true;
-    if (msgEl) { msgEl.textContent = ‘Sending…’; msgEl.style.color = ‘’; }
+    if (msgEl) { msgEl.textContent = 'Sending…'; msgEl.style.color = ''; }
 
     // Save to admin messages store
     try {
-      const MSG_KEY = ‘techno_messages’;
+      const MSG_KEY = 'techno_messages';
       const entry = {
-        id: ‘M’ + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+        id: 'M' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
         ...data, sentAt: new Date().toISOString(), read: false,
       };
-      const list = JSON.parse(localStorage.getItem(MSG_KEY) || ‘[]’);
+      const list = JSON.parse(localStorage.getItem(MSG_KEY) || '[]');
       list.unshift(entry);
       localStorage.setItem(MSG_KEY, JSON.stringify(list));
     } catch (_) {}
 
     // Save lead
-    if (window.TechnoStore) { try { await window.TechnoStore.saveLead(‘contact’, data); } catch (_) {} }
+    if (window.TechnoStore) { try { await window.TechnoStore.saveLead('contact', data); } catch (_) {} }
 
     const cfg = getCfg();
     const hasEmailJS = cfg.ejsPubKey && cfg.ejsService && cfg.tplNotify && cfg.tplReply;
@@ -166,9 +166,9 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
         await emailjs.send(cfg.ejsService, cfg.tplNotify, {
           from_name:  data.name,
           from_email: data.email,
-          budget:     data.budget || ‘Not specified’,
+          budget:     data.budget || 'Not specified',
           message:    data.message,
-          to_email:   ‘rehanshahzad6018@gmail.com’,
+          to_email:   'rehanshahzad6018@gmail.com',
         });
 
         // b) AI reply to visitor
@@ -179,17 +179,17 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
         });
 
         if (msgEl) {
-          msgEl.style.color = ‘#4ade80’;
+          msgEl.style.color = '#4ade80';
           msgEl.textContent = aiUsed
-            ? ‘✓ Message sent! We just emailed you an AI-generated reply — check your inbox.’
-            : ‘✓ Message sent! We\’ll be in touch within 48 hours.’;
+            ? '✓ Message sent! We just emailed you an AI-generated reply — check your inbox.'
+            : '✓ Message sent! We\'ll be in touch within 48 hours.';
         }
       } catch (err) {
-        if (msgEl) { msgEl.style.color = ‘’; msgEl.textContent = ‘✓ Message received — we\’ll be in touch within 48 hours.’; }
+        if (msgEl) { msgEl.style.color = ''; msgEl.textContent = '✓ Message received — we\'ll be in touch within 48 hours.'; }
       }
     } else {
       // EmailJS not set up yet — just confirm
-      if (msgEl) { msgEl.style.color = ‘’; msgEl.textContent = ‘✓ Message received — we\’ll be in touch within 48 hours.’; }
+      if (msgEl) { msgEl.style.color = ''; msgEl.textContent = '✓ Message received — we\'ll be in touch within 48 hours.'; }
     }
 
     form.reset();
