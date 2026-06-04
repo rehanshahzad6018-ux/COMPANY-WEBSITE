@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TECHNO — Careers</title>
+<link rel="stylesheet" href="techno.css" />
+<style>
+/* ── Job type badges ── */
+.job-badge {
+  display: inline-block;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 100px;
+  margin-bottom: 18px;
+}
+.job-badge--intern    { background: rgba(168,85,247,0.14); color: var(--neon-bright); border: 1px solid rgba(168,85,247,0.35); }
+.job-badge--full-time { background: rgba(213,244,249,0.12); color: var(--cyan);        border: 1px solid rgba(213,244,249,0.3); }
+.job-badge--part-time { background: rgba(159,141,139,0.14); color: var(--beige);       border: 1px solid rgba(159,141,139,0.3); }
+
+/* ── Job rows (dark sections) ── */
+.job-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 1fr auto;
+  gap: clamp(16px, 3vw, 44px);
+  align-items: center;
+  padding: clamp(24px, 3.5vw, 40px) 0;
+  border-top: 1px solid rgba(183,198,194,0.15);
+  transition: background 0.35s, padding-left 0.35s var(--ease-fluid);
+  border-radius: 4px;
+}
+.job-row:last-child { border-bottom: 1px solid rgba(183,198,194,0.15); }
+.job-row:hover { padding-left: 10px; }
+.job-row__num  { font-family: var(--display); font-size: clamp(18px, 2vw, 26px); color: rgba(183,198,194,0.3); }
+.job-row__title { font-family: var(--display); text-transform: uppercase; font-size: clamp(22px, 3vw, 42px); line-height: 0.95; letter-spacing: -0.01em; }
+.job-row__meta  { display: flex; flex-direction: column; gap: 6px; }
+.job-row__dept  { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); }
+.job-row__loc   { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(183,198,194,0.5); }
+.job-row__apply {
+  flex-shrink: 0;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700;
+  padding: 11px 22px; border: 1px solid rgba(168,85,247,0.5); border-radius: 100px;
+  color: var(--neon-bright); background: rgba(168,85,247,0.07);
+  transition: background 0.35s, box-shadow 0.35s, border-color 0.35s;
+  cursor: pointer; font-family: var(--body);
+}
+.job-row__apply:hover {
+  background: rgba(168,85,247,0.18); border-color: var(--neon-bright);
+  box-shadow: 0 0 22px rgba(168,85,247,0.4);
+}
+@media (max-width: 860px) {
+  .job-row { grid-template-columns: 1fr; gap: 10px; }
+  .job-row__num { display: none; }
+  .job-row__apply { width: max-content; }
+}
+
+/* ── Values grid ── */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 3vw, 40px);
+  margin-top: clamp(50px, 7vw, 90px);
+}
+.value-card {
+  border-top: 1px solid rgba(183,198,194,0.2);
+  padding-top: 24px;
+}
+.value-card__icon { font-size: 26px; margin-bottom: 14px; }
+.value-card__title { font-family: var(--display); text-transform: uppercase; font-size: clamp(16px, 1.8vw, 22px); margin-bottom: 10px; }
+.value-card__body  { color: var(--taupe); font-size: 13px; line-height: 1.75; }
+@media (max-width: 700px) {
+  .values-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 440px) {
+  .values-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Apply section ── */
+.apply-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(44px, 7vw, 110px);
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .apply-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Empty state ── */
+.jobs-empty {
+  text-align: center;
+  padding: clamp(60px, 10vw, 110px) 0;
+  border: 1px dashed rgba(183,198,194,0.25);
+  border-radius: 10px;
+}
+.jobs-empty h3 { font-family: var(--display); text-transform: uppercase; font-size: clamp(26px, 3vw, 42px); margin-bottom: 12px; }
+.jobs-empty p  { color: var(--taupe); font-size: 14px; line-height: 1.7; max-width: 380px; margin: 0 auto 28px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="Techno.html" class="nav__logo">TECHNO</a>
+  <div class="nav__links">
+    <a href="Techno.html">Home</a>
+    <a href="our-ceo.html">Our CEO</a>
+    <a href="team.html">Team</a>
+    <a href="service.html">Service</a>
+    <a href="our-work.html">Our Work</a>
+    <a href="careers.html" class="is-active">Careers</a>
+    <a href="contact.html" class="nav__cta">Contact</a>
+  </div>
+  <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mnav">
+  <a href="Techno.html">Home</a>
+  <a href="our-ceo.html">Our CEO</a>
+  <a href="team.html">Team</a>
+  <a href="service.html">Service</a>
+  <a href="our-work.html">Our Work</a>
+  <a href="careers.html" class="is-active">Careers</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="page-hero">
+  <div class="orb" style="background:var(--neon); top:6%; right:-4%; opacity:0.08; animation-delay:-1s;"></div>
+  <div class="orb" style="background:var(--soft-blue); bottom:-10%; left:-2%; animation-delay:-4s;"></div>
+  <div class="wrap page-hero__inner">
+    <div class="crumb"><span class="dot"></span>We're Hiring</div>
+    <h1>Work With<br />Us</h1>
+    <p class="page-hero__lede">We hire people who are obsessed with craft. Designers, engineers, and thinkers who push every pixel and every line of code until it's exactly right.</p>
+  </div>
+</header>
+
+<!-- ============ OPEN POSITIONS ============ -->
+<section class="section section--navy" id="positions">
+  <div class="wrap">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px; margin-bottom:clamp(44px,6vw,80px);">
+      <div class="reveal">
+        <div class="eyebrow" style="color:var(--neon-bright); margin-bottom:14px;">Open Roles</div>
+        <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(40px,6vw,96px); line-height:0.85; letter-spacing:-0.02em;">Current<br />Openings</h2>
+      </div>
+      <p class="reveal" style="color:var(--taupe); max-width:340px; font-size:14px; line-height:1.75; text-align:right;">
+        Can't find your role? Send us a general application — we read every one.
+      </p>
+    </div>
+
+    <div id="jobs-list">
+      <div style="text-align:center; padding:40px 0; color:var(--taupe); font-size:13px; letter-spacing:0.06em;">Loading positions…</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY JOIN US ============ -->
+<section class="section section--charcoal">
+  <div class="wrap">
+    <div class="reveal" style="max-width:680px; margin-bottom:0;">
+      <div class="eyebrow" style="color:var(--taupe); margin-bottom:16px;">Why TECHNO</div>
+      <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(34px,5vw,72px); line-height:0.88; letter-spacing:-0.02em;">Build Real<br />Things</h2>
+      <p style="color:var(--taupe); font-size:16px; line-height:1.8; margin-top:20px; max-width:520px;">
+        We're a small studio with a big portfolio. You'll work directly on live projects, ship real code, and learn from people who have been building on the web for years.
+      </p>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-card__icon">⚡</div>
+        <div class="value-card__title">Ship Fast</div>
+        <div class="value-card__body">No six-month projects that go nowhere. We move quickly, iterate, and launch.</div>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-card__icon">🎯</div>
+        <div class="value-card__title">Real Ownership</div>
+        <div class="value-card__body">Interns and juniors own actual features. No coffee runs, no busywork.</div>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-card__icon">🧠</div>
+        <div class="value-card__title">Learn by Doing</div>
+        <div class="value-card__body">Pair with senior engineers and designers on client work from day one.</div>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-card__icon">🌍</div>
+        <div class="value-card__title">Remote-First</div>
+        <div class="value-card__body">Work from anywhere. Async by default, sync when it matters.</div>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-card__icon">💜</div>
+        <div class="value-card__title">Craft Culture</div>
+        <div class="value-card__body">We care about quality deeply. Details matter here, and we take the time to get them right.</div>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-card__icon">📈</div>
+        <div class="value-card__title">Grow Fast</div>
+        <div class="value-card__body">Strong performers move up. Internships often lead to full-time offers.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPLICATION FORM ============ -->
+<section class="section section--navy" id="apply">
+  <div class="wrap apply-grid">
+
+    <div class="contact-info reveal">
+      <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(34px,4vw,62px); line-height:0.92; letter-spacing:-0.02em; margin-bottom:28px;">Apply<br />Now</h2>
+
+      <div class="contact-block">
+        <span class="eyebrow" style="color:var(--taupe); display:block; margin-bottom:10px;">Careers Email</span>
+        <!-- UPDATE THIS EMAIL when you have the address -->
+        <a id="careers-email-link" href="mailto:careers@techno.dev" style="color:var(--sage); font-size:clamp(16px,2vw,22px); font-weight:300;">careers@techno.dev</a>
+      </div>
+
+      <div class="contact-block" style="margin-top:30px;">
+        <span class="eyebrow" style="color:var(--taupe); display:block; margin-bottom:10px;">Response Time</span>
+        <p style="color:var(--sage); font-size:16px; font-weight:300;">We reply to every application within 5 business days.</p>
+      </div>
+
+      <div class="contact-block" style="margin-top:30px;">
+        <span class="eyebrow" style="color:var(--taupe); display:block; margin-bottom:10px;">What to Include</span>
+        <ul style="color:var(--taupe); font-size:14px; line-height:2; list-style:none; padding:0;">
+          <li>→ Which role you're applying for</li>
+          <li>→ A short note about why TECHNO</li>
+          <li>→ Your portfolio or GitHub (optional)</li>
+        </ul>
+      </div>
+    </div>
+
+    <form class="form reveal" id="apply-form" novalidate>
+      <div class="field">
+        <label for="ap-name">Full Name</label>
+        <input id="ap-name" type="text" placeholder="Jane Doe" required />
+      </div>
+      <div class="field">
+        <label for="ap-email">Email</label>
+        <input id="ap-email" type="email" placeholder="jane@example.com" required />
+      </div>
+      <div class="field">
+        <label for="ap-phone">Phone <span style="color:var(--taupe); font-size:11px;">(optional)</span></label>
+        <input id="ap-phone" type="tel" placeholder="+1 555 000 0000" />
+      </div>
+      <div class="field">
+        <label for="ap-position">Position</label>
+        <select id="ap-position" style="background:transparent; border:none; border-bottom:1px solid rgba(183,198,194,0.3); color:var(--white); font-family:var(--body); font-size:17px; padding:12px 0; width:100%; transition:border-color 0.4s var(--ease-fluid); cursor:pointer;">
+          <option value="" style="background:var(--navy);">— Select a position —</option>
+          <option value="General Application" style="background:var(--navy);">General Application</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="ap-portfolio">Portfolio / GitHub <span style="color:var(--taupe); font-size:11px;">(optional)</span></label>
+        <input id="ap-portfolio" type="url" placeholder="https://github.com/yourhandle" />
+      </div>
+      <div class="field">
+        <label for="ap-message">Why do you want to join TECHNO?</label>
+        <textarea id="ap-message" placeholder="Tell us about yourself, your skills, and what excites you about this role." required style="min-height:130px;"></textarea>
+      </div>
+      <div class="form-msg" id="apply-msg"></div>
+      <button class="neon-btn" type="submit" id="apply-submit" data-text="Send Application">
+        <span class="neon-btn__dot"></span>
+        <span class="neon-btn__label">Send Application</span>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <h2 class="reveal">Let's<br />Create</h2>
+    <a href="mailto:studio@techno.dev" class="footer__email reveal">studio@techno.dev</a>
+    <div class="footer__bottom">
+      <span>© 2026 Techno Studio</span>
+      <div class="footer__legal">
+        <a href="#">Instagram</a>
+        <a href="#">Dribbble</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="store.js"></script>
+<script src="site.js"></script>
+<script src="techno.js"></script>
+
+<script>
+(function careersPage() {
+  /* ── CAREERS EMAIL — update this when you have the address ── */
+  const CAREERS_EMAIL = 'careers@techno.dev';
+
+  /* ── Update mailto link ── */
+  const emailLink = document.getElementById('careers-email-link');
+  if (emailLink) {
+    emailLink.href = 'mailto:' + CAREERS_EMAIL;
+    emailLink.textContent = CAREERS_EMAIL;
+  }
+
+  const jobsList  = document.getElementById('jobs-list');
+  const posSelect = document.getElementById('ap-position');
+  let allJobs = [];
+
+  /* ── Badge helper ── */
+  function badgeClass(type) {
+    if (!type) return 'job-badge--full-time';
+    if (type.includes('intern'))    return 'job-badge--intern';
+    if (type.includes('part'))      return 'job-badge--part-time';
+    return 'job-badge--full-time';
+  }
+  function badgeLabel(type) {
+    if (!type) return 'Full-Time';
+    if (type.includes('intern'))    return 'Internship';
+    if (type.includes('part'))      return 'Part-Time';
+    return 'Full-Time';
+  }
+
+  /* ── Render job rows ── */
+  function renderJobs(jobs) {
+    allJobs = jobs;
+
+    /* Populate position selector */
+    while (posSelect.options.length > 2) posSelect.remove(2);
+    jobs.forEach(j => {
+      const opt = document.createElement('option');
+      opt.value = j.title;
+      opt.textContent = j.title;
+      opt.style.background = 'var(--navy)';
+      posSelect.appendChild(opt);
+    });
+
+    if (!jobs.length) {
+      jobsList.innerHTML =
+        '<div class="jobs-empty">' +
+          '<h3>No Open Roles Right Now</h3>' +
+          '<p>We\'re not actively hiring, but we\'re always interested in exceptional talent. Send us a general application.</p>' +
+          '<a href="#apply" class="neon-btn" data-text="Send General Application" style="display:inline-flex;">' +
+            '<span class="neon-btn__dot"></span>' +
+            '<span class="neon-btn__label">Send General Application</span>' +
+          '</a>' +
+        '</div>';
+      /* Re-wire typing buttons for newly inserted neon-btn */
+      document.querySelectorAll('.jobs-empty .neon-btn').forEach(b => {
+        if (typeof wireTypingButton === 'function') wireTypingButton(b);
+      });
+      return;
+    }
+
+    jobsList.innerHTML = jobs.map((j, i) =>
+      '<div class="job-row reveal">' +
+        '<div class="job-row__num">0' + (i + 1) + '</div>' +
+        '<div>' +
+          '<div class="job-badge ' + badgeClass(j.type) + '">' + badgeLabel(j.type) + '</div>' +
+          '<div class="job-row__title">' + escHtml(j.title) + '</div>' +
+        '</div>' +
+        '<div class="job-row__meta">' +
+          '<div class="job-row__dept">' + escHtml(j.department) + '</div>' +
+          '<div class="job-row__loc">' + escHtml(j.location) + '</div>' +
+          (j.description ? '<div style="color:var(--taupe);font-size:13px;line-height:1.6;margin-top:8px;max-width:400px;">' + escHtml(j.description) + '</div>' : '') +
+        '</div>' +
+        '<button class="job-row__apply" data-job="' + escHtml(j.title) + '">Apply Now</button>' +
+      '</div>'
+    ).join('');
+
+    /* Observe new .reveal elements */
+    jobsList.querySelectorAll('.reveal').forEach(el => {
+      if (typeof io !== 'undefined') io.observe(el);
+    });
+
+    /* Apply Now buttons — pre-fill form and scroll */
+    jobsList.querySelectorAll('.job-row__apply').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const title = btn.dataset.job;
+        for (let i = 0; i < posSelect.options.length; i++) {
+          if (posSelect.options[i].value === title) { posSelect.selectedIndex = i; break; }
+        }
+        document.getElementById('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => document.getElementById('ap-name').focus(), 600);
+      });
+    });
+  }
+
+  function escHtml(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ── Load jobs from API ── */
+  fetch('/api/jobs')
+    .then(r => r.ok ? r.json() : [])
+    .then(renderJobs)
+    .catch(() => renderJobs([]));
+
+  /* ── Application form submit ── */
+  const applyForm = document.getElementById('apply-form');
+  const applyMsg  = document.getElementById('apply-msg');
+  const applyBtn  = document.getElementById('apply-submit');
+
+  applyForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const data = {
+      name:      document.getElementById('ap-name').value.trim(),
+      email:     document.getElementById('ap-email').value.trim(),
+      phone:     document.getElementById('ap-phone').value.trim(),
+      position:  posSelect.value || 'General Application',
+      portfolio: document.getElementById('ap-portfolio').value.trim(),
+      message:   document.getElementById('ap-message').value.trim(),
+    };
+
+    if (!data.name || !data.email || !data.message) {
+      applyMsg.style.color = '#f87171';
+      applyMsg.textContent = 'Please fill in your name, email, and message.';
+      return;
+    }
+
+    applyBtn.disabled = true;
+    applyMsg.style.color = '';
+    applyMsg.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('/api/applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (!res.ok) throw new Error('server error');
+
+      /* Try EmailJS notification if configured */
+      const ejsPub     = localStorage.getItem('autoreply_ejs_pub') || '';
+      const ejsService = localStorage.getItem('autoreply_ejs_service') || '';
+      const ejsNotify  = localStorage.getItem('autoreply_ejs_notify_careers') || localStorage.getItem('autoreply_tpl_notify') || '';
+
+      if (ejsPub && ejsService && ejsNotify && window.emailjs) {
+        try {
+          emailjs.init({ publicKey: ejsPub });
+          await emailjs.send(ejsService, ejsNotify, {
+            from_name:  data.name,
+            from_email: data.email,
+            position:   data.position,
+            portfolio:  data.portfolio || 'Not provided',
+            message:    data.message,
+            to_email:   CAREERS_EMAIL,
+          });
+        } catch (_) { /* EmailJS optional — application already saved */ }
+      }
+
+      applyMsg.style.color = '#4ade80';
+      applyMsg.textContent = 'Application sent! We will be in touch within 5 business days.';
+      applyForm.reset();
+      posSelect.selectedIndex = 0;
+
+    } catch (err) {
+      applyMsg.style.color = '#f87171';
+      applyMsg.textContent = 'Something went wrong. Please email us directly at ' + CAREERS_EMAIL;
+    }
+
+    applyBtn.disabled = false;
+  });
+})();
+</script>
+
+</body>
+</html>
