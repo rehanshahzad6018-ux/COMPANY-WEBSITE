@@ -70,7 +70,7 @@ const STUDIO_BRAIN = `You are ARIA, the AI voice agent for TECHNO Studio — a p
 - Portfolio: Nebula OS, Pulse Lab, Vector Finance, Helio Brand, Orbit Health, Mono Studio
 - Pricing: Sprints from $15k, Projects from $45k, Retainer from $8k/month
 - Process: Discover → Define → Design → Deliver (6–16 weeks typical)
-- Email: studio@techno.dev | Location: Unit 4, Frame Building, Lisbon, Portugal
+- Email: cgwofficialai@gmail.com | Location: Unit 4, Frame Building, Lisbon, Portugal
 
 == YOUR RULES ==
 1. KEEP RESPONSES SHORT — maximum 2 sentences. This is a phone call.

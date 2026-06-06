@@ -110,7 +110,7 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
 
   // ── Fallback reply if Gemini/EmailJS not configured ───────────
   function fallbackReply(name) {
-    return `Hi ${name},\n\nThank you for reaching out to TECHNO Studio! We have received your message and really appreciate your interest in working with us.\n\nOur team will review your enquiry and get back to you within 48 hours with more details on how we can bring your project to life.\n\nWarm regards,\nThe TECHNO Studio Team\nstudio@techno.dev`;
+    return `Hi ${name},\n\nThank you for reaching out to TECHNO Studio! We have received your message and really appreciate your interest in working with us.\n\nOur team will review your enquiry and get back to you within 48 hours with more details on how we can bring your project to life.\n\nWarm regards,\nThe TECHNO Studio Team\ncgwofficialai@gmail.com`;
   }
 
   form.addEventListener('submit', async (e) => {

@@ -86,7 +86,7 @@ router.post('/incoming', async (req, res) => {
 
   // Check for human handoff request
   if (/human|agent|real person|speak to someone|live agent|person please/i.test(text)) {
-    const transferNote = `I'll connect you with a member of our team right away. Please email us at *studio@techno.dev* and someone will respond within a few hours. You can also call us directly if it's urgent.`;
+    const transferNote = `I'll connect you with a member of our team right away. Please email us at *cgwofficialai@gmail.com* and someone will respond within a few hours. You can also call us directly if it's urgent.`;
     return res.type('text/xml').send(twimlReply(transferNote));
   }
 
@@ -94,7 +94,7 @@ router.post('/incoming', async (req, res) => {
   if (/stop|unsubscribe|quit|cancel/i.test(text)) {
     brain.clearSession('wa:' + phone);
     return res.type('text/xml').send(twimlReply(
-      "You've been unsubscribed. Email studio@techno.dev anytime if you'd like to reconnect. Take care!"
+      "You've been unsubscribed. Email cgwofficialai@gmail.com anytime if you'd like to reconnect. Take care!"
     ));
   }
 
@@ -124,7 +124,7 @@ router.post('/incoming', async (req, res) => {
   } catch (err) {
     console.error('[whatsapp] Error:', err.message);
     return res.type('text/xml').send(twimlReply(
-      "Sorry, I'm having a brief technical issue. Please email studio@techno.dev and we'll get back to you promptly!"
+      "Sorry, I'm having a brief technical issue. Please email cgwofficialai@gmail.com and we'll get back to you promptly!"
     ));
   }
 });

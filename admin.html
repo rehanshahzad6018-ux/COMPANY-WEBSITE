@@ -120,7 +120,6 @@
       <button class="gate-btn" type="submit" id="gate-btn">Sign In to Dashboard</button>
     </form>
 
-    <p class="gate-hint">Default: <strong>admin</strong> / <strong>techno2026</strong></p>
     <a href="Techno.html" class="gate-back">← Back to site</a>
   </div>
 </div>
@@ -1008,7 +1007,7 @@
   const gateBtn   = document.getElementById('gate-btn');
 
   function getAdminPassword() {
-    return localStorage.getItem('techno_admin_password') || 'techno2026';
+    return localStorage.getItem('techno_admin_password') || 'REDACTED-OLD-SECRET';
   }
 
   function unlock() {
