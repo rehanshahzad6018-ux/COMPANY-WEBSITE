@@ -1,66 +1,90 @@
 {
-  "wa:+1234567890": {
-    "userId": "wa:+1234567890",
+  "web:web_mq28yqtq1prs2": {
+    "userId": "web:web_mq28yqtq1prs2",
     "messages": [
       {
         "role": "user",
-        "content": "Hello, tell me about your services",
-        "time": "2026-05-31T13:06:32.974Z"
+        "content": "tell me about ceo",
+        "time": "2026-06-06T11:06:48.819Z"
       },
       {
         "role": "assistant",
-        "content": "Thanks for reaching out to TECHNO Studio! We'll get back to you at studio@techno.dev within 48 hours.",
-        "time": "2026-05-31T13:06:32.978Z"
+        "content": "Our CEO is Adrian Vale — Founder & Creative Director. He has 15 years of experience leading design and technology teams, has shipped 120+ digital products, and won 9 industry awards. His philosophy: \"Great design isn't about adding more — it's about giving every element a reason to exist.\"",
+        "time": "2026-06-06T11:06:48.820Z"
       },
       {
         "role": "user",
-        "content": "Hello, tell me about your services",
-        "time": "2026-05-31T13:15:36.152Z"
+        "content": "hello",
+        "time": "2026-06-06T11:11:20.145Z"
       },
       {
         "role": "assistant",
-        "content": "Hello! I'm ARIA, the AI assistant for TECHNO Studio. I can answer questions about our services, pricing, team, and portfolio — or help you book a discovery call. What can I help you with?",
-        "time": "2026-05-31T13:15:36.155Z"
+        "content": "Hello! I'm ARIA, TECHNO Studio's AI assistant. I can answer questions about our services, portfolio, team, and pricing — or help you get in touch. What can I help you with?",
+        "time": "2026-06-06T11:11:20.147Z"
       },
       {
         "role": "user",
-        "content": "Hello, tell me about your services",
-        "time": "2026-05-31T13:22:24.090Z"
+        "content": "tell me about the team",
+        "time": "2026-06-06T11:11:28.164Z"
       },
       {
         "role": "assistant",
-        "content": "Hello! I'm ARIA, the AI assistant for TECHNO Studio. I can answer questions about our services, pricing, team, and portfolio — or help you book a discovery call. What can I help you with?",
-        "time": "2026-05-31T13:22:24.091Z"
+        "content": "The TECHNO team is small, senior, and fully hands-on:\n\n🧠 Rehan Shahzad — COO (AI & Web Dev): Python, Flask, JS, RAG systems, API integrations\n🎨 Muhammad Usman — Web Developer & AI Content Creator: branding, AI video, web apps\n🔐 Abdul Moiz — Cybersecurity Engineer: pentesting, bug bounty, network security\n🎮 Rana Faisal Mustafa — Game & App Developer: Python, Java, C#, C++\n\nNo juniors, no account managers — just makers.",
+        "time": "2026-06-06T11:11:28.165Z"
       },
       {
         "role": "user",
-        "content": "Hello, tell me about your services",
-        "time": "2026-05-31T13:22:32.747Z"
+        "content": "tell me about the ceo",
+        "time": "2026-06-06T11:11:36.464Z"
       },
       {
         "role": "assistant",
-        "content": "Hello! I'm ARIA, the AI assistant for TECHNO Studio. I can answer questions about our services, pricing, team, and portfolio — or help you book a discovery call. What can I help you with?",
-        "time": "2026-05-31T13:22:32.748Z"
-      },
-      {
-        "role": "user",
-        "content": "Hello, tell me about your services",
-        "time": "2026-05-31T16:08:13.169Z"
-      },
-      {
-        "role": "assistant",
-        "content": "Hello! I'm ARIA, the AI assistant for TECHNO Studio. I can answer questions about our services, pricing, team, and portfolio — or help you book a discovery call. What can I help you with?",
-        "time": "2026-05-31T16:08:13.169Z"
+        "content": "Our CEO is Lt Col Muhammad Shahzad Sarwar (Retd) — Group Head of Administration, Security & Corporate Affairs. He brings 25+ years of leadership across the United Nations, Pakistan Army, Air Force, and the Corporate Sector, with a proven track record in HR governance and organisational performance.",
+        "time": "2026-06-06T11:11:36.464Z"
       }
     ],
     "profile": {
       "name": null,
       "email": null,
       "language": "en",
-      "channel": "whatsapp-test"
+      "channel": "email"
     },
     "leadScore": 0,
-    "lastSeen": "2026-05-31T16:08:13.170Z",
-    "totalTurns": 5
+    "lastSeen": "2026-06-06T11:11:36.464Z",
+    "totalTurns": 4
+  },
+  "web:web_mq10njipxxcaf": {
+    "userId": "web:web_mq10njipxxcaf",
+    "messages": [
+      {
+        "role": "user",
+        "content": "ceo",
+        "time": "2026-06-06T11:08:26.004Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Our CEO is Adrian Vale — Founder & Creative Director. He has 15 years of experience leading design and technology teams, has shipped 120+ digital products, and won 9 industry awards. His philosophy: \"Great design isn't about adding more — it's about giving every element a reason to exist.\"",
+        "time": "2026-06-06T11:08:26.005Z"
+      },
+      {
+        "role": "user",
+        "content": "ceo",
+        "time": "2026-06-06T11:10:12.057Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Our CEO is Adrian Vale — Founder & Creative Director. He has 15 years of experience leading design and technology teams, has shipped 120+ digital products, and won 9 industry awards. His philosophy: \"Great design isn't about adding more — it's about giving every element a reason to exist.\"",
+        "time": "2026-06-06T11:10:12.057Z"
+      }
+    ],
+    "profile": {
+      "name": null,
+      "email": null,
+      "language": "en",
+      "channel": "email"
+    },
+    "leadScore": 0,
+    "lastSeen": "2026-06-06T11:10:12.058Z",
+    "totalTurns": 2
   }
 }

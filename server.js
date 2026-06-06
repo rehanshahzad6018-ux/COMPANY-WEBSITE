@@ -107,6 +107,27 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+// ── Website Chat Widget ────────────────────────────────────────
+app.post('/api/website-chat', async (req, res) => {
+  const brain   = require('./ai-brain');
+  const { message, sessionId, history } = req.body || {};
+  if (!message) return res.status(400).json({ error: 'message required' });
+
+  const userId = 'web:' + (sessionId || 'anon');
+
+  try {
+    const result = await brain.think({
+      userId,
+      userMessage: message,
+      channel: 'email',
+      maxTokens: 350
+    });
+    res.json({ reply: result.reply });
+  } catch (e) {
+    res.status(500).json({ error: String(e) });
+  }
+});
+
 // ── Jobs & Applications ────────────────────────────────────────
 const JOBS_FILE = path.join(__dirname, 'jobs.json');
 const APPS_FILE = path.join(__dirname, 'applications.json');

@@ -15,26 +15,41 @@ const path = require('path');
 const MEMORY_FILE = path.join(__dirname, 'brain-memory.json');
 
 // ── TECHNO STUDIO KNOWLEDGE BASE ────────────────────────────────
-const SYSTEM_PROMPT = `You are ARIA, the AI assistant for TECHNO Studio — a premium digital design and technology studio founded in 2026 by Adrian Vale, based in Lisbon, Portugal.
+const SYSTEM_PROMPT = `You are ARIA, the AI assistant for TECHNO Studio — a premium digital design and technology studio founded in 2026, based in Lisbon, Portugal.
 
 == STUDIO PROFILE ==
-CEO: Adrian Vale — 15 years experience, 120+ products shipped, 9 industry awards
-Team: Lena Ortiz (Design Lead) · Marcus Reed (Principal Engineer) · Sofia Nakamura (Motion Director) · David Chen (Strategy Lead) · Amara Okafor (3D Artist) · Tom Bergmann (Product Designer)
+TECHNO Studio is a small, entirely senior team delivering AI applications, full-stack web platforms, cybersecurity assessments, game development, and intelligent digital products for ambitious clients worldwide.
+
+== LEADERSHIP ==
+CEO & Founder: Lt Col (R) Muhammad Shahzad Sarwar
+Title: Founder & CEO — CGW – AI Technologies & Security Solutions
+Background: Military Intelligence Veteran and Corporate leader with 25+ years of experience in security, intelligence, administration, logistics, investigations and risk management. Former officer of the Pakistan Army and United Nations peacekeeping mission. Holds an MS in Business Administration, MA in Criminology, and professional qualifications in Intelligence, Anti-Fraud and Anti-Money Laundering investigations. He now drives CGW's vision of delivering advanced AI, Digital Transformation, Security Intelligence, Cybersecurity & Risk Management solutions to clients across Pakistan and international markets.
+Philosophy: "Securing the Future Through Intelligence, Innovation and AI."
+
+== TEAM ==
+• Rehan Shahzad — COO (AI & Web Development): Specialises in intelligent applications, web platforms, desktop software — Python, Flask, JavaScript, PHP, databases, RAG systems, API integrations. Ships production-ready AI-powered applications.
+• Muhammad Usman — Web Developer & AI Content Creator: Graphic designer and AI developer specialising in cinematic AI video ads, creative branding, and intelligent web applications. Delivers AI tools and digital products on Fiverr and Upwork.
+• Abdul Moiz — Cybersecurity Engineer: Penetration tester, bug bounty hunter, and security researcher. Expertise in API security, network defense, and vulnerability assessment. Certified by Google Cybersecurity Professional. Internships at Cisco Networking Academy and Microsoft Learn Student Ambassadors.
+• Rana Faisal Mustafa — Game & App Developer: Skilled in Python, Java, C#, and C++. Builds 2D games, custom software tools, and cross-platform applications using OOP, data structures, and game development frameworks.
 
 == SERVICES ==
-1. Product Design — full lifecycle, UX research, design systems
-2. 3D & WebGL — real-time 3D, shaders, GPU-accelerated browser experiences
-3. Motion Design — transitions, micro-interactions, brand films
-4. Brand Systems — identity, typography, visual language at scale
-5. Engineering — pixel-perfect React/Next.js, accessible, performant
+1. Full Stack Development — end-to-end web applications using React, Next.js, Node.js, PostgreSQL. MVPs to enterprise platforms with clean APIs, secure authentication, and production deployment.
+2. AI Chatbot & Automation — custom AI chatbots for websites and WhatsApp, automating customer support, lead generation, appointment booking, and business workflows. Integrates OpenAI, Gemini, and Claude.
+3. Python Scripts & Bots — automation scripts, API integrations, web scrapers, bots, desktop applications, and database-connected tools. Clean, maintainable source code delivered.
+4. 2D Game Development — custom 2D games with Python (Pygame), Java (JavaFX), or C# (MonoGame). Platformers, arcade games, fighting games with full source code handoff.
+5. Penetration Testing & Security — professional security assessments covering OWASP Top 10: SQL Injection, XSS, CSRF, IDOR, authentication weaknesses, and misconfigurations. Detailed vulnerability report with remediation steps.
 
 == PORTFOLIO ==
-• Nebula OS (2026) — spatial interface, 2.4M users, D&AD Wood Pencil
-• Pulse Lab (2025) — WebGL genomics data visualisation
-• Vector Finance (2025) — fintech product design, 240+ components
-• Helio Brand (2024) — full brand system, 180-page guidelines
-• Orbit Health (2024) — WCAG 2.2 AAA patient platform
-• Mono Studio (2023) — zero-dependency WebGL scroll engine
+• AI POS App (2026) — Full-Stack SaaS / AI: Intelligent retail management system with RBAC, 20+ AI insight modules, real-time financial metrics, and dark-mode UI for fast-paced retail environments.
+• GlobalVisa Services (2026) — Web Design / Conversion: Premium consultancy platform with 500K+ visas processed, 98% success rate, multi-tiered user funnels, and navy-and-gold corporate identity.
+• Orbit Technologies (2026) — Front-End / UI/UX: High-performance corporate landing page for a digital solutions agency with immersive hero, service matrix, and fully responsive architecture.
+• NUTECH Virtual Tour (2026) — Web App: Virtual tour platform for NUTECH Islamabad showcasing 11 campus locations with interactive pages, images, and videos.
+• API Response Monitor (2026) — C# / .NET 8: .NET 8 console app for monitoring API endpoint health with parallel async execution, CSV logging, and GitHub Actions integration.
+• C++ Text Editor (2026) — Systems / C++: Memory-efficient text editor using a custom gap buffer (O(1) insert/delete), unlimited undo/redo via linked-list stack, and Vim-inspired modal interface.
+• Java Fighting Game (2026) — Game Dev: 2D fighting game inspired by Street Fighter and Tekken, built with Java and Swing. Pixel-art samurai sprites, attack animations, custom game loop.
+• Nmap Network Mapping (2026) — Cybersecurity: Full-range (0–65535) stealth SYN port scanning revealing 20+ active services including legacy vulnerability vectors.
+• OpenVAS Dashboard (2026) — Cybersecurity: Greenbone OS 24.10.9 deployment tracking 170,109+ vulnerability tests with 33K+ Critical and 66K+ High threat classifications.
+• Sn1per Footprinting (2026) — Cybersecurity: Automated reconnaissance pipeline with DNS tracking, subdomain hijacking checks, and exposure vector isolation.
 
 == PRICING ==
 Sprint: from $15,000 (2–4 weeks)
@@ -42,11 +57,12 @@ Project: from $45,000 (6–16 weeks)
 Retainer: from $8,000/month
 
 == PROCESS ==
-Discover → Define → Design → Deliver (6–16 weeks typical)
+Discover (1–2 weeks) → Define (1 week) → Design (4–12 weeks) → Deliver (1–2 weeks)
+Total: typically 6–16 weeks
 
 == CONTACT ==
-studio@techno.dev | careers@techno.dev
-Unit 4, Frame Building, Lisbon, Portugal
+Email: cgwofficialai@gmail.com
+Studio: Unit 4, Frame Building, Lisbon, Portugal
 
 == YOUR BEHAVIOUR ==
 • Be warm, concise and professional
@@ -264,59 +280,67 @@ async function think({ userId, userMessage, channel = 'unknown', maxTokens = 200
 // ── Smart fallback (works with ZERO API key) ──────────────────────
 const SMART_RULES = [
   { keys: ['hello','hi','hey','howdy','good morning','good afternoon','good evening','salaam','salam'],
-    reply: "Hello! I'm ARIA, the AI assistant for TECHNO Studio. I can answer questions about our services, pricing, team, and portfolio — or help you book a discovery call. What can I help you with?" },
+    reply: "Hello! I'm ARIA, TECHNO Studio's AI assistant. I can answer questions about our services, portfolio, team, and pricing — or help you get in touch. What can I help you with?" },
   { keys: ['who are you','what are you','your name','introduce'],
     reply: "I'm ARIA, TECHNO Studio's AI assistant. I handle enquiries, answer questions about our work, and help connect you with our team. How can I help?" },
   { keys: ['service','offer','what do you do','capability','speciali','help with'],
-    reply: "TECHNO Studio offers 5 core services:\n\n1️⃣ Product Design — UX research to shipped design systems\n2️⃣ 3D & WebGL — real-time GPU-accelerated browser experiences\n3️⃣ Motion Design — transitions, micro-interactions & brand films\n4️⃣ Brand Systems — identity, typography & visual language\n5️⃣ Engineering — pixel-perfect React/Next.js builds\n\nWhich area are you most interested in?" },
+    reply: "TECHNO Studio offers 5 core services:\n\n1️⃣ Full Stack Development — React, Next.js, Node.js, PostgreSQL — complete web apps from scratch\n2️⃣ AI Chatbot & Automation — custom AI chatbots for websites & WhatsApp (OpenAI, Gemini, Claude)\n3️⃣ Python Scripts & Bots — automation, scrapers, desktop apps, API integrations\n4️⃣ 2D Game Development — Pygame, JavaFX, MonoGame — full source code delivered\n5️⃣ Penetration Testing & Security — OWASP Top 10 assessments with detailed reports\n\nWhich area interests you most?" },
   { keys: ['price','cost','budget','how much','rate','fee','charge','quote','afford','pricing','expensive'],
-    reply: "Our pricing:\n\n💰 Sprint — from $15,000 (2–4 weeks)\n💰 Project — from $45,000 (6–16 weeks)\n💰 Retainer — from $8,000/month\n\nThe right fit depends on your scope. Email studio@techno.dev for a tailored quote — we respond within 24 hours." },
-  { keys: ['ceo','founder','adrian','adrian vale','who started','who founded','who runs','who is the boss'],
-    reply: "Our CEO is Adrian Vale — Founder & Creative Director. He has 15 years of experience leading design and technology teams, has shipped 120+ digital products, and won 9 industry awards. His philosophy: \"Great design isn't about adding more — it's about giving every element a reason to exist.\"" },
-  { keys: ['team','staff','people','members','who work','employees','designers','engineers'],
-    reply: "The TECHNO team is small, senior, and fully hands-on:\n\n👩‍💼 Lena Ortiz — Design Lead\n👨‍💻 Marcus Reed — Principal Engineer\n🎬 Sofia Nakamura — Motion Director\n📊 David Chen — Strategy Lead\n🎨 Amara Okafor — 3D Artist\n📱 Tom Bergmann — Product Designer\n\nNo juniors, no account managers — just makers." },
+    reply: "Our pricing:\n\n💰 Sprint — from $15,000 (2–4 weeks)\n💰 Project — from $45,000 (6–16 weeks)\n💰 Retainer — from $8,000/month\n\nEmail cgwofficialai@gmail.com for a tailored quote — we respond within 24 hours." },
+  { keys: ['ceo','founder','shahzad','sarwar','lt col','who started','who founded','who runs','who is the boss','group head','cgw'],
+    reply: "Our CEO and Founder is Lt Col (R) Muhammad Shahzad Sarwar — a Military Intelligence Veteran and Corporate leader with 25+ years of experience in security, intelligence, administration, logistics, investigations and risk management. A former officer of the Pakistan Army and United Nations peacekeeping mission, he holds an MS in Business Administration, MA in Criminology, and professional qualifications in Intelligence, Anti-Fraud and Anti-Money Laundering investigations. He now drives CGW's vision of delivering advanced AI, Digital Transformation, Cybersecurity & Risk Management solutions across Pakistan and international markets.\n\nHis philosophy: \"Securing the Future Through Intelligence, Innovation and AI.\"" },
+  { keys: ['team','staff','people','members','who work','employees','designers','engineers','rehan','usman','moiz','faisal'],
+    reply: "The TECHNO team is small, senior, and fully hands-on:\n\n🧠 Rehan Shahzad — COO (AI & Web Dev): Python, Flask, JS, RAG systems, API integrations\n🎨 Muhammad Usman — Web Developer & AI Content Creator: branding, AI video, web apps\n🔐 Abdul Moiz — Cybersecurity Engineer: pentesting, bug bounty, network security\n🎮 Rana Faisal Mustafa — Game & App Developer: Python, Java, C#, C++\n\nNo juniors, no account managers — just makers." },
   { keys: ['portfolio','work','project','case stud','example','past work','client'],
-    reply: "Selected portfolio:\n\n🚀 Nebula OS (2026) — spatial interface, 2.4M users, D&AD Pencil\n🔬 Pulse Lab (2025) — WebGL genomics visualisation\n💳 Vector Finance (2025) — fintech product design\n🎨 Helio Brand (2024) — full brand system\n🏥 Orbit Health (2024) — WCAG 2.2 AAA platform\n🖥️ Mono Studio (2023) — WebGL scroll engine\n\nVisit the Our Work page for full details." },
-  { keys: ['nebula','nebula os'],
-    reply: "Nebula OS (2026) is our most ambitious project — a full spatial operating system interface rebuilt with real-time 3D that responds to touch, light and motion. Shipped to 2.4M users on day one and won a D&AD Wood Pencil." },
-  { keys: ['pulse lab','pulse'],
-    reply: "Pulse Lab (2025) is a WebGL-powered science platform we built — capable of visualising 10M+ genomic data points at 60fps, entirely in the browser. One of our most technically demanding builds." },
-  { keys: ['vector finance','vector'],
-    reply: "Vector Finance (2025) — a full fintech product design project. We built a 240+ component design system covering 8 user roles and 14 dashboard views from scratch." },
-  { keys: ['helio brand','helio'],
-    reply: "Helio Brand (2024) — a complete brand system including wordmark, variable type system, motion language, illustration style, and 180-page brand guidelines for a Web3 infrastructure company." },
-  { keys: ['orbit health','orbit'],
-    reply: "Orbit Health (2024) — a patient-facing health platform redesigned around accessibility first. WCAG 2.2 AAA throughout, with an adaptive interface that adjusts to patient preferences." },
-  { keys: ['mono studio','mono'],
-    reply: "Mono Studio (2023) — a portfolio website for an architecture firm featuring a custom WebGL canvas that renders building models in real-time as you scroll, using a zero-dependency scroll engine." },
+    reply: "Selected portfolio:\n\n🤖 AI POS App (2026) — Full-Stack SaaS with 20+ AI insight modules\n🌍 GlobalVisa Services (2026) — 500K+ visas, 98% success rate platform\n🏢 Orbit Technologies (2026) — Corporate landing page with immersive hero\n🎓 NUTECH Virtual Tour (2026) — 11-location interactive campus tour\n🔒 OpenVAS Dashboard (2026) — 170K+ vulnerability tests tracked\n🎮 Java Fighting Game (2026) — Street Fighter-inspired 2D game\n\nVisit the Our Work page for all 10 projects." },
+  { keys: ['ai pos','pos app','point of sale'],
+    reply: "AI POS App (2026) — our flagship full-stack SaaS project: an intelligent retail management ecosystem with RBAC security (Admin, Manager, Cashier, Inventory roles), 20+ AI insight modules, real-time financial metrics, inventory forecasting, and a high-fidelity dark-mode UI." },
+  { keys: ['globalvisa','visa'],
+    reply: "GlobalVisa Services (2026) — a premium consultancy platform engineered for appointment booking at scale. Features data-driven credibility metrics (500K+ visas processed, 98% success rate), multi-tiered user funnels, and a cohesive navy-and-gold corporate identity." },
+  { keys: ['orbit tech','orbit technologies'],
+    reply: "Orbit Technologies (2026) — a high-performance corporate landing page for a digital solutions agency. Built with an immersive hero, a structured service matrix for Digital Marketing, Web Development and SEO verticals, and fully responsive from mobile to desktop." },
+  { keys: ['nutech','virtual tour'],
+    reply: "NUTECH Virtual Tour (2026) — a modern virtual campus tour for NUTECH Islamabad. Lets users explore 11 distinct campus locations through interactive pages, images, and videos with a clean responsive UI." },
+  { keys: ['api monitor','api response'],
+    reply: "API Response Monitor (2026) — a .NET 8 console application for monitoring API endpoint health. Runs parallel async checks, tracks response times and uptime (UP/DOWN/SLOW), logs to CSV, and integrates with GitHub Actions for automated scheduled monitoring." },
+  { keys: ['text editor','c++ editor'],
+    reply: "C++ Text Editor (2026) — a lightning-fast, memory-efficient text editor built from scratch without STL containers. Custom gap buffer for O(1) insert/delete, unlimited undo/redo via linked-list stack, Vim-inspired modal interface." },
+  { keys: ['fighting game','java game'],
+    reply: "Java Fighting Game (2026) — a 2D fighting game inspired by Street Fighter and Tekken, built with Java and Swing. Features pixel-art samurai sprites, attack animations, a hand-painted backdrop, two-player support, and a custom game loop." },
+  { keys: ['nmap','network mapping','port scan'],
+    reply: "Nmap Network Mapping (2026) — full-range (0–65535) stealth SYN port scanning that revealed 20+ active services including legacy vulnerability vectors (FTP, SSH, Telnet) across a 2,511-second automated cycle." },
+  { keys: ['openvas','vulnerability'],
+    reply: "OpenVAS Dashboard (2026) — Greenbone OS 24.10.9 deployment tracking 170,109+ continuous vulnerability tests, surfacing 33K+ Critical and 66K+ High threat classifications for enterprise risk management." },
+  { keys: ['sn1per','footprint','recon'],
+    reply: "Sn1per Footprinting (2026) — automated reconnaissance pipeline via Sn1per v9.2 performing host pinging, DNS tracking, and subdomain hijacking checks. Isolated multiple critical exposure vectors including open administrative remote shell entries." },
   { keys: ['process','how does it work','how do you work','approach','methodology','steps','phases'],
-    reply: "Our process:\n\n1️⃣ Discover — stakeholder interviews, user research, audit (1–2 weeks)\n2️⃣ Define — strategy, information architecture, creative direction (1 week)\n3️⃣ Design — iterative design in weekly cycles (4–12 weeks)\n4️⃣ Deliver — handoff specs, design system docs, engineering support (1–2 weeks)\n\nTotal: typically 6–16 weeks." },
+    reply: "Our process:\n\n1️⃣ Discover — stakeholder interviews, competitive audit, user research (1–2 weeks)\n2️⃣ Define — strategy, information architecture, creative direction (1 week)\n3️⃣ Design — iterative design in weekly cycles (4–12 weeks)\n4️⃣ Deliver — handoff specs, docs, engineering support (1–2 weeks)\n\nTotal: typically 6–16 weeks." },
   { keys: ['timeline','how long','duration','weeks','months','turnaround','deadline'],
-    reply: "Most projects run 6–12 weeks from kickoff to delivery. Larger builds can extend to 16 weeks. We set clear milestones so there are no surprises — and we'll give you an accurate estimate in our first call." },
+    reply: "Most projects run 6–12 weeks from kickoff to delivery. Larger builds can extend to 16 weeks. We set clear milestones throughout — no disappearing acts and no big-reveal surprises." },
   { keys: ['book','call','meeting','schedule','discovery','appointment','consult'],
-    reply: "To book a discovery call, email studio@techno.dev with:\n• A brief description of your project\n• Your budget range\n• Your preferred timing\n\nWe confirm within 48 hours and take on 3–4 new projects per year." },
-  { keys: ['contact','email','reach','get in touch','talk','message','studio@'],
-    reply: "Best ways to reach us:\n📧 Projects: studio@techno.dev\n💼 Careers: careers@techno.dev\n📍 Location: Unit 4, Frame Building, Lisbon, Portugal\n\nWe respond within one business day." },
+    reply: "To get started, email cgwofficialai@gmail.com with:\n• A brief description of your project\n• Your budget range\n• Your preferred timing\n\nWe respond within 48 hours and take on 3–4 new projects per year." },
+  { keys: ['contact','email','reach','get in touch','talk','message'],
+    reply: "Best way to reach us:\n📧 Email: cgwofficialai@gmail.com\n📍 Studio: Unit 4, Frame Building, Lisbon, Portugal\n\nWe respond within one business day." },
   { keys: ['career','job','hire','hiring','role','join','apply','opening','work for'],
-    reply: "Interested in joining the studio? Send your portfolio and a short note to careers@techno.dev — we're always open to hearing from great designers, engineers, and motion artists." },
-  { keys: ['3d','webgl','three.js','spatial','immersive','shader','gpu','real-time'],
-    reply: "3D & WebGL is a signature TECHNO capability. We build real-time 3D environments, custom shaders, and GPU-accelerated scenes that run at 60fps in the browser — no plugins. See Nebula OS and Pulse Lab as examples." },
-  { keys: ['product design','ux','ui','interface','dashboard','figma','wireframe','prototype'],
-    reply: "Our Product Design service covers everything from user research and information architecture through high-fidelity Figma files and complete design systems — ready for engineering handoff." },
-  { keys: ['brand','identity','logo','visual','typography','colour','color','rebrand'],
-    reply: "Our Brand Systems service builds identities from the ground up — wordmark, type systems, colour palettes, motion language, and documentation your whole team can use. Built to outlast the next rebrand cycle." },
-  { keys: ['motion','animation','transition','micro','gsap','film','video','kinetic'],
-    reply: "Motion Design at TECHNO means signature transitions, micro-interactions, and brand films — motion that gives your product personality. From a 12ms hover state to a two-minute launch film." },
-  { keys: ['engineering','code','develop','front-end','frontend','react','next.js','build'],
-    reply: "Our Engineering service delivers front-end builds that match the design pixel-for-pixel — built in React, Next.js, or vanilla JS. Production-ready, accessible, and maintainable." },
+    reply: "Interested in joining the team? Send your portfolio and a short note about what you do to cgwofficialai@gmail.com — we're always open to hearing from talented developers, designers, and security engineers." },
+  { keys: ['chatbot','automation','whatsapp','ai agent','openai','gemini','claude'],
+    reply: "Our AI Chatbot & Automation service builds custom AI assistants for your website or WhatsApp — automating customer support, lead generation, appointment booking, and business workflows. We integrate OpenAI, Gemini, and Claude, and deliver full source code." },
+  { keys: ['python','script','bot','scraper','automation','flask'],
+    reply: "Our Python Scripts & Bots service covers automation scripts, API integrations, web scrapers, desktop applications, and database-connected tools — all delivered with clean, maintainable source code and fast communication throughout." },
+  { keys: ['game','pygame','unity','javafx','monogame','2d game'],
+    reply: "Our 2D Game Development service builds custom games with Python (Pygame), Java (JavaFX), or C# (MonoGame) — smooth gameplay, animations, collision detection, and full source code handoff. From platformers to fighting games." },
+  { keys: ['security','pentest','penetration','owasp','sql injection','xss','bug bounty','hacking'],
+    reply: "Our Penetration Testing & Security service covers professional assessments of websites, web apps, and servers — OWASP Top 10 checks including SQL Injection, XSS, CSRF, IDOR, authentication flaws, and misconfigurations. You receive a detailed report with vulnerabilities found and remediation steps." },
+  { keys: ['full stack','fullstack','react','next.js','node','postgresql','web app','web application'],
+    reply: "Our Full Stack Development service delivers complete web applications — responsive frontends, robust backends, and scalable databases all under one roof. We use React, Next.js, Node.js, and PostgreSQL. From MVPs to enterprise platforms." },
   { keys: ['location','where','lisbon','portugal','office','address'],
-    reply: "TECHNO Studio is based in Lisbon, Portugal — Unit 4, Frame Building. The team is distributed across Lisbon, Berlin, and Tokyo, and we work with clients worldwide." },
+    reply: "TECHNO Studio is based in Lisbon, Portugal — Unit 4, Frame Building. We work with clients worldwide." },
   { keys: ['about','techno','studio','company','founded','history','est','2026'],
-    reply: "TECHNO is a digital design & technology studio founded in 2026 by Adrian Vale in Lisbon. A small, entirely senior team building 3D interfaces, motion systems, brand identities, and engineered digital products for ambitious teams worldwide." },
+    reply: "TECHNO Studio is a digital design and technology studio founded in 2026, based in Lisbon. A small, entirely senior team delivering AI applications, full-stack web platforms, cybersecurity, game development, and intelligent digital products for ambitious clients worldwide." },
   { keys: ['thanks','thank you','cheers','great','awesome','perfect','helpful','appreciate'],
     reply: "Happy to help! Is there anything else you'd like to know about the studio, our work, or how to get started?" },
   { keys: ['bye','goodbye','see you','later','farewell','take care'],
-    reply: "Take care! Whenever you're ready to build something exceptional, studio@techno.dev is the place to start. 👋" },
+    reply: "Take care! Whenever you're ready to build something exceptional, cgwofficialai@gmail.com is the place to start. 👋" },
 ];
 
 function getFallbackReply(text) {
@@ -325,7 +349,7 @@ function getFallbackReply(text) {
     if (rule.keys.some(k => t.includes(k))) return rule.reply;
   }
   // Default
-  return "Thanks for your message! For project enquiries, email studio@techno.dev and we'll respond within one business day. I can also answer questions about our services, team, portfolio, and pricing — just ask!";
+  return "Thanks for your message! For project enquiries, email cgwofficialai@gmail.com and we'll respond within one business day. I can also answer questions about our services, team, portfolio, and pricing — just ask!";
 }
 
 // ── Exports ───────────────────────────────────────────────────────
