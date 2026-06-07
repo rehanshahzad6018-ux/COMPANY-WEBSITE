@@ -359,7 +359,7 @@ app.listen(PORT, () => {
   const twilioReady  = !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN);
 
   console.log('\n ╔══════════════════════════════════════════════╗');
-  console.log(` ║  TECHNO AI Platform  →  http://localhost:${PORT}  ║`);
+  console.log(` ║  CGW AI Platform  →  http://localhost:${PORT}  ║`);
   console.log(' ╠══════════════════════════════════════════════╣');
   console.log(` ║  Central Brain  →  /api/brain/status`);
   console.log(` ║  AI Model       →  ${openaiReady ? 'OpenAI ' + (process.env.OPENAI_MODEL||'gpt-4o-mini') + ' ✓' : geminiReady ? 'Gemini ✓ (fallback)' : '⚠ No AI key configured'}`);

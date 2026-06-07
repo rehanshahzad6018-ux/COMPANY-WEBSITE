@@ -81,7 +81,7 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
   // ── Gemini: generate AI reply text ────────────────────────────
   async function geminiReply(name, message, budget, geminiKey) {
     const prompt =
-      `You are the professional assistant at TECHNO Studio, a premium product design agency in Lisbon, Portugal.\n` +
+      `You are the professional assistant at CGW — Cognitive Guardian Work, a senior AI technology & security studio working fully remote with clients worldwide.\n` +
       `Write a warm, professional email reply to this website enquiry.\n\n` +
       `Sender: ${name}\nBudget: ${budget || 'not specified'}\nMessage: ${message}\n\n` +
       `Instructions:\n` +
@@ -89,7 +89,7 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
       `- Show genuine interest in their project\n` +
       `- Say the team will follow up within 48 hours with next steps\n` +
       `- Keep it concise (3 short paragraphs)\n` +
-      `- Sign off as "The TECHNO Studio Team"\n\n` +
+      `- Sign off as "The CGW Team"\n\n` +
       `Write only the email body — no subject line, no extra commentary.`;
 
     const res = await fetch(
@@ -110,7 +110,7 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
 
   // ── Fallback reply if Gemini/EmailJS not configured ───────────
   function fallbackReply(name) {
-    return `Hi ${name},\n\nThank you for reaching out to TECHNO Studio! We have received your message and really appreciate your interest in working with us.\n\nOur team will review your enquiry and get back to you within 48 hours with more details on how we can bring your project to life.\n\nWarm regards,\nThe TECHNO Studio Team\ncgwofficialai@gmail.com`;
+    return `Hi ${name},\n\nThank you for reaching out to CGW! We have received your message and really appreciate your interest in working with us.\n\nOur team will review your enquiry and get back to you within 48 hours with more details on how we can bring your project to life.\n\nWarm regards,\nThe CGW Team\ncgwofficialai@gmail.com`;
   }
 
   form.addEventListener('submit', async (e) => {

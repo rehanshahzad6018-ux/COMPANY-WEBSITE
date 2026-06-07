@@ -3,7 +3,7 @@ const CONFIG = {
   apiKey: localStorage.getItem('mailai_api_key') || '',
   geminiKey: localStorage.getItem('mailai_gemini_key') || '',
   brandVoice: localStorage.getItem('mailai_brand_voice') || 'Professional, friendly, and concise. We value our customers and respond helpfully.',
-  companyName: localStorage.getItem('mailai_company') || 'TECHNO Studio',
+  companyName: localStorage.getItem('mailai_company') || 'CGW',
   autoSend: false,
 };
 

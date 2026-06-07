@@ -238,7 +238,7 @@
     </svg>
   </button>
 
-  <div id="tchat-panel" role="dialog" aria-label="TECHNO Chat">
+  <div id="tchat-panel" role="dialog" aria-label="CGW Chat">
 
     <div class="tchat-header">
       <div class="tchat-avatar">✦</div>
@@ -246,7 +246,7 @@
         <div class="tchat-header-name">ARIA</div>
         <div class="tchat-header-sub">
           <span class="tchat-status-dot"></span>
-          TECHNO Studio AI
+          CGW Studio AI
         </div>
       </div>
       <button class="tchat-close" id="tchat-close-btn" aria-label="Close chat">
@@ -405,7 +405,7 @@
   /* ── Greeting ── */
   function greet() {
     hasGreeted = true;
-    const greeting = 'Hi! I\'m ARIA, TECHNO Studio\'s AI assistant. I can answer questions about our services, portfolio, pricing, and team.\n\nHow can I help you today?';
+    const greeting = 'Hi! I\'m ARIA, CGW\'s AI assistant. I can answer questions about our services, portfolio, pricing, and team.\n\nHow can I help you today?';
     addMsg('ai', greeting);
     history.push({ role: 'assistant', content: greeting });
   }

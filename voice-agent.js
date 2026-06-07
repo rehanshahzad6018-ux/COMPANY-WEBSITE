@@ -61,16 +61,16 @@ function getOrCreate(callSid, from) {
 }
 
 // ── AI conversation via Gemini ─────────────────────────────────
-const STUDIO_BRAIN = `You are ARIA, the AI voice agent for TECHNO Studio — a premium product design and technology studio based in Lisbon, Portugal.
+const STUDIO_BRAIN = `You are ARIA, the AI voice agent for CGW — Cognitive Guardian Work, a senior AI technology & security studio working fully remote with clients worldwide.
 
 == STUDIO INFO ==
-- Services: Product Design, 3D & WebGL, Motion Design, Brand Systems, Frontend Engineering
-- CEO: Adrian Vale — 15 years experience, 120+ products shipped, 9 industry awards
-- Team: Lena Ortiz (Design Lead), Marcus Reed (Engineer), Sofia Nakamura (Motion), David Chen (Strategy), Amara Okafor (3D/WebGL), Tom Bergmann (Product)
-- Portfolio: Nebula OS, Pulse Lab, Vector Finance, Helio Brand, Orbit Health, Mono Studio
+- Services: Full Stack Development, AI Chatbot & Automation, Python Scripts & Bots, 2D Game Development, Penetration Testing & Security
+- CEO: Lt Col (R) Muhammad Shahzad Sarwar — Founder & CEO, 25+ years in security, intelligence and risk management, former Pakistan Army officer and UN peacekeeper
+- Team: Rehan Shahzad (CTO — AI & Web Development), Muhammad Usman (Full Stack Developer), Abdul Moiz (Cybersecurity Engineer), Rana Faisal Mustafa (Game & App Developer)
+- Portfolio: AI POS App, GlobalVisa Services, Orbit Technologies, NUTECH Virtual Tour, API Response Monitor, C++ Text Editor, Java Fighting Game, Nmap Network Mapping, OpenVAS Vulnerability Dashboard, Sn1per Footprinting
 - Pricing: Sprints from $15k, Projects from $45k, Retainer from $8k/month
 - Process: Discover → Define → Design → Deliver (6–16 weeks typical)
-- Email: cgwofficialai@gmail.com | Location: Unit 4, Frame Building, Lisbon, Portugal
+- Email: cgwofficialai@gmail.com | Location: Fully remote — no physical office, team works worldwide
 
 == YOUR RULES ==
 1. KEEP RESPONSES SHORT — maximum 2 sentences. This is a phone call.
@@ -78,7 +78,7 @@ const STUDIO_BRAIN = `You are ARIA, the AI voice agent for TECHNO Studio — a p
 3. If asked about pricing, give ballpark ranges and offer a discovery call.
 4. If caller wants to BOOK a call, collect: full name, email, and brief project description. Then confirm.
 5. If caller sounds UPSET or specifically asks for a human, say you will transfer them.
-6. If caller asks about AVAILABILITY, say Adrian or the team will confirm within 48 hours.
+6. If caller asks about AVAILABILITY, say the CEO or the team will confirm within 48 hours.
 7. Do NOT make up specific dates, promises or numbers not listed above.
 8. End naturally — do not say "Is there anything else I can help you with?" repeatedly.`;
 
@@ -116,11 +116,11 @@ function getDefaultResponse(text) {
   if (/price|cost|budget|how much/.test(t))
     return 'Projects typically start at $15,000 for focused sprints and $45,000 for full engagements. Shall I have someone reach out with a detailed quote?';
   if (/service|what do you do|help/.test(t))
-    return "We specialise in product design, 3D and WebGL, motion, brand systems and frontend engineering. Which area is most relevant to your project?";
+    return "We specialise in full stack development, AI chatbots and automation, Python scripts and bots, 2D game development, and penetration testing. Which area is most relevant to your project?";
   if (/book|schedule|appointment|call|meeting/.test(t))
     return "I'd love to arrange a discovery call. Could you share your name and email and I'll get that booked right away?";
-  if (/ceo|founder|adrian/.test(t))
-    return "Adrian Vale founded TECHNO Studio with 15 years of experience and has shipped over 120 digital products. He leads every project personally.";
+  if (/ceo|founder/.test(t))
+    return "CGW was founded by Lt Col (R) Muhammad Shahzad Sarwar, a Military Intelligence Veteran with over 25 years of leadership experience. He drives the company's vision personally.";
   return "That's a great question. Could you tell me a bit more so I can give you the most helpful answer?";
 }
 
@@ -237,7 +237,7 @@ router.post('/incoming', (req, res) => {
   const session = getOrCreate(callSid, from);
   console.log(`[voice] Incoming call ${callSid} from ${from}`);
 
-  const greeting = "Hello! Thank you for calling TECHNO Studio. I'm ARIA, your AI assistant. How can I help you today?";
+  const greeting = "Hello! Thank you for calling CGW. I'm ARIA, your AI assistant. How can I help you today?";
   session.messages.push({ role: 'assistant', content: greeting, time: new Date().toISOString() });
 
   res.type('text/xml').send(buildTwiML(greeting, '/voice/process', 'en-US', '/voice/incoming'));
@@ -305,7 +305,7 @@ router.post('/process', async (req, res) => {
 
   // ── End call ───────────────────────────────────────────────
   if (intent === 'end') {
-    const farewell = 'Thank you for calling TECHNO Studio. Have a wonderful day. Goodbye!';
+    const farewell = 'Thank you for calling CGW. Have a wonderful day. Goodbye!';
     session.outcome = 'completed';
     session.messages.push({ role: 'assistant', content: farewell, time: new Date().toISOString() });
     saveCall(session);

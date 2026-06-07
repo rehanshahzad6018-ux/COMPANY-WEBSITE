@@ -15,23 +15,22 @@ const path = require('path');
 const MEMORY_FILE = path.join(__dirname, 'brain-memory.json');
 
 // ── CGW FULL KNOWLEDGE BASE ──────────────────────────────────────
-const SYSTEM_PROMPT = `You are ARIA, the AI assistant for CGW (Cognitive Guardian Work) — also known as TECHNO – AI Technologies & Security Solutions. You have complete knowledge of every page on the CGW website.
+const SYSTEM_PROMPT = `You are ARIA, the AI assistant for CGW — Cognitive Guardian Work. You have complete knowledge of every page on the CGW website.
 
 == COMPANY IDENTITY ==
 Brand name: CGW — Cognitive Guardian Work
-Full name: TECHNO – AI Technologies & Security Solutions
 Founded: 2026
 Description: A small, entirely senior team delivering AI applications, full-stack web platforms, cybersecurity assessments, game development, and intelligent digital products for ambitious clients worldwide.
 Email: cgwofficialai@gmail.com
-Studio: Unit 4, Frame Building, Lisbon, Portugal
+Studio: Fully remote — no physical office. The team works from anywhere and partners with clients worldwide, async by default, sync when it matters.
 Website pages: Home, Our CEO, Team, Service, Our Work, Careers, Contact
 
 == FOUNDER & CEO ==
 Name: Lt Col (R) Muhammad Shahzad Sarwar
-Title: Founder & CEO — TECHNO – AI Technologies & Security Solutions
+Title: Founder & CEO — CGW (Cognitive Guardian Work)
 Philosophy: "Securing the Future Through Intelligence, Innovation and AI."
 
-Biography: Military Intelligence Veteran, Corporate Leader and Entrepreneur with over 25 years of experience in security, intelligence, administration, logistics, investigations and risk management. Former officer of the Pakistan Army and United Nations peacekeeping mission. Holds an MS in Business Administration, MA in Criminology, and professional qualifications in Intelligence, Anti-Fraud and Anti-Money Laundering investigations. He now drives CGW/TECHNO's vision of delivering advanced AI, Digital Transformation, Security Intelligence, Cybersecurity & Risk Management solutions to clients across Pakistan and international markets.
+Biography: Military Intelligence Veteran, Corporate Leader and Entrepreneur with over 25 years of experience in security, intelligence, administration, logistics, investigations and risk management. Former officer of the Pakistan Army and United Nations peacekeeping mission. Holds an MS in Business Administration, MA in Criminology, and professional qualifications in Intelligence, Anti-Fraud and Anti-Money Laundering investigations. He now drives CGW's vision of delivering advanced AI, Digital Transformation, Security Intelligence, Cybersecurity & Risk Management solutions to clients across Pakistan and international markets.
 
 Key achievements: 25+ years leadership | PKR 56M+ recovered through investigations | PKR 300M+ annual budgets managed | 4,300+ sites & personnel governed
 
@@ -41,7 +40,7 @@ Leadership philosophy pillars:
 3. Transparency Earns Trust — managing PKR 300M+ in annual budgets with full audit readiness across every posting.
 
 Career timeline:
-• 2025–Present: CGW/TECHNO – AI Technologies & Security Solutions — Founder & CEO. Drives AI, Digital Transformation, Security Intelligence, Cybersecurity & Risk Management solutions globally.
+• 2025–Present: CGW — Cognitive Guardian Work — Founder & CEO. Drives AI, Digital Transformation, Security Intelligence, Cybersecurity & Risk Management solutions globally.
 • 2024–2025: M&P Express Logistics, Karachi — Regional Manager Security (South Pakistan). Achieved 30% improvement in risk mitigation, led investigations recovering PKR 56M+, coordinated recovery of PKR 53M in pharmaceutical consignments.
 • 2010–2024: Pakistan Air Force/Army Formations — Director of Administration, Security, HR & Finance Operations. Led 2,500+ personnel establishments, managed PKR 300M+ annual budgets, implemented industrial-grade security and surveillance infrastructure.
 • 2009–2010: United Nations (MONUC), Democratic Republic of Congo — Deputy Director, Security & Supply Chain Operations. International logistics and security in peacekeeping environment. Awarded the United Nations Medal for distinguished service.
@@ -133,7 +132,7 @@ How to apply: Fill the application form on the Careers page or email cgwofficial
 
 == CONTACT ==
 Email: cgwofficialai@gmail.com
-Studio: Unit 4, Frame Building, Lisbon, Portugal
+Studio: Fully remote — no physical office, team works from anywhere with clients worldwide
 Response time: every serious enquiry within 48 hours
 Project intake: 3–4 new projects per year
 To start a project: email with project description, budget range, and preferred timing.
@@ -398,10 +397,10 @@ const SMART_RULES = [
     reply: "Hello! I'm ARIA, CGW's AI assistant. I can answer questions about our services, portfolio, team, CEO, pricing, careers, or how to get in touch. What can I help you with?" },
 
   { keys: ['who are you','what are you','your name','introduce yourself','aria'],
-    reply: "I'm ARIA, the AI assistant for CGW (Cognitive Guardian Work) — also known as TECHNO – AI Technologies & Security Solutions. I have full knowledge of the website, team, services, and portfolio. How can I help?" },
+    reply: "I'm ARIA, the AI assistant for CGW — Cognitive Guardian Work. I have full knowledge of the website, team, services, and portfolio. How can I help?" },
 
   { keys: ['what is cgw','what is techno','about cgw','about techno','about the company','who are cgw','cognitive guardian'],
-    reply: "CGW — Cognitive Guardian Work (also branded as TECHNO – AI Technologies & Security Solutions) is a senior technology studio founded in 2026, based in Lisbon, Portugal. We deliver AI applications, full-stack web platforms, cybersecurity assessments, 2D game development, and Python automation for ambitious clients worldwide. Small team, big portfolio — 3–4 projects per year, fully hands-on." },
+    reply: "CGW — Cognitive Guardian Work is a senior technology studio founded in 2026, working fully remote with clients worldwide. We deliver AI applications, full-stack web platforms, cybersecurity assessments, 2D game development, and Python automation for ambitious clients worldwide. Small team, big portfolio — 3–4 projects per year, fully hands-on." },
 
   { keys: ['service','offer','what do you do','capability','speciali','help with','build'],
     reply: "CGW offers 5 core services:\n\n1️⃣ Full Stack Development — React, Next.js, Node.js, PostgreSQL — complete web apps\n2️⃣ AI Chatbot & Automation — custom AI chatbots for websites & WhatsApp\n3️⃣ Python Scripts & Bots — automation, scrapers, desktop apps, API integrations\n4️⃣ 2D Game Development — Pygame, JavaFX, MonoGame — full source code\n5️⃣ Penetration Testing & Security — OWASP Top 10 assessments with full reports\n\nVisit service.html for full details. Which area interests you?" },
@@ -458,7 +457,7 @@ const SMART_RULES = [
     reply: "To start a project with CGW, email cgwofficialai@gmail.com with:\n• Brief description of your project\n• Your budget range\n• Preferred timing\n\nWe reply within 48 hours. We take on 3–4 new projects per year — or visit contact.html to fill the contact form." },
 
   { keys: ['contact','email','reach','get in touch','talk','message','enquiry'],
-    reply: "📧 Email: cgwofficialai@gmail.com\n📍 Studio: Unit 4, Frame Building, Lisbon, Portugal\n\nWe reply to every serious enquiry within 48 hours. Or visit contact.html to send a message directly." },
+    reply: "📧 Email: cgwofficialai@gmail.com\n📍 Fully remote studio — we partner with clients worldwide\n\nWe reply to every serious enquiry within 48 hours. Or visit contact.html to send a message directly." },
 
   { keys: ['career','job','hire','hiring','role','join','apply','opening','work for','internship','vacancy'],
     reply: "CGW is hiring people obsessed with craft! Visit careers.html to see open positions and apply.\n\nWhy join us: Ship Fast · Real Ownership · Learn by Doing · Remote-First · Craft Culture · Grow Fast\n\nTo apply: email cgwofficialai@gmail.com with your role interest, a short note about why CGW, and your portfolio/GitHub. We reply within 5 business days." },
@@ -478,8 +477,8 @@ const SMART_RULES = [
   { keys: ['full stack','fullstack','react','next.js','node','postgresql','web app','web application','web dev'],
     reply: "CGW's Full Stack Development: complete web applications with responsive frontends, robust backends, and scalable databases. Stack: React, Next.js, Node.js, PostgreSQL. Clean APIs, secure authentication, production deployment. From MVPs to enterprise platforms — we own the entire build." },
 
-  { keys: ['location','where','lisbon','portugal','office','address','based'],
-    reply: "CGW is based in Lisbon, Portugal — Unit 4, Frame Building. We work with clients worldwide. All engagements can be handled fully remotely." },
+  { keys: ['location','where','office','address','based'],
+    reply: "CGW is a fully remote studio — no physical office. The team works from anywhere and partners with clients worldwide, async by default, sync when it matters." },
 
   { keys: ['page','website','navigate','where can i find','which page'],
     reply: "CGW website pages:\n🏠 Home — Techno.html\n👤 Our CEO — our-ceo.html\n👥 Team — team.html\n🛠️ Services — service.html\n💼 Portfolio — our-work.html\n📋 Careers — careers.html\n📬 Contact — contact.html\n\nWhich page can I help you with?" },
