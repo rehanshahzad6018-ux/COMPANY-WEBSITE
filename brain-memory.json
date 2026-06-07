@@ -41,6 +41,26 @@
         "role": "assistant",
         "content": "Our CEO is Lt Col Muhammad Shahzad Sarwar (Retd) — Group Head of Administration, Security & Corporate Affairs. He brings 25+ years of leadership across the United Nations, Pakistan Army, Air Force, and the Corporate Sector, with a proven track record in HR governance and organisational performance.",
         "time": "2026-06-06T11:11:36.464Z"
+      },
+      {
+        "role": "user",
+        "content": "tell me about CEO",
+        "time": "2026-06-07T09:30:39.953Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Our CEO and Founder is Lt Col (R) Muhammad Shahzad Sarwar — a Military Intelligence Veteran and Corporate leader with 25+ years of experience in security, intelligence, administration, logistics, investigations and risk management. A former officer of the Pakistan Army and United Nations peacekeeping mission, he holds an MS in Business Administration, MA in Criminology, and professional qualifications in Intelligence, Anti-Fraud and Anti-Money Laundering investigations. He now drives TECHNO's vision of delivering advanced AI, Digital Transformation, Cybersecurity & Risk Management solutions across Pakistan and international markets.\n\nHis philosophy: \"Securing the Future Through Intelligence, Innovation and AI.\"",
+        "time": "2026-06-07T09:30:39.955Z"
+      },
+      {
+        "role": "user",
+        "content": "TELL ME ABOUT CTO",
+        "time": "2026-06-07T09:30:51.515Z"
+      },
+      {
+        "role": "assistant",
+        "content": "TECHNO Studio is a digital design and technology studio founded in 2026, based in Lisbon. A small, entirely senior team delivering AI applications, full-stack web platforms, cybersecurity, game development, and intelligent digital products for ambitious clients worldwide.",
+        "time": "2026-06-07T09:30:51.516Z"
       }
     ],
     "profile": {
@@ -50,8 +70,8 @@
       "channel": "email"
     },
     "leadScore": 0,
-    "lastSeen": "2026-06-06T11:11:36.464Z",
-    "totalTurns": 4
+    "lastSeen": "2026-06-07T09:30:51.517Z",
+    "totalTurns": 6
   },
   "web:web_mq10njipxxcaf": {
     "userId": "web:web_mq10njipxxcaf",
@@ -75,6 +95,66 @@
         "role": "assistant",
         "content": "Our CEO is Adrian Vale — Founder & Creative Director. He has 15 years of experience leading design and technology teams, has shipped 120+ digital products, and won 9 industry awards. His philosophy: \"Great design isn't about adding more — it's about giving every element a reason to exist.\"",
         "time": "2026-06-06T11:10:12.057Z"
+      },
+      {
+        "role": "user",
+        "content": "tell me about the usman",
+        "time": "2026-06-07T08:53:01.895Z"
+      },
+      {
+        "role": "assistant",
+        "content": "The TECHNO team is small, senior, and fully hands-on:\n\n🧠 Rehan Shahzad — COO (AI & Web Dev): Python, Flask, JS, RAG systems, API integrations\n🎨 Muhammad Usman — Web Developer & AI Content Creator: branding, AI video, web apps\n🔐 Abdul Moiz — Cybersecurity Engineer: pentesting, bug bounty, network security\n🎮 Rana Faisal Mustafa — Game & App Developer: Python, Java, C#, C++\n\nNo juniors, no account managers — just makers.",
+        "time": "2026-06-07T08:53:01.908Z"
+      },
+      {
+        "role": "user",
+        "content": "tell me about the usman",
+        "time": "2026-06-07T08:53:19.472Z"
+      },
+      {
+        "role": "assistant",
+        "content": "The TECHNO team is small, senior, and fully hands-on:\n\n🧠 Rehan Shahzad — COO (AI & Web Dev): Python, Flask, JS, RAG systems, API integrations\n🎨 Muhammad Usman — Web Developer & AI Content Creator: branding, AI video, web apps\n🔐 Abdul Moiz — Cybersecurity Engineer: pentesting, bug bounty, network security\n🎮 Rana Faisal Mustafa — Game & App Developer: Python, Java, C#, C++\n\nNo juniors, no account managers — just makers.",
+        "time": "2026-06-07T08:53:19.473Z"
+      },
+      {
+        "role": "user",
+        "content": "tell me about cto only",
+        "time": "2026-06-07T08:53:26.237Z"
+      },
+      {
+        "role": "assistant",
+        "content": "TECHNO Studio is a digital design and technology studio founded in 2026, based in Lisbon. A small, entirely senior team delivering AI applications, full-stack web platforms, cybersecurity, game development, and intelligent digital products for ambitious clients worldwide.",
+        "time": "2026-06-07T08:53:26.239Z"
+      },
+      {
+        "role": "user",
+        "content": "CTO",
+        "time": "2026-06-07T08:53:34.436Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Thanks for your message! For project enquiries, email cgwofficialai@gmail.com and we'll respond within one business day. I can also answer questions about our services, team, portfolio, and pricing — just ask!",
+        "time": "2026-06-07T08:53:34.462Z"
+      },
+      {
+        "role": "user",
+        "content": "CTO",
+        "time": "2026-06-07T08:53:37.893Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Thanks for your message! For project enquiries, email cgwofficialai@gmail.com and we'll respond within one business day. I can also answer questions about our services, team, portfolio, and pricing — just ask!",
+        "time": "2026-06-07T08:53:37.907Z"
+      },
+      {
+        "role": "user",
+        "content": "CEO",
+        "time": "2026-06-07T08:53:51.389Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Our CEO and Founder is Lt Col (R) Muhammad Shahzad Sarwar — a Military Intelligence Veteran and Corporate leader with 25+ years of experience in security, intelligence, administration, logistics, investigations and risk management. A former officer of the Pakistan Army and United Nations peacekeeping mission, he holds an MS in Business Administration, MA in Criminology, and professional qualifications in Intelligence, Anti-Fraud and Anti-Money Laundering investigations. He now drives TECHNO's vision of delivering advanced AI, Digital Transformation, Cybersecurity & Risk Management solutions across Pakistan and international markets.\n\nHis philosophy: \"Securing the Future Through Intelligence, Innovation and AI.\"",
+        "time": "2026-06-07T08:53:51.391Z"
       }
     ],
     "profile": {
@@ -84,7 +164,7 @@
       "channel": "email"
     },
     "leadScore": 0,
-    "lastSeen": "2026-06-06T11:10:12.058Z",
-    "totalTurns": 2
+    "lastSeen": "2026-06-07T08:53:51.391Z",
+    "totalTurns": 8
   }
 }
