@@ -238,7 +238,8 @@ function extractEmail(text) {
 
 // ── 0. OpenRouter (PRIMARY) ───────────────────────────────────────
 async function callOpenRouter(messages, maxTokens = 200) {
-  const key = process.env.OPENROUTER_API_KEY || 'REDACTED-OLD-API-KEY';
+  const key = process.env.OPENROUTER_API_KEY;
+  if (!key || key === 'your_openrouter_key_here') throw new Error('no-openrouter-key');
   const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {

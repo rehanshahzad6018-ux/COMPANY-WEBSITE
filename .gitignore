@@ -1,1 +1,11 @@
+node_modules/
+.env
 uploads/resumes/
+
+# Runtime data — generated at runtime, contains real visitor PII
+# (jobs.json is kept tracked — it's admin-managed listing content, not visitor data)
+applications.json
+brain-memory.json
+calls.json
+leads.json
+messages.json
