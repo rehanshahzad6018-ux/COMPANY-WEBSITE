@@ -153,6 +153,31 @@ function extractEmail(text) {
   return m ? m[0] : null;
 }
 
+// ── 0. OpenRouter (PRIMARY) ───────────────────────────────────────
+async function callOpenRouter(messages, maxTokens = 200) {
+  const key = process.env.OPENROUTER_API_KEY || 'REDACTED-OLD-API-KEY';
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${key}`,
+      'HTTP-Referer': 'https://cgw.ai',
+      'X-Title': 'CGW ARIA Chatbot',
+    },
+    body: JSON.stringify({
+      model: process.env.OPENROUTER_MODEL || 'meta-llama/llama-3.1-8b-instruct:free',
+      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
+      max_tokens: maxTokens,
+      temperature: 0.7,
+    })
+  });
+  if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(`openrouter-${res.status}: ${e.error?.message||'unknown'}`); }
+  const data = await res.json();
+  const text = data.choices?.[0]?.message?.content?.trim() || '';
+  if (!text) throw new Error('openrouter-empty');
+  return text;
+}
+
 // ── 1. OpenAI GPT ────────────────────────────────────────────────
 async function callOpenAI(messages, maxTokens = 200) {
   const key = process.env.OPENAI_API_KEY;
