@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 // ── Block sensitive files from being served statically ─────────
 const BLOCKED_FILES = [
   'leads.json','applications.json','brain-memory.json',
-  'pricing.json','jobs.json','.env','store.json'
+  'pricing.json','jobs.json','.env','store.json','messages.json'
 ];
 app.use((req, res, next) => {
   const base = path.basename(req.path).toLowerCase();
@@ -194,6 +194,57 @@ app.post('/api/website-chat', rateLimit(60000, 30), async (req, res) => {
     console.error('[website-chat]', e.message);
     res.status(500).json({ error: 'Something went wrong. Please try again.' });
   }
+});
+
+// ── Messages (contact form + chat emails) ─────────────────────
+const MESSAGES_FILE = path.join(__dirname, 'messages.json');
+function readMessages()      { try { return JSON.parse(fs.readFileSync(MESSAGES_FILE,'utf8')); } catch(e) { return []; } }
+function writeMessages(list) { fs.writeFileSync(MESSAGES_FILE, JSON.stringify(list, null, 2)); }
+
+app.get('/api/messages', requireAdmin, (req, res) => res.json(readMessages()));
+
+app.post('/api/messages', rateLimit(60000, 10), (req, res) => {
+  const { name, email, budget, message, source } = req.body || {};
+  if (!name || !email || !message) return res.status(400).json({ error: 'name, email and message required' });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'invalid email' });
+  const entry = {
+    id: 'M' + Date.now().toString(36) + Math.random().toString(36).slice(2,5),
+    name:    sanitize(name, 100),
+    email:   sanitize(email, 200),
+    budget:  sanitize(budget || '', 100),
+    message: sanitize(message, 3000),
+    source:  sanitize(source || 'contact', 50),
+    sentAt:  new Date().toISOString(),
+    read:    false,
+    replies: []
+  };
+  const list = readMessages(); list.unshift(entry); writeMessages(list);
+  console.log(`[message] ${entry.name} <${entry.email}>`);
+  res.json({ ok: true, id: entry.id });
+});
+
+app.post('/api/messages/:id/reply', requireAdmin, (req, res) => {
+  const { text } = req.body || {};
+  if (!text) return res.status(400).json({ error: 'text required' });
+  const list = readMessages();
+  const msg = list.find(m => m.id === req.params.id);
+  if (!msg) return res.status(404).json({ error: 'not found' });
+  if (!msg.replies) msg.replies = [];
+  msg.replies.push({ text: sanitize(text, 5000), sentAt: new Date().toISOString() });
+  writeMessages(list);
+  res.json({ ok: true });
+});
+
+app.patch('/api/messages/:id/read', requireAdmin, (req, res) => {
+  const list = readMessages().map(m => m.id === req.params.id ? { ...m, read: true } : m);
+  writeMessages(list);
+  res.json({ ok: true });
+});
+
+app.delete('/api/messages/:id', requireAdmin, (req, res) => {
+  const list = readMessages().filter(m => m.id !== req.params.id);
+  writeMessages(list);
+  res.json({ ok: true });
 });
 
 // ── Jobs & Applications ────────────────────────────────────────

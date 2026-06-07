@@ -127,20 +127,14 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
     if (submitBtn) submitBtn.disabled = true;
     if (msgEl) { msgEl.textContent = 'Sending…'; msgEl.style.color = ''; }
 
-    // Save to admin messages store
+    // Save to server messages store
     try {
-      const MSG_KEY = 'techno_messages';
-      const entry = {
-        id: 'M' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
-        ...data, sentAt: new Date().toISOString(), read: false,
-      };
-      const list = JSON.parse(localStorage.getItem(MSG_KEY) || '[]');
-      list.unshift(entry);
-      localStorage.setItem(MSG_KEY, JSON.stringify(list));
+      await fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: data.name, email: data.email, budget: data.budget, message: data.message, source: 'contact' })
+      });
     } catch (_) {}
-
-    // Save lead
-    if (window.TechnoStore) { try { await window.TechnoStore.saveLead('contact', data); } catch (_) {} }
 
     const cfg = getCfg();
     const hasEmailJS = cfg.ejsPubKey && cfg.ejsService && cfg.tplNotify && cfg.tplReply;

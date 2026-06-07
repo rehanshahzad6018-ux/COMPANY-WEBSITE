@@ -486,7 +486,13 @@
     msgEl.textContent = 'Sending…';
 
     try {
-      /* Save as lead */
+      /* Save to messages inbox */
+      await fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, budget: subject, message, source: 'chat' })
+      });
+      /* Also save as lead for backwards compat */
       await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
