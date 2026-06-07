@@ -96,7 +96,7 @@ function sanitize(str, maxLen = 2000) {
 }
 
 // ── Admin token auth (for destructive/write API routes) ────────
-const ADMIN_SECRET = process.env.ADMIN_SECRET || 'ddUg-93XtwRZ_IGjwVpOn4iO9QrP1DBg';
+const ADMIN_SECRET = process.env.ADMIN_SECRET || '6K68M4Jq6-8wa29QflP0cWpFAFoQuXwe';
 function requireAdmin(req, res, next) {
   const token = req.headers['x-admin-token'] || req.query._token;
   if (token !== ADMIN_SECRET) return res.status(401).json({ error: 'Unauthorised' });
