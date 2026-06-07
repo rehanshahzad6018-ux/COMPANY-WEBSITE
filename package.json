@@ -1,7 +1,7 @@
 {
-  "name": "techno-ai-platform",
+  "name": "cgw-website",
   "version": "3.0.0",
-  "description": "TECHNO Studio — AI Platform: WhatsApp Agent + Email Agent + Voice Agent",
+  "description": "CGW — Cognitive Guardian Work: company website with AI chat, WhatsApp, email and voice agents",
   "type": "commonjs",
   "scripts": {
     "start": "node server.js",

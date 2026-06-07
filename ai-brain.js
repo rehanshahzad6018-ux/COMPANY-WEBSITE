@@ -245,7 +245,7 @@ async function callOpenRouter(messages, maxTokens = 200) {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${key}`,
-      'HTTP-Referer': 'https://cgw.ai',
+      'HTTP-Referer': 'https://cgw-ai.com',
       'X-Title': 'CGW ARIA Chatbot',
     },
     body: JSON.stringify({
