@@ -36,8 +36,8 @@
   --neon-deep:   #7e22ce;
 
   /* Type */
-  --display: 'Anton', 'Arial Narrow', sans-serif;
-  --body:    'Plus Jakarta Sans', system-ui, sans-serif;
+  --display: Arial, 'Arial Narrow', sans-serif;
+  --body:    Arial, sans-serif;
 
   /* Motion */
   --ease-fluid: cubic-bezier(0.16, 1, 0.3, 1);
@@ -98,10 +98,14 @@ button { font-family: inherit; cursor: crosshair; background: none; border: none
   color: var(--white);
 }
 .nav__logo {
-  font-family: var(--display);
-  font-size: clamp(20px, 2vw, 28px);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+.nav__logo img {
+  height: 120px;
+  width: auto;
+  display: block;
 }
 .nav__links {
   display: flex;

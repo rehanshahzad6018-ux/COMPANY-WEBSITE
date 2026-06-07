@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TECHNO — Admin Panel</title>
+<title>CGW — Admin Panel</title>
 <link rel="stylesheet" href="style.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -1075,6 +1075,10 @@
 
   function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+  function adminHeaders(extra) {
+    return Object.assign({ 'Content-Type': 'application/json', 'X-Admin-Token': getAdminPassword() }, extra || {});
+  }
+
   function loadJobs() {
     fetch('/api/jobs')
       .then(r => r.ok ? r.json() : [])
@@ -1109,7 +1113,7 @@
     if (!title) { status.style.color = '#f87171'; status.textContent = 'Title is required.'; return; }
     status.style.color = 'var(--text3)'; status.textContent = 'Posting…';
     fetch('/api/jobs', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      method: 'POST', headers: adminHeaders(),
       body: JSON.stringify({
         title,
         department: document.getElementById('job-dept').value.trim() || 'General',
@@ -1132,11 +1136,11 @@
 
   window.deleteJob = function(id) {
     if (!confirm('Remove this position? It will no longer appear on the careers page.')) return;
-    fetch('/api/jobs/' + id, { method: 'DELETE' }).then(() => loadJobs()).catch(() => {});
+    fetch('/api/jobs/' + id, { method: 'DELETE', headers: adminHeaders() }).then(() => loadJobs()).catch(() => {});
   };
 
   function loadApplications() {
-    fetch('/api/applications')
+    fetch('/api/applications', { headers: adminHeaders() })
       .then(r => r.ok ? r.json() : [])
       .then(apps => {
         const el = document.getElementById('admin-apps-list');
@@ -1162,21 +1166,21 @@
           '</div>'
         ).join('');
         /* Mark all as read */
-        apps.filter(a => !a.read).forEach(a => fetch('/api/applications/' + a.id + '/read', { method: 'PATCH' }));
+        apps.filter(a => !a.read).forEach(a => fetch('/api/applications/' + a.id + '/read', { method: 'PATCH', headers: adminHeaders() }));
       })
       .catch(() => {});
   }
 
   window.deleteApplication = function(id) {
     if (!confirm('Delete this application?')) return;
-    fetch('/api/applications/' + id, { method: 'DELETE' }).then(() => loadApplications()).catch(() => {});
+    fetch('/api/applications/' + id, { method: 'DELETE', headers: adminHeaders() }).then(() => loadApplications()).catch(() => {});
   };
 
   window.clearAllApplications = function() {
     if (!confirm('Delete ALL applications? This cannot be undone.')) return;
-    fetch('/api/applications')
+    fetch('/api/applications', { headers: adminHeaders() })
       .then(r => r.json())
-      .then(apps => Promise.all(apps.map(a => fetch('/api/applications/' + a.id, { method: 'DELETE' }))))
+      .then(apps => Promise.all(apps.map(a => fetch('/api/applications/' + a.id, { method: 'DELETE', headers: adminHeaders() }))))
       .then(() => loadApplications())
       .catch(() => {});
   };
