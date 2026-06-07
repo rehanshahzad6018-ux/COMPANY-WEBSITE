@@ -12,7 +12,7 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
 #login-screen{position:fixed;inset:0;z-index:9999;background:#0d1117;display:flex;align-items:center;justify-content:center;}
 .login-card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:48px 40px;width:100%;max-width:400px;}
 .login-logo{text-align:center;margin-bottom:28px;}
-.login-logo img{height:56px;filter:brightness(0) invert(1);}
+.login-logo img{height:64px;border-radius:10px;}
 .login-title{font-size:22px;font-weight:700;text-align:center;margin-bottom:6px;letter-spacing:-0.02em;}
 .login-sub{font-size:13px;color:#8b949e;text-align:center;margin-bottom:28px;}
 .lf{margin-bottom:14px;}
@@ -26,7 +26,7 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
 /* ── Sidebar ── */
 .sidebar{width:230px;background:#161b22;border-right:1px solid #21262d;display:flex;flex-direction:column;height:100vh;position:fixed;left:0;top:0;}
 .sb-logo{padding:20px 16px 18px;border-bottom:1px solid #21262d;display:flex;align-items:center;gap:10px;}
-.sb-logo img{height:32px;filter:brightness(0) invert(1);}
+.sb-logo img{height:38px;border-radius:8px;}
 .sb-logo span{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8b949e;}
 .sb-nav{flex:1;padding:14px 8px;overflow-y:auto;}
 .sb-section{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8b949e;padding:8px 12px 5px;}
@@ -95,6 +95,15 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
 .app-card{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:18px 20px;margin-bottom:14px;}
 .app-card.unread{border-left:3px solid #1f6feb;}
 
+/* ── Jobs ── */
+.job-form{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:20px;margin-bottom:20px;}
+.jf-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.lf select,.lf textarea{width:100%;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#e6edf3;font-size:14px;padding:10px 14px;outline:none;transition:border-color .2s;font-family:Arial,sans-serif;resize:vertical;min-height:84px;}
+.lf select{min-height:auto;cursor:pointer;}
+.lf select:focus,.lf textarea:focus{border-color:#58a6ff;}
+.job-card{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:18px 20px;margin-bottom:14px;}
+@media (max-width:640px){.jf-grid{grid-template-columns:1fr;}}
+
 /* ── Empty ── */
 .empty-state{text-align:center;padding:50px 20px;color:#8b949e;}
 .empty-state p{font-size:13px;margin-top:8px;}
@@ -118,7 +127,7 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-card">
-    <div class="login-logo"><img src="images/cgw-logo.svg" alt="CGW"/></div>
+    <div class="login-logo"><img src="images/cgw-logo.png" alt="CGW"/></div>
     <div class="login-title">Admin Panel</div>
     <div class="login-sub">Sign in to manage messages &amp; enquiries</div>
     <div class="lf">
@@ -137,7 +146,7 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sb-logo">
-    <img src="images/cgw-logo.svg" alt="CGW"/>
+    <img src="images/cgw-logo.png" alt="CGW"/>
     <span>Admin</span>
   </div>
   <nav class="sb-nav">
@@ -152,6 +161,10 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       Applications
       <span class="nb orange" id="apps-nb" style="display:none"></span>
+    </button>
+    <button class="ni" data-sec="jobs">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      Job Listings
     </button>
   </nav>
   <div class="sb-bottom">
@@ -203,6 +216,44 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
     </div>
     <div style="flex:1;overflow-y:auto;padding:24px;">
       <div id="apps-list"></div>
+    </div>
+  </div>
+
+  <!-- JOBS -->
+  <div id="sec-jobs" class="section">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title">Job Listings</div>
+        <div class="topbar-sub" id="jobs-sub">Loading…</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn" id="jobs-refresh">↻ Refresh</button>
+        <button class="btn btn-primary" id="jobs-new-btn">+ Post Job</button>
+      </div>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:24px;">
+      <div class="job-form" id="job-form" style="display:none;">
+        <div class="jf-grid">
+          <div class="lf"><label>Job Title</label><input type="text" id="jf-title" placeholder="e.g. Frontend Engineer"/></div>
+          <div class="lf"><label>Department</label><input type="text" id="jf-dept" placeholder="e.g. Engineering"/></div>
+          <div class="lf">
+            <label>Type</label>
+            <select id="jf-type">
+              <option value="full-time">Full-time</option>
+              <option value="part-time">Part-time</option>
+              <option value="internship">Internship</option>
+            </select>
+          </div>
+          <div class="lf"><label>Location</label><input type="text" id="jf-location" placeholder="e.g. Remote"/></div>
+        </div>
+        <div class="lf"><label>Description</label><textarea id="jf-desc" placeholder="What this role is about…"></textarea></div>
+        <div class="lf"><label>Requirements</label><textarea id="jf-reqs" placeholder="What we're looking for…"></textarea></div>
+        <div class="rc-actions">
+          <button class="btn btn-primary" id="jf-submit">Post Job</button>
+          <button class="btn" id="jf-cancel">Cancel</button>
+        </div>
+      </div>
+      <div id="jobs-list"></div>
     </div>
   </div>
 
@@ -274,6 +325,7 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
       if(el){ el.style.display='flex'; el.classList.add('active'); }
       if(sec==='inbox') loadMessages();
       if(sec==='applications') loadApps();
+      if(sec==='jobs') loadJobs();
     });
   });
 
@@ -438,6 +490,7 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
             ${a.phone?`<div style="font-size:12px;color:#8b949e;margin-top:2px;">${esc(a.phone)}</div>`:''}
           </div>
           <div style="display:flex;gap:6px;flex-shrink:0;">
+            ${a.resume?`<a href="/api/applications/${esc(a.id)}/resume?_token=${PASS}" class="btn" target="_blank" style="font-size:12px;padding:5px 10px;">📄 Resume</a>`:''}
             <a href="mailto:${esc(a.email)}?subject=Re:%20Your%20application%20to%20CGW" class="btn btn-primary" target="_blank" style="font-size:12px;padding:5px 10px;">Reply</a>
             <button class="btn btn-danger" style="font-size:12px;padding:5px 10px;" onclick="delApp('${esc(a.id)}',this)">Delete</button>
           </div>
@@ -461,11 +514,102 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
 
   document.getElementById('apps-refresh').addEventListener('click', loadApps);
 
+  /* ── Jobs ── */
+  let jobsCache = [];
+
+  function jobsSubText(){
+    document.getElementById('jobs-sub').textContent = jobsCache.length + ' listing' + (jobsCache.length!==1?'s':'');
+  }
+
+  async function loadJobs(){
+    let jobs = [];
+    try{
+      const r = await fetch('/api/jobs',{headers:ah()});
+      if(r.ok) jobs = await r.json();
+    }catch(_){}
+    jobsCache = jobs;
+    jobsSubText();
+    renderJobsList();
+  }
+
+  function renderJobsList(){
+    const c = document.getElementById('jobs-list');
+    if(!jobsCache.length){
+      c.innerHTML = '<div class="empty-state"><p>No job listings yet — post your first opening above</p></div>';
+      return;
+    }
+    c.innerHTML = jobsCache.map(j=>`
+      <div class="job-card">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;">
+          <div>
+            <div style="font-size:15px;font-weight:700;">${esc(j.title)}</div>
+            <div style="font-size:12px;color:#8b949e;margin-top:3px;">${esc(j.department)} · ${esc(j.location)}</div>
+          </div>
+          <button class="btn btn-danger" style="font-size:12px;padding:5px 10px;flex-shrink:0;" onclick="delJob('${esc(j.id)}',this)">Delete</button>
+        </div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;">
+          <span style="background:rgba(88,166,255,.15);color:#58a6ff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;text-transform:capitalize;">${esc(j.type)}</span>
+          <span style="background:rgba(255,255,255,.06);color:#8b949e;font-size:11px;padding:2px 8px;border-radius:4px;">Posted ${new Date(j.createdAt).toLocaleDateString()}</span>
+        </div>
+        ${j.description?`<div style="font-size:13px;line-height:1.65;color:#8b949e;white-space:pre-wrap;">${esc(j.description)}</div>`:''}
+        ${j.requirements?`<div style="font-size:12px;line-height:1.6;color:#8b949e;white-space:pre-wrap;margin-top:8px;border-top:1px solid #21262d;padding-top:8px;"><strong style="color:#e6edf3;">Requirements:</strong><br/>${esc(j.requirements)}</div>`:''}
+      </div>
+    `).join('');
+  }
+
+  window.delJob = async function(id, btn){
+    if(!confirm('Delete this job listing?')) return;
+    try{ await fetch('/api/jobs/'+id,{method:'DELETE',headers:ah()}); }catch(_){}
+    jobsCache = jobsCache.filter(j=>j.id!==id);
+    btn.closest('.job-card').remove();
+    jobsSubText();
+    if(!jobsCache.length) renderJobsList();
+    toast('Job listing deleted');
+  };
+
+  document.getElementById('jobs-refresh').addEventListener('click', loadJobs);
+
+  document.getElementById('jobs-new-btn').addEventListener('click', ()=>{
+    const f = document.getElementById('job-form');
+    f.style.display = (f.style.display === 'none') ? 'block' : 'none';
+  });
+  document.getElementById('jf-cancel').addEventListener('click', ()=>{
+    document.getElementById('job-form').style.display = 'none';
+  });
+
+  document.getElementById('jf-submit').addEventListener('click', async ()=>{
+    const title = document.getElementById('jf-title').value.trim();
+    if(!title){ toast('Job title is required', true); return; }
+    const body = {
+      title,
+      department:   document.getElementById('jf-dept').value.trim(),
+      type:         document.getElementById('jf-type').value,
+      location:     document.getElementById('jf-location').value.trim(),
+      description:  document.getElementById('jf-desc').value.trim(),
+      requirements: document.getElementById('jf-reqs').value.trim()
+    };
+    try{
+      const r = await fetch('/api/jobs',{method:'POST',headers:ah(),body:JSON.stringify(body)});
+      if(!r.ok) throw new Error();
+      const job = await r.json();
+      jobsCache.unshift(job);
+      jobsSubText();
+      renderJobsList();
+      ['jf-title','jf-dept','jf-location','jf-desc','jf-reqs'].forEach(id=>document.getElementById(id).value='');
+      document.getElementById('jf-type').value = 'full-time';
+      document.getElementById('job-form').style.display = 'none';
+      toast('Job posted');
+    }catch(_){
+      toast('Could not post job', true);
+    }
+  });
+
   /* ── Boot ── */
   function boot(){
     document.getElementById('login-screen').style.display='none';
     loadMessages();
     loadApps();
+    loadJobs();
   }
 })();
 </script>

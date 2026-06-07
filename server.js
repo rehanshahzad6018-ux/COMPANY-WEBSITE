@@ -12,10 +12,28 @@
 const express = require('express');
 const fs      = require('fs');
 const path    = require('path');
+const multer  = require('multer');
 require('dotenv').config();
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
+
+// ── Resume uploads (job applications) ──────────────────────────
+const RESUME_DIR = path.join(__dirname, 'uploads', 'resumes');
+fs.mkdirSync(RESUME_DIR, { recursive: true });
+const resumeUpload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => cb(null, RESUME_DIR),
+    filename: (req, file, cb) => {
+      const ext = path.extname(file.originalname).toLowerCase();
+      cb(null, 'R' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + ext);
+    }
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    cb(null, /\.(pdf|docx?|rtf)$/i.test(file.originalname));
+  }
+});
 
 const LEADS_FILE   = path.join(__dirname, 'leads.json');
 const PRICING_FILE = path.join(__dirname, 'pricing.json');
@@ -285,28 +303,46 @@ app.delete('/api/jobs/:id', requireAdmin, (req, res) => {
 app.get('/api/applications', requireAdmin, (req, res) => res.json(readApps()));
 
 app.post('/api/applications', rateLimit(60000, 5), (req, res) => {
-  const { name, email, phone, position, message, portfolio } = req.body || {};
-  if (!name || !email) return res.status(400).json({ error: 'name and email required' });
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'invalid email' });
-  const entry = {
-    id: 'A' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
-    name:      sanitize(name, 100),
-    email:     sanitize(email, 200),
-    phone:     sanitize(phone || '', 30),
-    position:  sanitize(position || 'General Application', 200),
-    message:   sanitize(message || '', 3000),
-    portfolio: sanitize(portfolio || '', 300),
-    appliedAt: new Date().toISOString(),
-    read: false
-  };
-  const list = readApps(); list.unshift(entry); writeApps(list);
-  console.log(`[application] ${entry.name} <${entry.email}> applied for: ${entry.position}`);
-  res.json({ ok: true, id: entry.id });
+  resumeUpload.single('resume')(req, res, (err) => {
+    if (err) return res.status(400).json({ error: 'Resume must be a PDF or Word document under 5MB' });
+
+    const { name, email, phone, position, message, portfolio } = req.body || {};
+    if (!name || !email) return res.status(400).json({ error: 'name and email required' });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'invalid email' });
+
+    const entry = {
+      id: 'A' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+      name:      sanitize(name, 100),
+      email:     sanitize(email, 200),
+      phone:     sanitize(phone || '', 30),
+      position:  sanitize(position || 'General Application', 200),
+      message:   sanitize(message || '', 3000),
+      portfolio: sanitize(portfolio || '', 300),
+      resume:    req.file ? { filename: req.file.filename, originalName: sanitize(req.file.originalname, 200) } : null,
+      appliedAt: new Date().toISOString(),
+      read: false
+    };
+    const list = readApps(); list.unshift(entry); writeApps(list);
+    console.log(`[application] ${entry.name} <${entry.email}> applied for: ${entry.position}${entry.resume ? ' (resume attached)' : ''}`);
+    res.json({ ok: true, id: entry.id });
+  });
+});
+
+app.get('/api/applications/:id/resume', requireAdmin, (req, res) => {
+  const entry = readApps().find(a => a.id === req.params.id);
+  if (!entry || !entry.resume) return res.status(404).json({ error: 'No resume on file' });
+  const filePath = path.join(RESUME_DIR, entry.resume.filename);
+  if (!fs.existsSync(filePath)) return res.status(404).json({ error: 'File missing' });
+  res.download(filePath, entry.resume.originalName || entry.resume.filename);
 });
 
 app.delete('/api/applications/:id', requireAdmin, (req, res) => {
-  const list = readApps().filter(a => a.id !== req.params.id);
-  writeApps(list);
+  const list = readApps();
+  const entry = list.find(a => a.id === req.params.id);
+  if (entry?.resume?.filename) {
+    try { fs.unlinkSync(path.join(RESUME_DIR, entry.resume.filename)); } catch (_) {}
+  }
+  writeApps(list.filter(a => a.id !== req.params.id));
   res.json({ ok: true });
 });
 

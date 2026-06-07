@@ -251,6 +251,10 @@
         <input id="ap-portfolio" type="url" placeholder="https://github.com/yourhandle" />
       </div>
       <div class="field">
+        <label for="ap-resume">Resume / CV <span style="color:var(--taupe); font-size:11px;">(PDF or Word, optional, max 5MB)</span></label>
+        <input id="ap-resume" type="file" accept=".pdf,.doc,.docx,.rtf" style="background:transparent; border:none; border-bottom:1px solid rgba(183,198,194,0.3); color:var(--sage); font-family:var(--body); font-size:14px; padding:12px 0; width:100%; cursor:pointer;" />
+      </div>
+      <div class="field">
         <label for="ap-message">Why do you want to join TECHNO?</label>
         <textarea id="ap-message" placeholder="Tell us about yourself, your skills, and what excites you about this role." required style="min-height:130px;"></textarea>
       </div>
@@ -406,10 +410,17 @@
       portfolio: document.getElementById('ap-portfolio').value.trim(),
       message:   document.getElementById('ap-message').value.trim(),
     };
+    const resumeInput = document.getElementById('ap-resume');
+    const resumeFile  = resumeInput.files[0] || null;
 
     if (!data.name || !data.email || !data.message) {
       applyMsg.style.color = '#f87171';
       applyMsg.textContent = 'Please fill in your name, email, and message.';
+      return;
+    }
+    if (resumeFile && resumeFile.size > 5 * 1024 * 1024) {
+      applyMsg.style.color = '#f87171';
+      applyMsg.textContent = 'Resume file is too large — please keep it under 5MB.';
       return;
     }
 
@@ -418,10 +429,13 @@
     applyMsg.textContent = 'Sending…';
 
     try {
+      const fd = new FormData();
+      Object.keys(data).forEach(k => fd.append(k, data[k]));
+      if (resumeFile) fd.append('resume', resumeFile);
+
       const res = await fetch('/api/applications', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: fd
       });
 
       if (!res.ok) throw new Error('server error');
