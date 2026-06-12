@@ -101,7 +101,7 @@ app.use(express.urlencoded({ extended: true, limit: '50kb' }));
 
 // ── Static site ────────────────────────────────────────────────
 app.use(express.static(__dirname, { extensions: ['html'] }));
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'Techno.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 // ── Leads DB ───────────────────────────────────────────────────
 function readLeads()      { try { return JSON.parse(fs.readFileSync(LEADS_FILE,'utf8')); } catch(e) { return []; } }

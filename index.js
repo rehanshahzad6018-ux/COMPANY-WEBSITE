@@ -1,0 +1,426 @@
+/* ============================================================
+   TECHNO — data layer
+   ------------------------------------------------------------
+   Talks to the backend API (/api/leads) when a server is
+   running, and transparently falls back to localStorage when
+   it isn't (e.g. opened as a plain file, or the design preview).
+   All methods are async.
+   ============================================================ */
+window.TechnoStore = (function () {
+  const KEY = 'techno_leads';
+  const API = '/api/leads';
+  // In the design preview the built-in assistant exists — stay on
+  // localStorage there so we don't fire requests at a non-existent API.
+  const PREVIEW = !!(window.claude && window.claude.complete);
+
+  function lread() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; }
+  }
+  function lwrite(list) { localStorage.setItem(KEY, JSON.stringify(list)); }
+  function mkLead(type, data) {
+    return {
+      id: 'L' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      type, data: data || {}, createdAt: new Date().toISOString()
+    };
+  }
+  function isJson(res) {
+    return res && res.ok && (res.headers.get('content-type') || '').includes('application/json');
+  }
+
+  return {
+    async saveLead(type, data) {
+      if (!PREVIEW) {
+        try {
+          const res = await fetch(API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type, data })
+          });
+          if (isJson(res)) return await res.json();
+        } catch (e) { /* fall through to localStorage */ }
+      }
+      const lead = mkLead(type, data);
+      const list = lread(); list.unshift(lead); lwrite(list);
+      return lead;
+    },
+
+    async getLeads() {
+      if (!PREVIEW) {
+        try {
+          const res = await fetch(API);
+          if (isJson(res)) return await res.json();
+        } catch (e) { /* fall through */ }
+      }
+      return lread();
+    },
+
+    async clearLeads() {
+      if (!PREVIEW) {
+        try {
+          const res = await fetch(API, { method: 'DELETE' });
+          if (res && res.ok) return true;
+        } catch (e) { /* fall through */ }
+      }
+      lwrite([]);
+      return true;
+    },
+
+    async countLeads() { return (await this.getLeads()).length; }
+  };
+})();
+/* ============================================================
+   TECHNO — shared site interactions (all pages)
+   ============================================================ */
+
+/* ---------- Scroll reveal ---------- */
+// Signal JS is available — reveal CSS only hides elements when this class is present
+document.documentElement.classList.add('js');
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+/* ---------- Neon typing button ---------- */
+function wireTypingButton(btn) {
+  const label = btn.querySelector('.neon-btn__label');
+  const full = (btn.dataset.text || label.textContent).trim();
+  let timer = null;
+
+  const textNode = document.createElement('span');
+  textNode.textContent = full;
+  const caret = document.createElement('span');
+  caret.className = 'neon-btn__caret';
+  label.textContent = '';
+  label.append(textNode, caret);
+
+  btn.addEventListener('mouseenter', () => {
+    btn.classList.add('is-typing');
+    let i = 0;
+    textNode.textContent = '';
+    clearInterval(timer);
+    timer = setInterval(() => {
+      i++;
+      textNode.textContent = full.slice(0, i);
+      if (i >= full.length) clearInterval(timer);
+    }, 55);
+  });
+  btn.addEventListener('mouseleave', () => {
+    clearInterval(timer);
+    btn.classList.remove('is-typing');
+    textNode.textContent = full;
+  });
+}
+document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
+
+/* ---------- Mobile nav drawer ---------- */
+(function () {
+  const burger = document.querySelector('.nav__burger');
+  const drawer = document.querySelector('.mnav');
+  if (!burger || !drawer) return;
+  function toggle(open) {
+    drawer.classList.toggle('open', open);
+    burger.classList.toggle('is-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', () => toggle(!drawer.classList.contains('open')));
+  drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => toggle(false)));
+})();
+
+/* ---------- Contact form — AI auto-reply + real email ---------- */
+(function () {
+  const form = document.querySelector('.form');
+  if (!form) return;
+  const msgEl = form.querySelector('.form-msg');
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  // ── Read credentials saved from admin Settings panel ──────────
+  function getCfg() {
+    return {
+      geminiKey:  localStorage.getItem('autoreply_gemini_key')  || '',
+      ejsPubKey:  localStorage.getItem('autoreply_ejs_pub')     || '',
+      ejsService: localStorage.getItem('autoreply_ejs_service') || '',
+      tplNotify:  localStorage.getItem('autoreply_tpl_notify')  || '',
+      tplReply:   localStorage.getItem('autoreply_tpl_reply')   || '',
+    };
+  }
+
+  // ── Gemini: generate AI reply text ────────────────────────────
+  async function geminiReply(name, message, budget, geminiKey) {
+    const prompt =
+      `You are the professional assistant at CGW — Cognitive Guardian Work, a senior AI technology & security studio working fully remote with clients worldwide.\n` +
+      `Write a warm, professional email reply to this website enquiry.\n\n` +
+      `Sender: ${name}\nBudget: ${budget || 'not specified'}\nMessage: ${message}\n\n` +
+      `Instructions:\n` +
+      `- Thank them by first name\n` +
+      `- Show genuine interest in their project\n` +
+      `- Say the team will follow up within 48 hours with next steps\n` +
+      `- Keep it concise (3 short paragraphs)\n` +
+      `- Sign off as "The CGW Team"\n\n` +
+      `Write only the email body — no subject line, no extra commentary.`;
+
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ role: 'user', parts: [{ text: prompt }] }],
+          generationConfig: { maxOutputTokens: 400, temperature: 0.7 }
+        })
+      }
+    );
+    if (!res.ok) throw new Error('gemini-' + res.status);
+    const d = await res.json();
+    return d.candidates?.[0]?.content?.parts?.map(p => p.text).join('') || '';
+  }
+
+  // ── Fallback reply if Gemini/EmailJS not configured ───────────
+  function fallbackReply(name) {
+    return `Hi ${name},\n\nThank you for reaching out to CGW! We have received your message and really appreciate your interest in working with us.\n\nOur team will review your enquiry and get back to you within 48 hours with more details on how we can bring your project to life.\n\nWarm regards,\nThe CGW Team\ncgwofficialai@gmail.com`;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = {
+      name:    form.querySelector('#name')?.value.trim()    || '',
+      email:   form.querySelector('#email')?.value.trim()   || '',
+      budget:  form.querySelector('#budget')?.value.trim()  || '',
+      message: form.querySelector('#message')?.value.trim() || '',
+    };
+    if (!data.name || !data.email || !data.message) return;
+
+    // UI: loading state
+    if (submitBtn) submitBtn.disabled = true;
+    if (msgEl) { msgEl.textContent = 'Sending…'; msgEl.style.color = ''; }
+
+    // Save to server messages store
+    try {
+      await fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: data.name, email: data.email, budget: data.budget, message: data.message, source: 'contact' })
+      });
+    } catch (_) {}
+
+    const cfg = getCfg();
+    const hasEmailJS = cfg.ejsPubKey && cfg.ejsService && cfg.tplNotify && cfg.tplReply;
+    const hasGemini  = !!cfg.geminiKey;
+
+    let replyText = fallbackReply(data.name);
+    let aiUsed = false;
+
+    // Step 1: generate AI reply
+    if (hasGemini) {
+      try {
+        const generated = await geminiReply(data.name, data.message, data.budget, cfg.geminiKey);
+        if (generated) { replyText = generated; aiUsed = true; }
+      } catch (_) {}
+    }
+
+    // Step 2: send emails via EmailJS
+    if (hasEmailJS && window.emailjs) {
+      try {
+        emailjs.init({ publicKey: cfg.ejsPubKey });
+
+        // a) Notify rehan
+        await emailjs.send(cfg.ejsService, cfg.tplNotify, {
+          from_name:  data.name,
+          from_email: data.email,
+          budget:     data.budget || 'Not specified',
+          message:    data.message,
+          to_email:   'rehanshahzad6018@gmail.com',
+        });
+
+        // b) AI reply to visitor
+        await emailjs.send(cfg.ejsService, cfg.tplReply, {
+          to_name:    data.name,
+          to_email:   data.email,
+          reply_body: replyText,
+        });
+
+        if (msgEl) {
+          msgEl.style.color = '#4ade80';
+          msgEl.textContent = aiUsed
+            ? '✓ Message sent! We just emailed you an AI-generated reply — check your inbox.'
+            : '✓ Message sent! We\'ll be in touch within 48 hours.';
+        }
+      } catch (err) {
+        if (msgEl) { msgEl.style.color = ''; msgEl.textContent = '✓ Message received — we\'ll be in touch within 48 hours.'; }
+      }
+    } else {
+      // EmailJS not set up yet — just confirm
+      if (msgEl) { msgEl.style.color = ''; msgEl.textContent = '✓ Message received — we\'ll be in touch within 48 hours.'; }
+    }
+
+    form.reset();
+    if (submitBtn) submitBtn.disabled = false;
+  });
+})();
+/* ============================================================
+   TECHNO — home page: 3D CardSwap (requires GSAP + site.js)
+   ============================================================ */
+
+/* ============================================================
+   CARDSWAP — vanilla GSAP port
+   ============================================================ */
+function initCardSwap(stage, opts) {
+  const cards = Array.from(stage.querySelectorAll('.swap-card'));
+  if (!cards.length || typeof gsap === 'undefined') return;
+
+  const {
+    cardDistance = 50,
+    verticalDistance = 50,
+    delay = 4000,
+    skewAmount = 4,
+    pauseOnHover = true
+  } = opts || {};
+
+  const cfg = {
+    ease: 'elastic.out(0.6,0.9)',
+    durDrop: 2, durMove: 2, durReturn: 2,
+    promoteOverlap: 0.9, returnDelay: 0.05
+  };
+
+  const total = cards.length;
+  const makeSlot = (i) => ({
+    x: i * cardDistance,
+    y: -i * verticalDistance,
+    z: -i * cardDistance * 1.5,
+    zIndex: total - i
+  });
+  const placeNow = (el, slot) => gsap.set(el, {
+    x: slot.x, y: slot.y, z: slot.z,
+    xPercent: -50, yPercent: -50,
+    skewY: skewAmount, transformOrigin: 'center center',
+    zIndex: slot.zIndex, force3D: true
+  });
+
+  let order = cards.map((_, i) => i);
+  cards.forEach((el, i) => placeNow(el, makeSlot(i)));
+
+  let tl = null;
+  let interval = null;
+  let busy = false;
+
+  function swap() {
+    if (order.length < 2 || busy) return;
+    busy = true;
+    const [front, ...rest] = order;
+    const elFront = cards[front];
+    tl = gsap.timeline();
+
+    tl.to(elFront, { y: '+=500', duration: cfg.durDrop, ease: cfg.ease });
+    tl.addLabel('promote', `-=${cfg.durDrop * cfg.promoteOverlap}`);
+
+    rest.forEach((idx, i) => {
+      const el = cards[idx];
+      const slot = makeSlot(i);
+      tl.set(el, { zIndex: slot.zIndex }, 'promote');
+      tl.to(el, { x: slot.x, y: slot.y, z: slot.z, duration: cfg.durMove, ease: cfg.ease },
+        `promote+=${i * 0.15}`);
+    });
+
+    const backSlot = makeSlot(total - 1);
+    tl.addLabel('return', `promote+=${cfg.durMove * cfg.returnDelay}`);
+    tl.call(() => gsap.set(elFront, { zIndex: backSlot.zIndex }), undefined, 'return');
+    tl.to(elFront, { x: backSlot.x, y: backSlot.y, z: backSlot.z, duration: cfg.durReturn, ease: cfg.ease }, 'return');
+    tl.call(() => { order = [...rest, front]; busy = false; });
+  }
+
+  function start() { stop(); interval = window.setInterval(swap, delay); }
+  function stop() { clearInterval(interval); }
+  start();
+
+  // Click any card to advance now, then restart the auto-timer
+  cards.forEach((el) => {
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', () => { swap(); start(); });
+  });
+
+  if (pauseOnHover) {
+    stage.addEventListener('mouseenter', () => { stop(); });
+    stage.addEventListener('mouseleave', () => { start(); });
+  }
+}
+
+window.addEventListener('load', () => {
+  const stage = document.querySelector('.swap-stage__inner');
+  if (stage) initCardSwap(stage, { cardDistance: 44, verticalDistance: 44, delay: 3000, skewAmount: 4 });
+});
+
+/* ============================================================
+   CEO PAGE — Animation 3 scroll sequence
+   ============================================================ */
+(function ceoScrollAnimation() {
+  const TOTAL = 120;
+  const PATH  = '/images/ceo-sequence/';
+
+  const canvas = document.getElementById('ceo-canvas');
+  const loader = document.getElementById('ceo-loader');
+  const fill   = document.getElementById('ceo-loader__fill');
+  const pct    = document.getElementById('ceo-loader__pct');
+  const wrap   = document.getElementById('ceo-scroll-wrap');
+
+  if (!canvas || !wrap) return;
+
+  const ctx    = canvas.getContext('2d');
+  const images = new Array(TOTAL);
+  let loaded   = 0;
+  let current  = -1;
+
+  function drawFrame(idx) {
+    const img = images[idx];
+    if (!img || !img.complete || !img.naturalWidth) return;
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    const cw = rect.width, ch = rect.height;
+    const pw = Math.round(cw * dpr), ph = Math.round(ch * dpr);
+    if (canvas.width !== pw || canvas.height !== ph) { canvas.width = pw; canvas.height = ph; }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    /* object-fit: cover — fill entire viewport, crop to center */
+    const ir = img.naturalWidth / img.naturalHeight, cr = cw / ch;
+    let sx, sy, sw, sh;
+    if (ir > cr) {
+      sh = img.naturalHeight; sw = sh * cr;
+      sx = (img.naturalWidth - sw) / 2; sy = 0;
+    } else {
+      sw = img.naturalWidth; sh = sw / cr;
+      sx = 0; sy = (img.naturalHeight - sh) / 2;
+    }
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch);
+  }
+
+  function onScroll() {
+    if (loaded < TOTAL) return;
+    const scrolled  = -wrap.getBoundingClientRect().top;
+    const maxScroll = wrap.offsetHeight - window.innerHeight;
+    const progress  = Math.max(0, Math.min(1, scrolled / maxScroll));
+    const idx       = Math.round(progress * (TOTAL - 1));
+    if (idx !== current) { current = idx; drawFrame(idx); }
+  }
+
+  for (let i = 0; i < TOTAL; i++) {
+    const img = new Image();
+    img.src   = PATH + (i + 1) + '.jpg';
+    const cap = i;
+    img.onload = img.onerror = function () {
+      loaded++;
+      const p = Math.round((loaded / TOTAL) * 100);
+      if (fill) fill.style.width = p + '%';
+      if (pct)  pct.textContent  = p + '%';
+      if (loaded === TOTAL) {
+        if (loader) loader.style.display = 'none';
+        drawFrame(0); current = 0;
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', () => drawFrame(current < 0 ? 0 : current));
+        onScroll();
+      }
+    };
+    images[cap] = img;
+  }
+})();

@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    TECHNO — Central AI Brain
    ============================================================
    Single module shared by all three agents:
@@ -138,8 +138,8 @@ Project intake: 3–4 new projects per year
 To start a project: email with project description, budget range, and preferred timing.
 
 == WEBSITE NAVIGATION ==
-Home (Techno.html) — main landing page, hero "Build The Future", services overview, stats
-Our CEO (our-ceo.html) — full bio, career timeline, philosophy pillars, KPI stats
+Home (index.html) — main landing page, hero "Build The Future", services overview, stats
+Our CEO (Leadership.html) — full bio, career timeline, philosophy pillars, KPI stats
 Team (team.html) — all 4 team members, culture & values section
 Service (service.html) — all 5 services with descriptions, process, pricing/engagement models
 Our Work (our-work.html) — all 10 portfolio projects with modal detail views, featured case study (AI POS App)
@@ -410,7 +410,7 @@ const SMART_RULES = [
     reply: "CGW engagement models:\n\n💰 Sprint — from $15,000 (2–4 weeks) · focused single-problem engagement\n💰 Project — from $45,000 (6–16 weeks) · full product from discovery to delivery ⭐ Most Popular\n💰 Retainer — from $8,000/month · ongoing senior design partner on-call\n\nEmail cgwofficialai@gmail.com for a tailored quote — we respond within 48 hours." },
 
   { keys: ['ceo','founder','shahzad','sarwar','lt col','who started','who founded','who runs','who is the boss','leadership','muhammad shahzad'],
-    reply: "CGW was founded by Lt Col (R) Muhammad Shahzad Sarwar — a Military Intelligence Veteran and Corporate Leader with 25+ years of experience. Former Pakistan Army officer and United Nations peacekeeper (MONUC, DRC). Holds MS in Business Administration and MA in Criminology.\n\nKey stats: PKR 56M+ recovered through investigations · PKR 300M+ annual budgets managed · 4,300+ sites & personnel governed · UN Medal recipient.\n\nPhilosophy: \"Securing the Future Through Intelligence, Innovation and AI.\"\n\nFull bio: our-ceo.html" },
+    reply: "CGW was founded by Lt Col (R) Muhammad Shahzad Sarwar — a Military Intelligence Veteran and Corporate Leader with 25+ years of experience. Former Pakistan Army officer and United Nations peacekeeper (MONUC, DRC). Holds MS in Business Administration and MA in Criminology.\n\nKey stats: PKR 56M+ recovered through investigations · PKR 300M+ annual budgets managed · 4,300+ sites & personnel governed · UN Medal recipient.\n\nPhilosophy: \"Securing the Future Through Intelligence, Innovation and AI.\"\n\nFull bio: Leadership.html" },
 
   { keys: ['team','staff','people','members','who work','employees','engineers','rehan','usman','moiz','faisal','cto'],
     reply: "The CGW team — small, senior, fully hands-on:\n\n🧠 Rehan Shahzad — CTO: Python, Flask, JavaScript, RAG systems, AI-powered apps\n💻 Muhammad Usman — Full Stack Developer: HTML, CSS, Tailwind, JavaScript, SQL\n🔐 Abdul Moiz — Cybersecurity Engineer: pentesting, bug bounty, network security, Google Cybersecurity certified\n🎮 Rana Faisal Mustafa — Game & App Developer: Python, Java, C#, C++\n\nNo juniors, no account managers — just makers. See team.html for full profiles." },
@@ -482,7 +482,7 @@ const SMART_RULES = [
     reply: "CGW is a fully remote studio — no physical office. The team works from anywhere and partners with clients worldwide, async by default, sync when it matters." },
 
   { keys: ['page','website','navigate','where can i find','which page'],
-    reply: "CGW website pages:\n🏠 Home — Techno.html\n👤 Our CEO — our-ceo.html\n👥 Team — team.html\n🛠️ Services — service.html\n💼 Portfolio — our-work.html\n📋 Careers — careers.html\n📬 Contact — contact.html\n\nWhich page can I help you with?" },
+    reply: "CGW website pages:\n🏠 Home — index.html\n👤 Our CEO — Leadership.html\n👥 Team — team.html\n🛠️ Services — service.html\n💼 Portfolio — our-work.html\n📋 Careers — careers.html\n📬 Contact — contact.html\n\nWhich page can I help you with?" },
 
   { keys: ['thanks','thank you','cheers','great','awesome','perfect','helpful','appreciate','shukria','shukriya'],
     reply: "Happy to help! Is there anything else you'd like to know about CGW, our services, team, or how to get started?" },

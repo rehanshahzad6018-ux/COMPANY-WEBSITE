@@ -1,0 +1,376 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CGW — Our CEO · Lt Col (R) Muhammad Shahzad Sarwar</title>
+<meta name="description" content="Meet Lt Col (R) Muhammad Shahzad Sarwar — Founder & CEO of CGW — Cognitive Guardian Work, Military Intelligence Veteran with 25+ years of leadership across the United Nations, Pakistan Army, and Corporate Sector." />
+<link rel="icon" type="image/png" href="images/cgw-logo.png" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="images/cgw-logo.png" />
+<meta property="og:title" content="CGW — Our CEO · Lt Col (R) Muhammad Shahzad Sarwar" />
+<meta property="og:description" content="Meet Lt Col (R) Muhammad Shahzad Sarwar — Founder & CEO of CGW — Cognitive Guardian Work, Military Intelligence Veteran with 25+ years of leadership across the United Nations, Pakistan Army, and Corporate Sector." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://cgw-ai.com/Leadership.html" />
+<meta property="og:image" content="https://cgw-ai.com/images/cgw-logo.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="CGW — Our CEO · Lt Col (R) Muhammad Shahzad Sarwar" />
+<meta name="twitter:description" content="Meet Lt Col (R) Muhammad Shahzad Sarwar — Founder & CEO of CGW — Cognitive Guardian Work, Military Intelligence Veteran with 25+ years of leadership across the United Nations, Pakistan Army, and Corporate Sector." />
+<meta name="twitter:image" content="https://cgw-ai.com/images/cgw-logo.png" />
+<link rel="stylesheet" href="index.css" />
+<style>
+/* ── CEO SECTION ─────────────────────────────────────────── */
+.ceo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(40px, 6vw, 90px);
+  align-items: start;
+}
+.ceo-photo-wrap {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4 / 4.2;
+}
+.ceo-photo-wrap img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.ceo-photo-caption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: clamp(18px, 2.5vw, 28px);
+  background: linear-gradient(to top, rgba(10,14,12,0.92) 30%, transparent 100%);
+}
+.ceo-photo-caption h2 {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(17px, 2vw, 24px); letter-spacing: -0.01em;
+  color: var(--white); line-height: 1.15; margin-bottom: 6px; font-weight: 700;
+}
+.ceo-photo-caption span {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--soft-blue);
+}
+.ceo-badges {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 24px;
+}
+.ceo-badges span {
+  padding: 7px 14px;
+  border: 1px solid rgba(183,198,194,0.2);
+  border-radius: 100px;
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--sage); background: rgba(183,198,194,0.04);
+}
+.ceo-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border: 1px solid rgba(183,198,194,0.12); border-radius: 10px;
+  overflow: hidden;
+}
+.ceo-stat {
+  padding: clamp(16px, 2vw, 22px) clamp(14px, 1.8vw, 20px);
+  background: rgba(255,255,255,0.03);
+  border-right: 1px solid rgba(183,198,194,0.12);
+  text-align: center;
+}
+.ceo-stat:last-child { border-right: none; }
+.ceo-stat__num {
+  font-family: var(--display); font-size: clamp(20px, 2.4vw, 30px);
+  color: var(--white); letter-spacing: -0.01em; line-height: 1; margin-bottom: 6px;
+}
+.ceo-stat__label {
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--taupe);
+}
+
+/* ── TIMELINE ────────────────────────────────────────────── */
+.ceo-bio { color: var(--sage); font-size: 15px; line-height: 1.85; margin-bottom: 16px; }
+.ceo-timeline { display: flex; flex-direction: column; margin-top: 36px; }
+.tl-item {
+  display: grid; grid-template-columns: 10px 1fr;
+  gap: clamp(18px, 3vw, 36px);
+  padding-bottom: clamp(28px, 4vw, 44px);
+}
+.tl-item:last-child { padding-bottom: 0; }
+.tl-item:last-child .tl-line { display: none; }
+.tl-dot-col { display: flex; flex-direction: column; align-items: center; }
+.tl-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--neon-bright); flex-shrink: 0; margin-top: 5px;
+}
+.tl-line {
+  flex: 1; width: 1px; min-height: 32px;
+  background: rgba(183,198,194,0.15); margin-top: 6px;
+}
+.tl-year {
+  font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--taupe); margin-bottom: 8px;
+}
+.tl-role {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(14px, 1.5vw, 19px); letter-spacing: -0.01em;
+  color: var(--white); margin-bottom: 5px; font-weight: 700;
+}
+.tl-org { color: var(--soft-blue); font-size: 12px; margin-bottom: 8px; }
+.tl-desc { color: var(--taupe); font-size: 13px; line-height: 1.7; max-width: 58ch; }
+
+/* ── TEAM SECTION ────────────────────────────────────────── */
+.team-intro { margin-bottom: clamp(40px, 6vw, 64px); }
+.team-intro h2 {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(34px, 5vw, 68px); line-height: 1.04; letter-spacing: -0.02em;
+  margin-bottom: 18px;
+}
+.team-intro h2 em {
+  display: block; font-style: italic; font-weight: 300; color: var(--taupe);
+}
+.team-intro p { color: var(--sage); font-size: 15px; line-height: 1.75; max-width: 54ch; }
+.team-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.tc {
+  border-radius: 10px; overflow: hidden;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(183,198,194,0.1);
+  display: flex; flex-direction: column;
+  text-decoration: none; color: inherit;
+  transition: transform 0.22s ease, border-color 0.22s ease;
+}
+.tc:hover { transform: translateY(-4px); border-color: rgba(0,229,214,0.25); }
+.tc__media {
+  aspect-ratio: 3 / 3.6;
+  position: relative; display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.tc__media img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  display: block; opacity: 0.55;
+}
+.tc__initials { display: none; }
+.tc--rs .tc__media { background: radial-gradient(ellipse at 60% 40%, #1a3020 0%, #0a120d 100%); }
+.tc--rs .tc__initials { color: #4caf6e; }
+.tc--mu .tc__media { background: radial-gradient(ellipse at 60% 40%, #162030 0%, #0b1220 100%); }
+.tc--mu .tc__initials { color: #4a8abf; }
+.tc--am .tc__media { background: radial-gradient(ellipse at 60% 40%, #1e1430 0%, #0e0a1a 100%); }
+.tc--am .tc__initials { color: #7c5fbf; }
+.tc--rf .tc__media { background: radial-gradient(ellipse at 60% 40%, #2a1010 0%, #140808 100%); }
+.tc--rf .tc__initials { color: #bf5a5a; }
+.tc__meta {
+  padding: clamp(16px, 2vw, 22px);
+  background: rgba(255,255,255,0.03);
+  border-top: 1px solid rgba(183,198,194,0.1);
+  flex: 1;
+}
+.tc__name { font-weight: 600; font-size: 14px; color: var(--white); margin-bottom: 4px; }
+.tc__role {
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--neon-bright); margin-bottom: 10px;
+}
+.tc__desc { color: var(--taupe); font-size: 12px; line-height: 1.65; }
+
+@media (max-width: 900px) {
+  .ceo-grid { grid-template-columns: 1fr; }
+  .team-cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .team-cards { grid-template-columns: 1fr; }
+  .ceo-stats { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main navigation">
+  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technology and Security Solutions</span></span></a>
+  <div class="nav__links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="service.html">Service</a>
+    <a href="Leadership.html" class="is-active" aria-current="page">Leadership</a>
+    <a href="why-cgw.html">Why CGW</a>
+    
+    <a href="our-work.html">Our Work</a>
+    <a href="careers.html">Careers</a>
+    <a href="contact.html" class="nav__cta">Contact</a>
+  </div>
+  <button class="nav__burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="mnav" role="dialog" aria-label="Mobile menu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="service.html">Service</a>
+  <a href="Leadership.html" class="is-active">Leadership</a>
+    <a href="why-cgw.html">Why CGW</a>
+  
+  <a href="our-work.html">Our Work</a>
+  <a href="careers.html">Careers</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- ── CEO PROFILE ───────────────────────────────────────────────────── -->
+<section class="section section--navy">
+  <div class="wrap ceo-grid">
+
+    <!-- LEFT: photo + badges + stats -->
+    <div class="reveal">
+      <div class="ceo-photo-wrap">
+        <img src="images/Abbu pic.jpeg" alt="Lt Col (R) Muhammad Shahzad Sarwar" loading="eager" fetchpriority="high" />
+        <div class="ceo-photo-caption">
+          <h2>Lt Col (R) Muhammad Shahzad Sarwar</h2>
+          <span>Founder &amp; CEO — CGW &nbsp;·&nbsp; Retd. Pakistan Army</span>
+        </div>
+      </div>
+
+      <div class="ceo-badges">
+        <span>MS Business Admin</span>
+        <span>MA Criminology</span>
+        <span>Intelligence Course</span>
+        <span>UN Medal</span>
+      </div>
+
+      <div class="ceo-stats">
+        <div class="ceo-stat">
+          <div class="ceo-stat__num">25+</div>
+          <div class="ceo-stat__label">Years Service</div>
+        </div>
+        <div class="ceo-stat">
+          <div class="ceo-stat__num">4,300+</div>
+          <div class="ceo-stat__label">Personnel</div>
+        </div>
+        <div class="ceo-stat">
+          <div class="ceo-stat__num">PKR 56M</div>
+          <div class="ceo-stat__label">Recovered</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: bio + timeline -->
+    <div class="reveal">
+      <p class="ceo-bio">Lt Col (R) Shahzad Sarwar brings a credential no Silicon Valley résumé can replicate — active operational intelligence work in Pakistan's tribal regions, United Nations peacekeeping in the Democratic Republic of Congo, and budget governance for formations of 2,500+ personnel.</p>
+      <p class="ceo-bio">He founded CGW in 2025 to bring military-grade discipline and intelligence methodology to the world of AI product development — where most teams ship fast but think shallow.</p>
+
+      <div class="ceo-timeline">
+        <div class="tl-item">
+          <div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div>
+            <div class="tl-year">2025 — Present</div>
+            <div class="tl-role">Founder &amp; CEO</div>
+            <div class="tl-org">CGW — Cognitive Guardian Work</div>
+            <p class="tl-desc">Leading AI, cybersecurity, and digital transformation products for Pakistan and global markets.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div>
+            <div class="tl-year">2024 — 2025</div>
+            <div class="tl-role">Regional Manager Security — South Pakistan</div>
+            <div class="tl-org">M&amp;P Express Logistics, Karachi</div>
+            <p class="tl-desc">30% improvement in risk mitigation. PKR 56M+ recovered through investigations.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div>
+            <div class="tl-year">2018 — 2024</div>
+            <div class="tl-role">Director — Administration, Security &amp; HR</div>
+            <div class="tl-org">Pakistan Air Force / Army Formations</div>
+            <p class="tl-desc">PKR 300M+ annual budgets. 2,500+ personnel. Industrial-grade security controls.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div>
+            <div class="tl-year">2009 — 2010</div>
+            <div class="tl-role">Deputy Director — Security &amp; Supply Chain</div>
+            <div class="tl-org">United Nations (MONUC), D.R. Congo</div>
+            <p class="tl-desc">UN peacekeeping. International logistics in high-risk environments. Awarded UN Medal for distinguished service.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── TEAM ──────────────────────────────────────────────────────────── -->
+<section class="section section--navy" style="padding-top:0;">
+  <div class="wrap">
+    <div class="team-intro reveal">
+      <h2>Small, senior,<br /><em>fully hands-on.</em></h2>
+      <p>Four practitioners. No junior filler. No account managers. Every person on every project is the person actually doing the work.</p>
+    </div>
+
+    <div class="team-cards">
+      <a class="tc tc--rs reveal" href="contact.html">
+        <div class="tc__media">
+          <img src="images/rehan shahzad.jpeg" alt="Muhammad Rehan Shahzad" />
+          <span class="tc__initials">RS</span>
+        </div>
+        <div class="tc__meta">
+          <div class="tc__name">Muhammad Rehan Shahzad</div>
+          <div class="tc__role">CTO &nbsp;·&nbsp; AI &amp; Web Lead</div>
+          <p class="tc__desc">BS Artificial Intelligence, NUTECH Islamabad. Specialises in intelligent applications, RAG systems, Flask, Python, and production-grade AI integrations. Ships end-to-end AI products.</p>
+        </div>
+      </a>
+
+      <a class="tc tc--mu reveal" href="contact.html">
+        <div class="tc__media">
+          <img src="images/muhammad usman.jpeg" alt="Muhammad Usman" />
+          <span class="tc__initials">MU</span>
+        </div>
+        <div class="tc__meta">
+          <div class="tc__name">Muhammad Usman</div>
+          <div class="tc__role">Full Stack Developer</div>
+          <p class="tc__desc">Builds responsive frontends (HTML, CSS, Tailwind, JS) and robust backends with SQL databases. Delivers clean, scalable, production-ready digital products from scratch.</p>
+        </div>
+      </a>
+
+      <a class="tc tc--am reveal" href="contact.html">
+        <div class="tc__media">
+          <img src="images/abdul moiz.jpeg" alt="Abdul Moiz" />
+          <span class="tc__initials">AM</span>
+        </div>
+        <div class="tc__meta">
+          <div class="tc__name">Abdul Moiz</div>
+          <div class="tc__role">Cybersecurity Engineer</div>
+          <p class="tc__desc">Penetration tester and bug bounty hunter. API security, network defense, and vulnerability assessment. Google Cybersecurity certified. Interned at Cisco Networking Academy.</p>
+        </div>
+      </a>
+
+      <a class="tc tc--rf reveal" href="contact.html">
+        <div class="tc__media">
+          <img src="images/faisal mustafa.jpeg" alt="Rana Faisal Mustafa" />
+          <span class="tc__initials">RF</span>
+        </div>
+        <div class="tc__meta">
+          <div class="tc__name">Rana Faisal Mustafa</div>
+          <div class="tc__role">Game &amp; App Developer</div>
+          <p class="tc__desc">Python, Java, C#, C++. Develops 2D games, custom desktop tools, and cross-platform applications using OOP-first architecture. Builds efficient, engaging digital solutions.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="wrap">
+    <h2 class="reveal">Let's<br />Create</h2>
+    <a href="mailto:cgwofficialai@gmail.com" class="footer__email reveal">cgwofficialai@gmail.com</a>
+    <div class="footer__bottom">
+      <span>© 2026 CGW</span>
+      <div class="footer__legal">
+        <a href="#">Instagram</a>
+        <a href="#">Dribbble</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="index.js"></script>
+<script src="chat-widget.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -17,69 +17,104 @@
 <meta name="twitter:title" content="CGW — Our Work" />
 <meta name="twitter:description" content="Browse CGW's portfolio — AI-powered SaaS platforms, web applications, game development projects, and cybersecurity engagements." />
 <meta name="twitter:image" content="https://cgw-ai.com/images/cgw-logo.png" />
-<link rel="stylesheet" href="techno.css" />
+<link rel="stylesheet" href="index.css" />
 <style>
-  /* ── PROJECT MODAL ── */
+  /* ── PROJECT MODAL (fullscreen) ── */
   .pmodal {
     position: fixed; inset: 0; z-index: 1000;
-    display: flex; align-items: center; justify-content: center;
-    padding: clamp(16px, 4vw, 40px);
+    display: flex; flex-direction: column;
     opacity: 0; pointer-events: none;
-    transition: opacity 0.4s var(--ease-fluid);
+    transition: opacity 0.35s ease;
   }
   .pmodal.is-open { opacity: 1; pointer-events: all; }
   .pmodal__backdrop {
     position: absolute; inset: 0;
-    background: rgba(11,16,13,0.93);
-    backdrop-filter: blur(10px);
+    background: rgba(8,12,10,0.97);
+    backdrop-filter: blur(16px);
   }
   .pmodal__box {
     position: relative; z-index: 1;
-    background: #1b2420;
-    border: 1px solid rgba(183,198,194,0.11);
-    border-radius: 12px;
-    max-width: 980px; width: 100%;
-    max-height: 88vh; overflow-y: auto;
-    display: grid; grid-template-columns: 1fr 1fr;
-    transform: translateY(28px) scale(0.97);
-    transition: transform 0.48s var(--ease-fluid);
-    scrollbar-width: thin; scrollbar-color: rgba(183,198,194,0.15) transparent;
+    width: 100%; height: 100vh;
+    display: flex; flex-direction: column;
+    transform: scale(0.98);
+    transition: transform 0.35s ease;
   }
-  .pmodal.is-open .pmodal__box { transform: translateY(0) scale(1); }
-  .pmodal__images {
-    display: flex; flex-direction: column; gap: 6px; overflow: hidden;
-    border-radius: 12px 0 0 12px;
+  .pmodal.is-open .pmodal__box { transform: scale(1); }
+
+  /* ── Image viewer (top ~60%) ── */
+  .pmodal__viewer {
+    position: relative;
+    flex: 1 1 60%;
+    background: #0a0f0d;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
   }
   .pmodal__img-main {
-    flex: 1; width: 100%; min-height: 260px;
-    object-fit: cover; object-position: top;
-    border-radius: 12px 0 0 0;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    object-position: center top;
+    display: block;
+    transition: opacity 0.25s ease;
   }
-  .pmodal__img-thumb {
-    width: 100%; aspect-ratio: 16/7;
-    object-fit: cover; object-position: top;
-    border-radius: 0 0 0 12px;
+  .pmodal__img-main.fading { opacity: 0; }
+
+  /* image counter */
+  .pmodal__counter {
+    position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 7px;
   }
-  .pmodal__content {
-    padding: clamp(24px, 3.5vw, 44px);
-    display: flex; flex-direction: column; gap: 14px;
+  .pmodal__dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(183,198,194,0.25);
+    transition: background 0.2s;
+    cursor: pointer;
   }
+  .pmodal__dot.active { background: var(--neon-bright); }
+
+  /* nav arrows */
+  .pmodal__arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 46px; height: 46px; border-radius: 50%;
+    background: rgba(183,198,194,0.07);
+    border: 1px solid rgba(183,198,194,0.16);
+    color: var(--white); display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.2s, border-color 0.2s; z-index: 3;
+    display: none;
+  }
+  .pmodal__arrow:hover { background: rgba(0,229,214,0.12); border-color: var(--neon-bright); }
+  .pmodal__arrow--prev { left: 18px; }
+  .pmodal__arrow--next { right: 18px; }
+  .pmodal__arrow.visible { display: flex; }
+
+  /* ── Info strip (bottom ~40%) ── */
+  .pmodal__info {
+    flex: 0 0 auto;
+    background: #111a15;
+    border-top: 1px solid rgba(183,198,194,0.1);
+    padding: clamp(18px, 2.5vw, 32px) clamp(20px, 4vw, 64px);
+    display: flex; flex-wrap: wrap; gap: clamp(16px, 2vw, 28px);
+    align-items: flex-start;
+  }
+  .pmodal__info-left { flex: 1 1 340px; display: flex; flex-direction: column; gap: 10px; }
+  .pmodal__info-right { flex: 1 1 260px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; justify-content: flex-end; }
+
   .pmodal__category {
     color: var(--sage); font-family: var(--display);
-    text-transform: uppercase; font-size: 12px; letter-spacing: 0.14em;
+    text-transform: uppercase; font-size: 11px; letter-spacing: 0.16em;
   }
   .pmodal__title {
     font-family: var(--display); text-transform: uppercase;
-    font-size: clamp(24px, 3vw, 44px);
-    line-height: 0.9; letter-spacing: -0.01em; margin: 0;
+    font-size: clamp(26px, 3.5vw, 52px);
+    line-height: 0.92; letter-spacing: -0.02em; margin: 0;
   }
   .pmodal__desc {
-    color: var(--taupe); font-size: 13.5px; line-height: 1.8; margin: 0;
+    color: var(--taupe); font-size: 13px; line-height: 1.75; margin: 0;
+    max-width: 70ch;
   }
   .pmodal__tags { display: flex; flex-wrap: wrap; gap: 7px; }
   .pmodal__tag {
-    font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
-    padding: 5px 11px;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 12px;
     border: 1px solid rgba(183,198,194,0.18);
     border-radius: 100px; color: var(--sage);
   }
@@ -87,41 +122,40 @@
     display: inline-flex; align-items: center; gap: 10px;
     font-family: var(--display); text-transform: uppercase;
     font-size: 12px; letter-spacing: 0.1em; color: var(--white);
-    margin-top: auto; padding-top: 12px;
-    transition: color 0.3s;
+    transition: color 0.25s;
   }
   .pmodal__cta:hover { color: var(--neon-bright); }
-  .pmodal__cta svg { transition: transform 0.4s var(--ease-fluid); }
-  .pmodal__cta:hover svg { transform: translateX(6px); }
+  .pmodal__cta svg { transition: transform 0.3s; }
+  .pmodal__cta:hover svg { transform: translateX(5px); }
+
+  /* close button */
   .pmodal__close {
-    position: absolute; top: 14px; right: 14px;
-    width: 34px; height: 34px; border-radius: 50%;
-    background: rgba(183,198,194,0.08);
-    border: 1px solid rgba(183,198,194,0.14);
+    position: absolute; top: 16px; right: 16px;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(183,198,194,0.07);
+    border: 1px solid rgba(183,198,194,0.15);
     color: var(--white); display: flex;
     align-items: center; justify-content: center;
-    cursor: pointer; transition: background 0.3s; z-index: 2;
+    cursor: pointer; transition: background 0.2s; z-index: 10;
   }
-  .pmodal__close:hover { background: rgba(183,198,194,0.18); }
+  .pmodal__close:hover { background: rgba(183,198,194,0.2); }
 
-  @media (max-width: 680px) {
-    .pmodal__box { grid-template-columns: 1fr; }
-    .pmodal__images { border-radius: 12px 12px 0 0; }
-    .pmodal__img-main { min-height: 200px; border-radius: 12px 12px 0 0; }
-    .pmodal__img-thumb { display: none !important; }
+  @media (max-width: 600px) {
+    .pmodal__info { padding: 16px 18px; }
+    .pmodal__title { font-size: clamp(22px, 6vw, 34px); }
   }
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <a href="Techno.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technology and Security Solutions</span></span></a>
+  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technology and Security Solutions</span></span></a>
   <div class="nav__links">
-    <a href="Techno.html">Home</a>
+    <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="service.html">Service</a>
-    <a href="our-ceo.html">Our CEO</a>
-    <a href="team.html">Team</a>
+    <a href="Leadership.html">Leadership</a>
+    <a href="why-cgw.html">Why CGW</a>
     <a href="our-work.html" class="is-active">Our Work</a>
     <a href="careers.html">Careers</a>
     <a href="contact.html" class="nav__cta">Contact</a>
@@ -129,12 +163,12 @@
   <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mnav">
-  <a href="Techno.html">Home</a>
+  <a href="index.html">Home</a>
   <a href="about.html">About</a>
   <a href="service.html">Service</a>
-  <a href="our-ceo.html">Our CEO</a>
-  <a href="team.html">Team</a>
-  <a href="our-work.html" class="is-active">Our Work</a>
+  <a href="Leadership.html">Leadership</a>
+    <a href="why-cgw.html">Why CGW</a>
+    <a href="our-work.html" class="is-active">Our Work</a>
   <a href="careers.html">Careers</a>
   <a href="contact.html">Contact</a>
 </div>
@@ -143,6 +177,18 @@
 <section class="works" style="padding-top: clamp(60px,8vw,110px);">
   <div class="wrap">
     <div class="works__grid">
+
+      <a class="work reveal" href="#" data-project="aisoc">
+        <div class="work__media">
+          <img src="images/proj-aisoc.svg" alt="CGW AI-SOC Security Intelligence Suite" style="object-position:top;" />
+          <div class="work__overlay"><span class="work__view">View</span></div>
+        </div>
+        <div class="work__meta">
+          <h3>CGW AI-SOC™</h3>
+          <span>Enterprise Security Platform / AI / 2026</span>
+        </div>
+        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">Flagship enterprise security operations platform integrating AI-powered CCTV monitoring, incident management, visitor control, and guard force governance into one real-time command interface.</p>
+      </a>
 
       <a class="work reveal" href="#" data-project="aipos">
         <div class="work__media">
@@ -334,7 +380,7 @@
   </div>
 </footer>
 
-<!-- PROJECT MODAL -->
+<!-- PROJECT MODAL (fullscreen) -->
 <div class="pmodal" id="pmodal" role="dialog" aria-modal="true" aria-labelledby="pmodal-title">
   <div class="pmodal__backdrop" id="pmodal-backdrop"></div>
   <div class="pmodal__box">
@@ -343,32 +389,57 @@
         <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/>
       </svg>
     </button>
-    <div class="pmodal__images" id="pmodal-images">
-      <img class="pmodal__img-main" id="pmodal-img1" src="" alt="" />
-      <img class="pmodal__img-thumb" id="pmodal-img2" src="" alt="" style="display:none;" />
-    </div>
-    <div class="pmodal__content">
-      <span class="pmodal__category" id="pmodal-category"></span>
-      <h2 class="pmodal__title" id="pmodal-title"></h2>
-      <p class="pmodal__desc" id="pmodal-desc"></p>
-      <div class="pmodal__tags" id="pmodal-tags"></div>
-      <a href="contact.html" class="pmodal__cta">
-        Start a Similar Project
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Image viewer -->
+    <div class="pmodal__viewer">
+      <img class="pmodal__img-main" id="pmodal-img" src="" alt="" />
+
+      <button class="pmodal__arrow pmodal__arrow--prev" id="pmodal-prev" aria-label="Previous image">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-      </a>
+      </button>
+      <button class="pmodal__arrow pmodal__arrow--next" id="pmodal-next" aria-label="Next image">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="pmodal__counter" id="pmodal-dots"></div>
+    </div>
+
+    <!-- Info strip -->
+    <div class="pmodal__info">
+      <div class="pmodal__info-left">
+        <span class="pmodal__category" id="pmodal-category"></span>
+        <h2 class="pmodal__title" id="pmodal-title"></h2>
+        <p class="pmodal__desc" id="pmodal-desc"></p>
+        <div class="pmodal__tags" id="pmodal-tags"></div>
+      </div>
+      <div class="pmodal__info-right">
+        <a href="contact.html" class="pmodal__cta">
+          Start a Similar Project
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
     </div>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="store.js"></script>
-<script src="site.js"></script>
-<script src="techno.js"></script>
+<script src="index.js"></script>
 <script>
 (function () {
   var PROJECTS = {
+    aisoc: {
+      title: 'CGW AI-SOC™',
+      category: 'Enterprise Security Platform / AI / 2026',
+      images: ['images/proj-aisoc.svg', 'images/proj-aisoc-cctv.svg'],
+      desc: 'Flagship enterprise security operations platform integrating AI-powered CCTV monitoring, incident management, visitor control, and guard force governance into one real-time command interface. Features a live global threat map, incident tier triage (TIER 0–4), real-time event feed with autonomous alerting, guard force deployment tracking, and AI model management — all accessible through a unified SOC dashboard built for 24/7 high-stakes environments.',
+      tags: ['AI Security', 'CCTV AI', 'SOC', 'Real-Time', 'Incident Management', 'Guard Force', 'Enterprise'],
+    },
     aipos: {
       title: 'AI POS App',
       category: 'Full-Stack SaaS / AI / 2026',
@@ -444,12 +515,41 @@
   var modal    = document.getElementById('pmodal');
   var backdrop = document.getElementById('pmodal-backdrop');
   var closeBtn = document.getElementById('pmodal-close');
-  var img1     = document.getElementById('pmodal-img1');
-  var img2     = document.getElementById('pmodal-img2');
+  var imgEl    = document.getElementById('pmodal-img');
+  var prevBtn  = document.getElementById('pmodal-prev');
+  var nextBtn  = document.getElementById('pmodal-next');
+  var dotsEl   = document.getElementById('pmodal-dots');
   var titleEl  = document.getElementById('pmodal-title');
   var catEl    = document.getElementById('pmodal-category');
   var descEl   = document.getElementById('pmodal-desc');
   var tagsEl   = document.getElementById('pmodal-tags');
+
+  var currentImages = [];
+  var currentIdx    = 0;
+
+  function showImage(idx) {
+    currentIdx = idx;
+    imgEl.classList.add('fading');
+    setTimeout(function() {
+      imgEl.src = currentImages[idx];
+      imgEl.classList.remove('fading');
+    }, 200);
+    // update dots
+    dotsEl.querySelectorAll('.pmodal__dot').forEach(function(d, i) {
+      d.classList.toggle('active', i === idx);
+    });
+  }
+
+  function buildDots(count) {
+    dotsEl.innerHTML = '';
+    if (count < 2) return;
+    for (var i = 0; i < count; i++) {
+      var d = document.createElement('span');
+      d.className = 'pmodal__dot' + (i === 0 ? ' active' : '');
+      (function(idx) { d.addEventListener('click', function() { showImage(idx); }); })(i);
+      dotsEl.appendChild(d);
+    }
+  }
 
   function openModal(key) {
     var p = PROJECTS[key];
@@ -460,15 +560,14 @@
     tagsEl.innerHTML    = p.tags.map(function(t) {
       return '<span class="pmodal__tag">' + t + '</span>';
     }).join('');
-    img1.src = p.images[0];
-    img1.alt = p.title;
-    if (p.images[1]) {
-      img2.src = p.images[1];
-      img2.alt = p.title;
-      img2.style.display = 'block';
-    } else {
-      img2.style.display = 'none';
-    }
+    currentImages = p.images;
+    currentIdx    = 0;
+    imgEl.src     = currentImages[0];
+    imgEl.alt     = p.title;
+    buildDots(currentImages.length);
+    var multi = currentImages.length > 1;
+    prevBtn.classList.toggle('visible', multi);
+    nextBtn.classList.toggle('visible', multi);
     modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
   }
@@ -477,6 +576,13 @@
     modal.classList.remove('is-open');
     document.body.style.overflow = '';
   }
+
+  prevBtn.addEventListener('click', function() {
+    showImage((currentIdx - 1 + currentImages.length) % currentImages.length);
+  });
+  nextBtn.addEventListener('click', function() {
+    showImage((currentIdx + 1) % currentImages.length);
+  });
 
   document.querySelectorAll('.work[data-project]').forEach(function(card) {
     card.addEventListener('click', function(e) {
@@ -489,6 +595,10 @@
   closeBtn.addEventListener('click', closeModal);
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowRight' && modal.classList.contains('is-open'))
+      showImage((currentIdx + 1) % currentImages.length);
+    if (e.key === 'ArrowLeft' && modal.classList.contains('is-open'))
+      showImage((currentIdx - 1 + currentImages.length) % currentImages.length);
   });
 }());
 </script>
