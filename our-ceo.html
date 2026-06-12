@@ -19,390 +19,110 @@
 <meta name="twitter:image" content="https://cgw-ai.com/images/cgw-logo.png" />
 <link rel="stylesheet" href="techno.css" />
 <style>
-
-  /* ══ PAGE HERO (OUR CEO title) ══════════════════════════════════ */
-  .ceo-page-hero {
-    position: relative;
-    min-height: 100vh;
-    background: var(--navy);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-  .ceo-page-hero__inner {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    text-align: center;
-  }
-
-  .ceo-page-hero__inner .hero__title {
-    font-size: clamp(58px, 13.5vw, 210px);
-    line-height: 0.84;
-    letter-spacing: -0.02em;
-  }
-  .ceo-page-hero__inner .text-outline {
-    color: transparent;
-    -webkit-text-stroke: 1px var(--sage);
-    text-stroke: 1px var(--sage);
-    paint-order: stroke fill;
-    -webkit-font-smoothing: antialiased;
-    text-shadow: none;
-  }
-
-  /* Subtle radial depth — mimics the dark image behind FUTURE */
-  .ceo-page-hero::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 60% at 60% 60%,
-      rgba(40,55,45,0.45) 0%,
-      transparent 70%);
-    pointer-events: none; z-index: 0;
-  }
-
-  /* ══ SPLIT HERO ═══════════════════════════════════════════════════ */
-  .ceo-hero {
-    position: relative;
-    min-height: 100vh;
-    background: var(--navy);
+  .ceo-intro-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    overflow: hidden;
-  }
-  .ceo-hero__copy {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: clamp(120px,16vh,200px) clamp(24px,5vw,80px) clamp(60px,8vh,100px);
-    position: relative;
-    z-index: 2;
-  }
-  .ceo-hero__crumb {
-    display: flex; align-items: center; gap: 12px;
-    color: var(--sage);
-    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; font-weight: 600;
-    margin-bottom: clamp(28px,4vw,48px);
-  }
-  .ceo-hero__crumb .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--neon); box-shadow: 0 0 14px var(--neon); flex-shrink: 0;
-  }
-  .ceo-hero__name {
-    font-family: var(--display);
-    text-transform: uppercase;
-    font-size: clamp(42px,5.5vw,100px);
-    line-height: 0.88; letter-spacing: -0.02em;
-    color: var(--white); margin-bottom: 20px;
-  }
-  .ceo-hero__name em {
-    font-style: normal; color: var(--sage);
-    font-size: 0.52em; letter-spacing: 0.05em; display: block; margin-top: 8px;
-  }
-  .ceo-hero__title {
-    color: var(--neon-bright);
-    font-size: 11px; letter-spacing: 0.3em;
-    text-transform: uppercase; font-weight: 600;
-    margin-bottom: clamp(18px,3vw,32px);
-  }
-  .ceo-hero__lede {
-    color: var(--sage);
-    font-size: clamp(14px,1.2vw,16px);
-    line-height: 1.85; max-width: 440px;
-    margin-bottom: clamp(32px,4vw,48px);
-  }
-  .ceo-hero__badges { display: flex; flex-wrap: wrap; gap: 10px; }
-  .ceo-badge {
-    display: inline-flex; align-items: center; gap: 7px;
-    padding: 8px 16px;
-    border: 1px solid rgba(183,198,194,0.2);
-    border-radius: 100px;
-    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--sage); background: rgba(183,198,194,0.05);
-  }
-  .ceo-badge::before {
-    content: '';
-    width: 5px; height: 5px; border-radius: 50%;
-    background: var(--neon-bright); box-shadow: 0 0 8px var(--neon-bright);
-  }
-
-  /* Hero right — CEO portrait */
-  .ceo-hero__portrait {
-    position: relative;
-    overflow: hidden;
-  }
-  .ceo-hero__portrait img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-  }
-  /* Gradient blends portrait into the dark left side */
-  .ceo-hero__portrait::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(
-      to right,
-      var(--navy) 0%,
-      rgba(23,30,25,0.25) 25%,
-      rgba(23,30,25,0) 55%
-    );
-    z-index: 1; pointer-events: none;
-  }
-  .ceo-hero__portrait::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(23,30,25,0.65) 0%,
-      rgba(23,30,25,0) 35%
-    );
-    z-index: 1; pointer-events: none;
-  }
-
-  /* ══ KPI BAR ═══════════════════════════════════════════════════ */
-  .ceo-stats-bar {
-    background: var(--charcoal);
-    border-top: 1px solid rgba(183,198,194,0.1);
-    border-bottom: 1px solid rgba(183,198,194,0.1);
-  }
-  .ceo-stats-bar__inner {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-  }
-  .ceo-kpi {
-    padding: clamp(28px,4vw,52px) clamp(20px,3vw,44px);
-    border-right: 1px solid rgba(183,198,194,0.1);
-    position: relative;
-  }
-  .ceo-kpi:last-child { border-right: none; }
-  .ceo-kpi__value {
-    font-family: var(--display);
-    font-size: clamp(34px,4vw,68px);
-    line-height: 0.88; text-transform: uppercase; letter-spacing: -0.02em;
-    color: var(--white); display: block; margin-bottom: 10px;
-  }
-  .ceo-kpi__value span { color: var(--neon-bright); }
-  .ceo-kpi__label {
-    font-size: 11px; letter-spacing: 0.24em;
-    text-transform: uppercase; color: var(--taupe);
-  }
-  .ceo-kpi__bar {
-    position: absolute; left: 0; bottom: 0;
-    height: 2px; width: 0;
-    background: linear-gradient(to right, var(--neon-deep), var(--neon-bright));
-    transition: width 1.2s var(--ease-fluid);
-  }
-  .ceo-kpi.in-view .ceo-kpi__bar { width: 100%; }
-
-  /* ══ BIOGRAPHY ══════════════════════════════════════════════════ */
-  .ceo-bio-grid {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: clamp(40px, 6vw, 96px);
-    align-items: flex-start;
-  }
-  .ceo-bio-grid > aside {
-    flex: 0 0 260px;
-  }
-  .ceo-bio__aside-label {
-    font-size: 11px; letter-spacing: 0.32em;
-    text-transform: uppercase; color: var(--taupe); margin-bottom: 16px;
-  }
-  .ceo-bio__aside-name {
-    font-family: var(--display);
-    font-size: clamp(26px,2.8vw,40px);
-    text-transform: uppercase; line-height: 0.92;
-    letter-spacing: -0.02em; color: var(--white); margin-bottom: 10px;
-  }
-  .ceo-bio__aside-role {
-    color: var(--neon-bright);
-    font-size: 11px; letter-spacing: 0.22em;
-    text-transform: uppercase; margin-bottom: 36px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid rgba(183,198,194,0.12);
-  }
-  .ceo-bio__skills { display: flex; flex-direction: column; gap: 12px; }
-  .ceo-skill {
-    display: flex; align-items: center; gap: 12px;
-    font-size: 12px; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--sage);
-  }
-  .ceo-skill::before {
-    content: ''; flex-shrink: 0;
-    width: 20px; height: 1px; background: var(--neon-bright);
-  }
-  .ceo-bio__body {
-    flex: 1 1 0%;   /* flex-basis 0% forces growth from zero — no content-size leak */
-    min-width: 0;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  .ceo-bio__body p {
-    color: var(--sage);
-    font-size: 16px;
-    line-height: 1.9;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-  .ceo-bio__body p.lead {
-    color: var(--white);
-    font-size: clamp(18px, 1.5vw, 22px);
-    line-height: 1.75;
-    font-weight: 300;
-  }
-  .ceo-bio__sign {
-    font-family: var(--display); text-transform: uppercase;
-    font-size: clamp(20px, 2vw, 30px); letter-spacing: -0.01em;
-    color: var(--white); padding-top: 24px;
-    border-top: 1px solid rgba(183,198,194,0.15); margin-top: 8px;
-  }
-
-  /* ══ PHILOSOPHY PILLARS ═════════════════════════════════════════ */
-  .ceo-pillars {
-    display: grid; grid-template-columns: repeat(3,1fr);
-    gap: 1px; background: rgba(183,198,194,0.12);
-  }
-  .ceo-pillar {
-    background: var(--charcoal);
-    padding: clamp(36px,5vw,64px) clamp(28px,4vw,52px);
-    transition: background 0.4s var(--ease-fluid);
-  }
-  .ceo-pillar:hover { background: var(--navy); }
-  .ceo-pillar__num {
-    font-family: var(--display);
-    font-size: clamp(40px,5vw,80px); line-height: 0.85;
-    color: rgba(183,198,194,0.1); margin-bottom: 20px; letter-spacing: -0.03em;
-  }
-  .ceo-pillar__heading {
-    font-family: var(--display); text-transform: uppercase;
-    font-size: clamp(24px,2.5vw,40px); line-height: 0.9;
-    letter-spacing: -0.01em; color: var(--white); margin-bottom: 16px;
-  }
-  .ceo-pillar__text {
-    color: var(--taupe); font-size: 14px; line-height: 1.8; max-width: 320px;
-  }
-  .ceo-pillar__accent {
-    display: inline-block; margin-top: 28px;
-    font-size: 11px; letter-spacing: 0.3em;
-    text-transform: uppercase; color: var(--neon-bright);
-  }
-
-  /* ══ CAREER TIMELINE ════════════════════════════════════════════ */
-  .ceo-timeline { display: flex; flex-direction: column; }
-  .ceo-tl-item {
-    display: grid;
-    grid-template-columns: 110px 36px 1fr;
-    gap: 0 24px;
-    padding: clamp(28px,3.5vw,48px) 0;
-    border-top: 1px solid rgba(183,198,194,0.12);
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: clamp(48px, 6vw, 100px);
     align-items: start;
   }
-  .ceo-tl-item:last-child { border-bottom: 1px solid rgba(183,198,194,0.12); }
-  .ceo-tl__year {
-    font-family: var(--display);
-    font-size: clamp(16px,1.8vw,26px);
-    color: var(--taupe); line-height: 1; padding-top: 5px;
+  .ceo-intro__portrait {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3.2;
   }
-  .ceo-tl__dot-col {
-    display: flex; flex-direction: column; align-items: center;
-    padding-top: 9px;
+  .ceo-intro__portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ceo-intro__caption {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: clamp(20px, 3vw, 32px);
+    background: linear-gradient(to top, rgba(23,30,25,0.92) 15%, transparent 100%);
   }
-  .ceo-tl__dot {
-    width: 10px; height: 10px; border-radius: 50%;
-    background: var(--navy);
-    border: 2px solid var(--neon-bright);
-    box-shadow: 0 0 10px rgba(192,132,252,0.4);
-    flex-shrink: 0;
+  .ceo-intro__caption h2 {
+    font-family: var(--display); text-transform: uppercase;
+    font-size: clamp(20px, 2.6vw, 32px); letter-spacing: -0.01em;
+    color: var(--white); line-height: 1.1; margin-bottom: 8px;
   }
-  .ceo-tl__line {
-    width: 1px; flex: 1; min-height: 36px;
-    background: rgba(183,198,194,0.12); margin-top: 8px;
+  .ceo-intro__caption span {
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--soft-blue);
   }
-  .ceo-tl__org {
-    font-size: 11px; letter-spacing: 0.26em;
-    text-transform: uppercase; color: var(--neon-bright); margin-bottom: 6px;
+  .ceo-intro__badges { display: flex; flex-wrap: wrap; gap: 10px; margin: 28px 0; }
+  .ceo-intro__badges span {
+    padding: 8px 16px; border: 1px solid rgba(183,198,194,0.22);
+    border-radius: 100px; font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--sage); background: rgba(183,198,194,0.05);
   }
-  .ceo-tl__role {
-    font-family: var(--display); font-size: clamp(18px,2vw,30px);
-    text-transform: uppercase; line-height: 0.92;
-    letter-spacing: -0.01em; color: var(--white); margin-bottom: 12px;
+  .ceo-intro__quote {
+    border-left: 2px solid var(--soft-blue);
+    padding-left: 24px; margin: 8px 0 24px;
+    font-style: italic; font-weight: 300;
+    font-size: clamp(16px, 1.7vw, 21px); line-height: 1.6;
+    color: var(--white);
   }
-  .ceo-tl__desc {
-    color: var(--taupe); font-size: 14px;
-    line-height: 1.75; max-width: 560px;
+  .ceo-intro__bio { color: var(--taupe); font-size: 14px; line-height: 1.85; }
+
+  .ceo-intro__eyebrow {
+    display: flex; align-items: center; gap: 14px;
+    color: var(--soft-blue); font-size: 11px; letter-spacing: 0.32em;
+    text-transform: uppercase; margin-bottom: 26px;
+  }
+  .ceo-intro__eyebrow::before {
+    content: ""; width: 28px; height: 1px; background: var(--soft-blue);
+  }
+  .ceo-intro__heading {
+    font-family: var(--display); text-transform: uppercase; font-weight: 700;
+    font-size: clamp(36px, 5.2vw, 78px); line-height: 1.05; letter-spacing: -0.02em;
+    margin-bottom: 26px;
+  }
+  .ceo-intro__heading em {
+    display: block; font-style: italic; font-weight: 300; text-transform: none;
+    color: var(--taupe);
+  }
+  .ceo-intro__lede { color: var(--sage); font-size: 16px; line-height: 1.85; max-width: 46ch; }
+
+  .ceo-intro__stats { margin-top: clamp(40px, 6vw, 70px); }
+  .ceo-intro__stat {
+    display: grid; grid-template-columns: auto 1fr; align-items: baseline;
+    gap: clamp(20px, 3vw, 40px);
+    padding: clamp(20px, 2.6vw, 28px) 0;
+    border-top: 1px solid rgba(183,198,194,0.15);
+  }
+  .ceo-intro__stat:last-child { border-bottom: 1px solid rgba(183,198,194,0.15); }
+  .ceo-intro__stat-num {
+    font-family: var(--display); font-size: clamp(34px, 4.2vw, 54px);
+    color: var(--soft-blue); letter-spacing: -0.01em; line-height: 1;
+    white-space: nowrap;
+  }
+  .ceo-intro__stat-label { color: var(--white); font-size: 15px; margin-bottom: 4px; }
+  .ceo-intro__stat-sub { color: var(--taupe); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }
+
+  @media (max-width: 880px) {
+    .ceo-intro-grid { grid-template-columns: 1fr; }
   }
 
-  /* ══ QUOTE ══════════════════════════════════════════════════════ */
-  .ceo-quote-wrap {
-    background: var(--charcoal);
-    padding: clamp(64px,9vw,120px) 0;
-    position: relative; overflow: hidden;
-  }
-  .ceo-quote-wrap::before {
-    content: '"';
-    position: absolute; top: -0.15em; left: clamp(24px,5vw,80px);
-    font-family: var(--display);
-    font-size: clamp(200px,28vw,400px);
-    line-height: 1; color: rgba(192,132,252,0.07);
-    pointer-events: none; user-select: none;
-  }
-  .ceo-quote__inner {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 clamp(24px,5vw,80px);
-    position: relative; z-index: 1;
-  }
-  .ceo-quote__text {
-    font-family: var(--display);
-    text-transform: uppercase;
-    font-size: clamp(26px,3.5vw,52px);
-    line-height: 1.05; letter-spacing: -0.02em;
-    color: var(--white); margin-bottom: 40px;
-  }
-  .ceo-quote__text em { color: var(--neon-bright); font-style: normal; }
-  .ceo-quote__attr {
-    display: flex; align-items: center; gap: 16px;
-  }
-  .ceo-quote__attr-line { width: 32px; height: 1px; background: var(--neon-bright); }
-  .ceo-quote__attr-name {
-    font-size: 12px; letter-spacing: 0.24em;
-    text-transform: uppercase; color: var(--sage);
-  }
-
-  /* ══ RESPONSIVE ══════════════════════════════════════════════════ */
-  @media (max-width: 1024px) {
-    .ceo-stats-bar__inner { grid-template-columns: repeat(2,1fr); }
-    .ceo-kpi:nth-child(2) { border-right: none; }
-    .ceo-kpi:nth-child(3) { border-top: 1px solid rgba(183,198,194,0.1); }
-  }
-  @media (max-width: 860px) {
-    .ceo-hero { grid-template-columns: 1fr; min-height: auto; }
-    .ceo-hero__portrait { min-height: 60vw; }
-    .ceo-bio-grid { flex-direction: column; align-items: stretch; }
-    .ceo-bio-grid > aside { flex: none; width: 100%; }
-    .ceo-bio__body { flex: none; width: 100%; }
-    .ceo-pillars { grid-template-columns: 1fr; }
-    .ceo-tl-item { grid-template-columns: 80px 28px 1fr; gap: 0 14px; }
-  }
-  @media (max-width: 640px) {
-    .ceo-stats-bar__inner { grid-template-columns: 1fr 1fr; }
-    .ceo-kpi { border-right: none; border-bottom: 1px solid rgba(183,198,194,0.1); }
-    .ceo-kpi:last-child { border-bottom: none; }
-  }
+  .ceo-timeline { display: flex; flex-direction: column; margin-top: clamp(40px, 6vw, 70px); }
+  .ceo-tl-item { display: grid; grid-template-columns: 14px 1fr; gap: clamp(24px, 4vw, 48px); padding-bottom: clamp(36px, 5vw, 56px); }
+  .ceo-tl-item:last-child { padding-bottom: 0; }
+  .ceo-tl-item:last-child .ceo-tl__line { display: none; }
+  .ceo-tl__dot-col { display: flex; flex-direction: column; align-items: center; }
+  .ceo-tl__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--soft-blue); flex-shrink: 0; margin-top: 6px; }
+  .ceo-tl__line { flex: 1; width: 1px; min-height: 40px; background: rgba(183,198,194,0.18); margin-top: 8px; }
+  .ceo-tl__year { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--taupe); margin-bottom: 10px; }
+  .ceo-tl__role { font-family: var(--display); text-transform: uppercase; font-size: clamp(18px, 2vw, 26px); letter-spacing: -0.01em; color: var(--white); margin-bottom: 6px; }
+  .ceo-tl__org { color: var(--soft-blue); font-size: 13px; margin-bottom: 10px; }
+  .ceo-tl__desc { color: var(--taupe); font-size: 14px; line-height: 1.7; max-width: 60ch; }
 </style>
 </head>
 <body>
 
 <nav class="nav" aria-label="Main navigation">
-  <a href="Techno.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive<br />Gaurdian Work</span></a>
+  <a href="Techno.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technology and Security Solutions</span></span></a>
   <div class="nav__links">
     <a href="Techno.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="service.html">Service</a>
     <a href="our-ceo.html" class="is-active" aria-current="page">Our CEO</a>
     <a href="team.html">Team</a>
-    <a href="service.html">Service</a>
     <a href="our-work.html">Our Work</a>
     <a href="careers.html">Careers</a>
     <a href="contact.html" class="nav__cta">Contact</a>
@@ -411,225 +131,131 @@
 </nav>
 <div class="mnav" role="dialog" aria-label="Mobile menu">
   <a href="Techno.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="service.html">Service</a>
   <a href="our-ceo.html" class="is-active">Our CEO</a>
   <a href="team.html">Team</a>
-  <a href="service.html">Service</a>
   <a href="our-work.html">Our Work</a>
   <a href="careers.html">Careers</a>
   <a href="contact.html">Contact</a>
 </div>
 
-<!-- ══ PAGE HERO ════════════════════════════════════════════════════ -->
-<header class="ceo-page-hero" id="top">
-  <div class="wrap ceo-page-hero__inner">
-    <h1 class="hero__title">
-      OUR<br />
-      CEO
-    </h1>
-  </div>
-</header>
+<!-- ══ LEADERSHIP ═══════════════════════════════════════════════════ -->
+<section class="section section--navy">
+  <div class="wrap ceo-intro-grid">
+    <div class="reveal">
+      <div class="ceo-intro__portrait">
+        <img src="images/Abbu pic.jpeg" alt="Lt Col (R) Muhammad Shahzad Sarwar" loading="eager" fetchpriority="high" />
+        <div class="ceo-intro__caption">
+          <h2>Lt Col (R) Muhammad<br />Shahzad Sarwar</h2>
+          <span>Founder &amp; CEO · Cognitive Guardian Work</span>
+        </div>
+      </div>
 
-<!-- ══ SPLIT HERO ════════════════════════════════════════════════════ -->
-<div class="ceo-hero">
+      <div class="ceo-intro__badges">
+        <span>Lt Colonel (Retired)</span>
+        <span>24 Yrs Pakistan Army</span>
+        <span>UN Peacekeeping</span>
+        <span>Intelligence Course</span>
+        <span>MA Criminology</span>
+        <span>MBA</span>
+      </div>
 
-  <div class="ceo-hero__copy">
-    <div class="ceo-hero__crumb"><span class="dot" aria-hidden="true"></span>Leadership · Vision · Integrity</div>
-    <h1 class="ceo-hero__name">
-      Lt Col<br />Shahzad<br />Sarwar
-      <em>(Retd)</em>
-    </h1>
-    <p class="ceo-hero__title">Founder &amp; CEO — CGW — Cognitive Guardian Work</p>
-    <p class="ceo-hero__lede">Military Intelligence Veteran, Corporate Leader and Entrepreneur with over 25 years of experience in security, intelligence, administration, logistics, investigations and risk management — now driving CGW's vision of advanced AI, Digital Transformation and Cybersecurity solutions across Pakistan and international markets.</p>
-    <div class="ceo-hero__badges">
-      <span class="ceo-badge">25+ Years</span>
-      <span class="ceo-badge">UN Veteran</span>
-      <span class="ceo-badge">MS Business Admin</span>
-      <span class="ceo-badge">MA Criminology</span>
-    </div>
-  </div>
+      <blockquote class="ceo-intro__quote">
+        "The same precision that wins on the battlefield wins in the boardroom. We build AI systems that intelligence officers would trust with their lives."
+      </blockquote>
 
-  <!-- CEO portrait -->
-  <div class="ceo-hero__portrait">
-    <img
-      src="images/Abbu pic.jpeg"
-      alt="Lt Col Muhammad Shahzad Sarwar (Retd) — Group Head of Administration, Security & Corporate Affairs"
-      loading="eager"
-      fetchpriority="high"
-    />
-  </div>
-
-</div>
-
-<!-- ══ KPI BAR ══════════════════════════════════════════════════════ -->
-<div class="ceo-stats-bar" aria-label="Key achievements">
-  <div class="wrap ceo-stats-bar__inner">
-    <div class="ceo-kpi reveal">
-      <span class="ceo-kpi__value">25<span>+</span></span>
-      <span class="ceo-kpi__label">Years of leadership</span>
-      <div class="ceo-kpi__bar" aria-hidden="true"></div>
-    </div>
-    <div class="ceo-kpi reveal">
-      <span class="ceo-kpi__value">PKR <span>56M+</span></span>
-      <span class="ceo-kpi__label">Recovered through investigations</span>
-      <div class="ceo-kpi__bar" aria-hidden="true"></div>
-    </div>
-    <div class="ceo-kpi reveal">
-      <span class="ceo-kpi__value">PKR <span>300M+</span></span>
-      <span class="ceo-kpi__label">Annual budgets managed</span>
-      <div class="ceo-kpi__bar" aria-hidden="true"></div>
-    </div>
-    <div class="ceo-kpi reveal">
-      <span class="ceo-kpi__value">4,300<span>+</span></span>
-      <span class="ceo-kpi__label">Sites &amp; personnel governed</span>
-      <div class="ceo-kpi__bar" aria-hidden="true"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ BIOGRAPHY ════════════════════════════════════════════════════ -->
-<section class="section section--navy" aria-labelledby="bio-heading">
-  <div class="wrap ceo-bio-grid">
-
-    <aside class="reveal">
-      <p class="ceo-bio__aside-label">The Leader</p>
-      <h2 class="ceo-bio__aside-name" id="bio-heading">Muhammad<br />Shahzad<br />Sarwar</h2>
-      <p class="ceo-bio__aside-role">Founder &amp; CEO · CGW · Retd. Lt Colonel</p>
-      <ul class="ceo-bio__skills" aria-label="Core expertise">
-        <li class="ceo-skill">Enterprise Security Management</li>
-        <li class="ceo-skill">Multi-Site Administration</li>
-        <li class="ceo-skill">Loss Prevention &amp; Investigation</li>
-        <li class="ceo-skill">Regulatory Compliance</li>
-        <li class="ceo-skill">Crisis &amp; Emergency Response</li>
-        <li class="ceo-skill">Budget &amp; Finance Oversight</li>
-        <li class="ceo-skill">Law Enforcement Liaison</li>
-        <li class="ceo-skill">Guard Force Governance</li>
-      </ul>
-    </aside>
-
-    <div class="ceo-bio__body reveal">
-
-      <p style="color:var(--taupe); font-size:15px; line-height:1.85; margin-bottom:18px;">Lt Col (R) Muhammad Shahzad Sarwar is a Military Intelligence Veteran, Corporate Leader and Entrepreneur with over 25 years of experience in security, intelligence, administration, logistics, investigations and risk management. A former officer of the Pakistan Army and United Nations peacekeeping mission, he holds an MS in Business Administration, MA in Criminology and professional qualifications in Intelligence, Anti-Fraud and Anti-Money Laundering investigations.</p>
-      <p style="color:var(--taupe); font-size:15px; line-height:1.85; margin-bottom:28px;">Having successfully led large-scale military and corporate operations, he now drives CGW's vision of delivering advanced Artificial Intelligence, Digital Transformations, Security Intelligence, Cybersecurity &amp; Risk Management solutions to clients across Pakistan and international markets.</p>
-      <div class="ceo-bio__sign">— Lt Col (R) Muhammad Shahzad Sarwar</div>
-
-      <a href="contact.html" class="neon-btn" style="display:inline-flex; margin-top:36px;">
-        <span class="neon-btn__dot" aria-hidden="true"></span>
-        <span class="neon-btn__label">Connect with Leadership</span>
-      </a>
+      <p class="ceo-intro__bio">Lt Col Sarwar brings a rare convergence of military intelligence, operational leadership, and business acumen to CGW. His 24-year Pakistan Army career included commanding intelligence operations, leading UN peacekeeping missions, and governing security infrastructure at Fortune 500 scale. He currently leads security and administration at Yaqoob Group of Companies — one of Pakistan's largest agro-chemical conglomerates.</p>
     </div>
 
-  </div>
-</section>
+    <div class="reveal">
+      <div class="ceo-intro__eyebrow">Our CEO</div>
+      <h1 class="ceo-intro__heading">Founded by an<br /><em>intelligence officer.</em></h1>
+      <p class="ceo-intro__lede">Most tech companies are built by people who have only ever worked in tech. CGW was built by someone who has spent 25 years in environments where bad decisions cost more than a failed sprint.</p>
 
-<!-- ══ PHILOSOPHY ════════════════════════════════════════════════════ -->
-<section aria-labelledby="philosophy-heading">
-  <div class="wrap" style="padding-top:clamp(48px,7vw,96px); padding-bottom:clamp(12px,2vw,24px);">
-    <div class="reveal" style="margin-bottom:clamp(36px,5vw,64px);">
-      <div class="eyebrow" style="color:var(--sage); margin-bottom:14px;">Leadership Philosophy</div>
-      <h2 id="philosophy-heading" style="font-family:var(--display); text-transform:uppercase; font-size:clamp(32px,4.5vw,68px); line-height:0.9; letter-spacing:-0.02em;">Three Principles.<br />One Standard.</h2>
+      <div class="ceo-intro__stats">
+        <div class="ceo-intro__stat">
+          <div class="ceo-intro__stat-num">24</div>
+          <div>
+            <div class="ceo-intro__stat-label">Years, Pakistan Army</div>
+            <div class="ceo-intro__stat-sub">Intelligence · Operations · Command</div>
+          </div>
+        </div>
+        <div class="ceo-intro__stat">
+          <div class="ceo-intro__stat-num">4,300+</div>
+          <div>
+            <div class="ceo-intro__stat-label">Security Personnel Governed</div>
+            <div class="ceo-intro__stat-sub">YGC · Multi-site operations</div>
+          </div>
+        </div>
+        <div class="ceo-intro__stat">
+          <div class="ceo-intro__stat-num">PKR 300M+</div>
+          <div>
+            <div class="ceo-intro__stat-label">Budgets Governed</div>
+            <div class="ceo-intro__stat-sub">Security &amp; Administration · YGC</div>
+          </div>
+        </div>
+        <div class="ceo-intro__stat">
+          <div class="ceo-intro__stat-num">PKR 56M+</div>
+          <div>
+            <div class="ceo-intro__stat-label">Fraud Recovered</div>
+            <div class="ceo-intro__stat-sub">Through intelligence-led operations</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="ceo-pillars" role="list">
-    <article class="ceo-pillar reveal" role="listitem">
-      <div class="ceo-pillar__num" aria-hidden="true">01</div>
-      <h3 class="ceo-pillar__heading">Systems<br />Prevent<br />Failure</h3>
-      <p class="ceo-pillar__text">Security vulnerabilities are not addressed by people alone — they are addressed by systems. Every role he has led has been defined by building frameworks: SOPs, CCTV infrastructure, access control protocols, and audit-ready financial governance that does not depend on individual vigilance.</p>
-      <span class="ceo-pillar__accent">Operational Architecture</span>
-    </article>
-    <article class="ceo-pillar reveal" role="listitem">
-      <div class="ceo-pillar__num" aria-hidden="true">02</div>
-      <h3 class="ceo-pillar__heading">Discipline<br />Builds<br />Culture</h3>
-      <p class="ceo-pillar__text">25 years of military and corporate leadership have proven a single truth: culture does not come from values on a wall — it comes from consistent behaviour under pressure. He led 700+ individuals through HR governance reforms that delivered a measurable 10% improvement across all performance indicators.</p>
-      <span class="ceo-pillar__accent">People &amp; Governance</span>
-    </article>
-    <article class="ceo-pillar reveal" role="listitem">
-      <div class="ceo-pillar__num" aria-hidden="true">03</div>
-      <h3 class="ceo-pillar__heading">Transparency<br />Earns<br />Trust</h3>
-      <p class="ceo-pillar__text">Managing PKR 300M+ in annual budgets with full audit readiness is not a bureaucratic exercise — it is an act of institutional trust. Across every posting, his financial governance has been held to the highest standards of compliance, regularity, and accountability.</p>
-      <span class="ceo-pillar__accent">Financial Integrity</span>
-    </article>
   </div>
 </section>
 
 <!-- ══ CAREER TIMELINE ══════════════════════════════════════════════ -->
-<section class="section section--navy" aria-labelledby="career-heading">
+<section class="section section--charcoal">
   <div class="wrap">
-    <div class="reveal" style="margin-bottom:clamp(40px,6vw,80px);">
-      <div class="eyebrow" style="color:var(--taupe); margin-bottom:14px;">Career Trajectory</div>
-      <h2 id="career-heading" style="font-family:var(--display); text-transform:uppercase; font-size:clamp(32px,4.5vw,64px); line-height:0.9; letter-spacing:-0.02em;">25 Years.<br />One Direction.</h2>
-    </div>
+    <div class="eyebrow reveal" style="color:var(--soft-blue); margin-bottom:20px;">Career Timeline</div>
+    <h2 class="reveal" style="font-family:var(--display); text-transform:uppercase; font-size:clamp(34px,5vw,72px); line-height:0.95; letter-spacing:-0.02em; max-width:16ch;">Built Through 25 Years<br />of Operational Leadership.</h2>
 
-    <div class="ceo-timeline" role="list">
-
-      <div class="ceo-tl-item reveal" role="listitem">
-        <div class="ceo-tl__year">2025<br /><span style="font-size:0.52em; color:var(--neon-bright);">Present</span></div>
-        <div class="ceo-tl__dot-col" aria-hidden="true"><div class="ceo-tl__dot"></div><div class="ceo-tl__line"></div></div>
+    <div class="ceo-timeline">
+      <div class="ceo-tl-item reveal">
+        <div class="ceo-tl__dot-col"><div class="ceo-tl__dot"></div><div class="ceo-tl__line"></div></div>
         <div>
-          <p class="ceo-tl__org">CGW — Cognitive Guardian Work</p>
+          <div class="ceo-tl__year">2025 — Present</div>
           <h3 class="ceo-tl__role">Founder &amp; CEO</h3>
-          <p class="ceo-tl__desc">Drives CGW's mission of delivering advanced Artificial Intelligence, Digital Transformation, Security Intelligence, Cybersecurity and Risk Management solutions to clients across Pakistan and international markets. Brings together military-grade security expertise and cutting-edge AI to build the next generation of intelligent, secure digital products.</p>
+          <p class="ceo-tl__org">CGW — Cognitive Guardian Work</p>
+          <p class="ceo-tl__desc">Leading AI, cybersecurity, and digital transformation products for Pakistan and global markets.</p>
         </div>
       </div>
 
-      <div class="ceo-tl-item reveal" role="listitem">
-        <div class="ceo-tl__year">2024–25</div>
-        <div class="ceo-tl__dot-col" aria-hidden="true"><div class="ceo-tl__dot"></div><div class="ceo-tl__line"></div></div>
+      <div class="ceo-tl-item reveal">
+        <div class="ceo-tl__dot-col"><div class="ceo-tl__dot"></div><div class="ceo-tl__line"></div></div>
         <div>
-          <p class="ceo-tl__org">M&amp;P Express Logistics · Karachi</p>
-          <h3 class="ceo-tl__role">Regional Manager Security<br />— South Pakistan</h3>
-          <p class="ceo-tl__desc">Achieved 30% improvement in risk mitigation metrics across logistics hubs and fleet operations. Led investigations into theft, robbery, and embezzlement resulting in PKR 56M+ in recoveries. Coordinated with law enforcement for recovery of PKR 53M in temperature-controlled pharmaceutical consignments.</p>
+          <div class="ceo-tl__year">2024 — 2025</div>
+          <h3 class="ceo-tl__role">Regional Manager Security — South Pakistan</h3>
+          <p class="ceo-tl__org">M&amp;P Express Logistics, Karachi</p>
+          <p class="ceo-tl__desc">30% improvement in risk mitigation. PKR 56M+ recovered through investigations.</p>
         </div>
       </div>
 
-      <div class="ceo-tl-item reveal" role="listitem">
-        <div class="ceo-tl__year">2010–24</div>
-        <div class="ceo-tl__dot-col" aria-hidden="true"><div class="ceo-tl__dot"></div><div class="ceo-tl__line"></div></div>
+      <div class="ceo-tl-item reveal">
+        <div class="ceo-tl__dot-col"><div class="ceo-tl__dot"></div><div class="ceo-tl__line"></div></div>
         <div>
-          <p class="ceo-tl__org">Pakistan Air Force / Army Formations · Multiple Locations</p>
-          <h3 class="ceo-tl__role">Director — Administration, Security,<br />HR &amp; Finance Operations</h3>
-          <p class="ceo-tl__desc">Led administrative, security, and facilities operations for establishments of 2,500+ personnel. Implemented industrial-grade security controls, access management, and surveillance infrastructure. Managed annual budgets exceeding PKR 300M with full audit transparency. Oversaw labour management, discipline, housing, transport, and utilities across multiple formations.</p>
+          <div class="ceo-tl__year">2010 — 2024</div>
+          <h3 class="ceo-tl__role">Director — Administration, Security &amp; HR</h3>
+          <p class="ceo-tl__org">Pakistan Air Force / Army Formations</p>
+          <p class="ceo-tl__desc">PKR 300M+ annual budgets. 2,500+ personnel. Industrial-grade security controls.</p>
         </div>
       </div>
 
-      <div class="ceo-tl-item reveal" role="listitem">
-        <div class="ceo-tl__year">2009–10</div>
-        <div class="ceo-tl__dot-col" aria-hidden="true"><div class="ceo-tl__dot"></div><div class="ceo-tl__line"></div></div>
+      <div class="ceo-tl-item reveal">
+        <div class="ceo-tl__dot-col"><div class="ceo-tl__dot"></div><div class="ceo-tl__line"></div></div>
         <div>
-          <p class="ceo-tl__org">United Nations (MONUC) · Democratic Republic of Congo</p>
-          <h3 class="ceo-tl__role">Deputy Director — Security &amp;<br />Supply Chain Operations</h3>
-          <p class="ceo-tl__desc">Managed international logistics, security, and administrative operations in a high-risk peacekeeping environment. Ensured compliance with UN security standards, asset protection protocols, and movement control procedures. Awarded the United Nations Medal for distinguished service.</p>
+          <div class="ceo-tl__year">2009 — 2010</div>
+          <h3 class="ceo-tl__role">Deputy Director — Security &amp; Supply Chain</h3>
+          <p class="ceo-tl__org">United Nations (MONUC), D.R. Congo</p>
+          <p class="ceo-tl__desc">UN peacekeeping. International logistics in high-risk environments. Awarded UN Medal for distinguished service.</p>
         </div>
       </div>
-
-      <div class="ceo-tl-item reveal" role="listitem">
-        <div class="ceo-tl__year">2000–09</div>
-        <div class="ceo-tl__dot-col" aria-hidden="true"><div class="ceo-tl__dot"></div><div class="ceo-tl__line"></div></div>
-        <div>
-          <p class="ceo-tl__org">Pakistan Army · Multiple Locations</p>
-          <h3 class="ceo-tl__role">Deputy Director — Administration,<br />Security, HR &amp; Logistics</h3>
-          <p class="ceo-tl__desc">Participated in active operations in Miran Shah and Wana. Served as HR Manager, Logistics Officer, and Transport Officer. Managed comprehensive HR practices for 700+ individuals, achieving a 10% improvement across all HR metrics. Liaised with provincial authorities and law enforcement for compliance and issue resolution.</p>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
-
-<!-- ══ QUOTE ════════════════════════════════════════════════════════ -->
-<div class="ceo-quote-wrap">
-  <div class="ceo-quote__inner">
-    <blockquote class="ceo-quote__text reveal">
-      Securing the Future Through Intelligence, Innovation and <em>AI</em>.
-    </blockquote>
-    <div class="ceo-quote__attr reveal">
-      <div class="ceo-quote__attr-line" aria-hidden="true"></div>
-      <p class="ceo-quote__attr-name">
-        Lt Col (R) Muhammad Shahzad Sarwar<br />
-        <span style="color:var(--taupe); font-size:10px; letter-spacing:0.18em;">Founder &amp; CEO · CGW — Cognitive Guardian Work</span>
-      </p>
-    </div>
-  </div>
-</div>
 
 <!-- ══ FOOTER ════════════════════════════════════════════════════════ -->
 <footer class="footer">
@@ -651,14 +277,6 @@
 <script src="store.js"></script>
 <script src="site.js"></script>
 <script src="techno.js"></script>
-<script>
-  const kpiObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('in-view'); kpiObs.unobserve(e.target); }
-    });
-  }, { threshold: 0.4 });
-  document.querySelectorAll('.ceo-kpi').forEach(el => kpiObs.observe(el));
-</script>
 <script src="chat-widget.js"></script>
 </body>
 </html>

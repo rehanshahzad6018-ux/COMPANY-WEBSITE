@@ -1,13 +1,6 @@
 /* ============================================================
-   TECHNO — Backend Server
-   ============================================================
-   Phase 1: WhatsApp AI Agent  → /whatsapp
-   Phase 2: Email AI Agent     → /api/chat (Gemini fallback)
-   Phase 3: Voice Call Agent   → /voice
-   Central AI Brain            → ai-brain.js (shared)
-
+   CGW — Backend Server
    Run:  npm install && npm start
-   Expose locally: npx ngrok http 3000
    ============================================================ */
 const express = require('express');
 const fs      = require('fs');
@@ -102,13 +95,6 @@ function requireAdmin(req, res, next) {
   if (token !== ADMIN_SECRET) return res.status(401).json({ error: 'Unauthorised' });
   next();
 }
-
-// ── Mount agents BEFORE json body parser (Twilio uses urlencoded) ──
-const voiceAgent     = require('./voice-agent');
-const whatsappAgent  = require('./whatsapp-agent');
-
-app.use('/voice',     voiceAgent);
-app.use('/whatsapp',  whatsappAgent);
 
 app.use(express.json({ limit: '50kb' }));
 app.use(express.urlencoded({ extended: true, limit: '50kb' }));
@@ -356,7 +342,6 @@ app.patch('/api/applications/:id/read', requireAdmin, (req, res) => {
 app.listen(PORT, () => {
   const openaiReady  = !!(process.env.OPENAI_API_KEY  && process.env.OPENAI_API_KEY  !== 'your_openai_key_here');
   const geminiReady  = !!(process.env.GEMINI_API_KEY  && process.env.GEMINI_API_KEY  !== 'your_free_gemini_key_here');
-  const twilioReady  = !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN);
 
   console.log('\n ╔══════════════════════════════════════════════╗');
   console.log(` ║  CGW AI Platform  →  http://localhost:${PORT}  ║`);
@@ -364,10 +349,7 @@ app.listen(PORT, () => {
   console.log(` ║  Central Brain  →  /api/brain/status`);
   console.log(` ║  AI Model       →  ${openaiReady ? 'OpenAI ' + (process.env.OPENAI_MODEL||'gpt-4o-mini') + ' ✓' : geminiReady ? 'Gemini ✓ (fallback)' : '⚠ No AI key configured'}`);
   console.log(' ╠══════════════════════════════════════════════╣');
-  console.log(` ║  📱 WhatsApp    →  /whatsapp/incoming  ${twilioReady ? '✓' : '⚠ needs Twilio'}`);
-  console.log(` ║  ✉️  Email       →  /api/chat`);
-  console.log(` ║  📞 Voice       →  /voice/incoming     ${twilioReady ? '✓' : '⚠ needs Twilio'}`);
-  console.log(' ╠══════════════════════════════════════════════╣');
+  console.log(` ║  ✉️  Email / Chat  →  /api/chat`);
   console.log(' ╚══════════════════════════════════════════════╝\n');
 
   if (!openaiReady && !geminiReady) {
