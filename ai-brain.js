@@ -138,9 +138,9 @@ Project intake: 3–4 new projects per year
 To start a project: email with project description, budget range, and preferred timing.
 
 == WEBSITE NAVIGATION ==
-Home (index.html) — main landing page, hero "Build The Future", services overview, stats
-Our CEO (Leadership.html) — full bio, career timeline, philosophy pillars, KPI stats
-Team (team.html) — all 4 team members, culture & values section
+Home (index.html) — main landing page, Spline 3D hero, services overview, stats
+Leadership (Leadership.html) — CEO full bio, career timeline, philosophy pillars, KPI stats, all 4 team members
+Why CGW (why-cgw.html) — advantage section, proof stats, 6 differentiators, methodology, CGW vs. generic agencies
 Service (service.html) — all 5 services with descriptions, process, pricing/engagement models
 Our Work (our-work.html) — all 10 portfolio projects with modal detail views, featured case study (AI POS App)
 Careers (careers.html) — open positions, why join CGW values, application form
@@ -413,7 +413,7 @@ const SMART_RULES = [
     reply: "CGW was founded by Lt Col (R) Muhammad Shahzad Sarwar — a Military Intelligence Veteran and Corporate Leader with 25+ years of experience. Former Pakistan Army officer and United Nations peacekeeper (MONUC, DRC). Holds MS in Business Administration and MA in Criminology.\n\nKey stats: PKR 56M+ recovered through investigations · PKR 300M+ annual budgets managed · 4,300+ sites & personnel governed · UN Medal recipient.\n\nPhilosophy: \"Securing the Future Through Intelligence, Innovation and AI.\"\n\nFull bio: Leadership.html" },
 
   { keys: ['team','staff','people','members','who work','employees','engineers','rehan','usman','moiz','faisal','cto'],
-    reply: "The CGW team — small, senior, fully hands-on:\n\n🧠 Rehan Shahzad — CTO: Python, Flask, JavaScript, RAG systems, AI-powered apps\n💻 Muhammad Usman — Full Stack Developer: HTML, CSS, Tailwind, JavaScript, SQL\n🔐 Abdul Moiz — Cybersecurity Engineer: pentesting, bug bounty, network security, Google Cybersecurity certified\n🎮 Rana Faisal Mustafa — Game & App Developer: Python, Java, C#, C++\n\nNo juniors, no account managers — just makers. See team.html for full profiles." },
+    reply: "The CGW team — small, senior, fully hands-on:\n\n🧠 Rehan Shahzad — CTO: Python, Flask, JavaScript, RAG systems, AI-powered apps\n💻 Muhammad Usman — Full Stack Developer: HTML, CSS, Tailwind, JavaScript, SQL\n🔐 Abdul Moiz — Cybersecurity Engineer: pentesting, bug bounty, network security, Google Cybersecurity certified\n🎮 Rana Faisal Mustafa — Game & App Developer: Python, Java, C#, C++\n\nNo juniors, no account managers — just makers. See our-leadership.html for full profiles." },
 
   { keys: ['portfolio','work','project','case stud','example','past work','what have you built','our work'],
     reply: "CGW's portfolio (10 projects — visit our-work.html for all):\n\n🤖 AI POS App — Full-Stack SaaS with RBAC & 20+ AI modules\n🌍 GlobalVisa Services — 500K+ visas, 98% success rate platform\n🏢 Orbit Technologies — High-performance corporate landing page\n🎓 NUTECH Virtual Tour — 11-location interactive campus tour\n🖥️ API Response Monitor — .NET 8 health monitoring with GitHub Actions\n📝 C++ Text Editor — Gap buffer, O(1) insert/delete, Vim interface\n🎮 Java Fighting Game — Street Fighter-inspired, pixel-art samurai\n🔍 Nmap Network Mapping — Full 0–65535 port scan, 20+ services found\n🛡️ OpenVAS Dashboard — 170K+ vulnerability tests, 33K+ Critical findings\n🕵️ Sn1per Footprinting — DNS recon, subdomain hijacking, exposure mapping" },
@@ -482,7 +482,7 @@ const SMART_RULES = [
     reply: "CGW is a fully remote studio — no physical office. The team works from anywhere and partners with clients worldwide, async by default, sync when it matters." },
 
   { keys: ['page','website','navigate','where can i find','which page'],
-    reply: "CGW website pages:\n🏠 Home — index.html\n👤 Our CEO — Leadership.html\n👥 Team — team.html\n🛠️ Services — service.html\n💼 Portfolio — our-work.html\n📋 Careers — careers.html\n📬 Contact — contact.html\n\nWhich page can I help you with?" },
+    reply: "CGW website pages:\n🏠 Home — index.html\n👥 Leadership — Leadership.html\n🛡️ Why CGW — why-cgw.html\n🛠️ Services — service.html\n💼 Portfolio — our-work.html\n📋 Careers — careers.html\n📬 Contact — contact.html\n\nWhich page can I help you with?" },
 
   { keys: ['thanks','thank you','cheers','great','awesome','perfect','helpful','appreciate','shukria','shukriya'],
     reply: "Happy to help! Is there anything else you'd like to know about CGW, our services, team, or how to get started?" },
