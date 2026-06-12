@@ -87,22 +87,29 @@ button { font-family: inherit; cursor: crosshair; background: none; border: none
    NAV — mix-blend difference
    ============================================================ */
 .nav {
-  position: fixed;
-  inset: 0 0 auto 0;
+  position: sticky;
+  top: 0;
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: clamp(20px, 3vw, 36px) clamp(20px, 4vw, 48px);
-  mix-blend-mode: difference;
+  background: var(--navy);
   color: var(--white);
 }
 .nav__logo {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
   line-height: 1;
+  text-align: left;
   mix-blend-mode: normal;
+  background: rgba(23, 30, 25, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 10px 20px;
+  border-radius: 24px;
 }
 .nav__logo img {
   height: 120px;
@@ -119,10 +126,28 @@ button { font-family: inherit; cursor: crosshair; background: none; border: none
   color: var(--sage);
   white-space: nowrap;
 }
+.nav__logo-tagline {
+  display: block;
+  font-family: var(--body);
+  font-weight: 500;
+  font-size: clamp(9px, 1vw, 11px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.6;
+  margin-top: 2px;
+  white-space: nowrap;
+}
 .nav__links {
   display: flex;
   gap: clamp(20px, 3vw, 44px);
   align-items: center;
+  mix-blend-mode: normal;
+  background: rgba(23, 30, 25, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 12px 28px;
+  border-radius: 100px;
 }
 .nav__links a {
   font-size: 12px;
@@ -178,7 +203,7 @@ button { font-family: inherit; cursor: crosshair; background: none; border: none
    ============================================================ */
 .page-hero {
   position: relative; background: var(--navy); overflow: hidden;
-  padding: clamp(160px, 22vh, 240px) 0 clamp(60px, 9vw, 110px);
+  padding: clamp(40px, 5vw, 80px) 0 clamp(60px, 9vw, 110px);
 }
 
 
@@ -352,218 +377,10 @@ button { font-family: inherit; cursor: crosshair; background: none; border: none
   50%      { transform: translateY(-20px); }
 }
 
-/* ============================================================
-   HOME SCROLL ANIMATION
-   ============================================================ */
-
-/* 600 vh scroll tunnel — hero sits above global canvas (z 0) */
-.car-scroll-wrap {
-  height: 600vh;
-  position: relative;
-  z-index: 2;
-}
-
-/* Sticky hero — clips scaled canvas on exit */
-.hero--sticky {
-  position: sticky !important;
-  top: 0;
-  height: 100vh;
-  min-height: 100vh;
-  background: var(--navy);
-  overflow: hidden;
-}
-
-/* Canvas — GPU composite layer */
-#car-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  z-index: 0;
-  display: block;
-  transform: translateZ(0);
-  transform-origin: center center;
-  will-change: transform, opacity;
-}
-
-/* Gradient overlay — keeps text legible over frames */
-.car-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    linear-gradient(to bottom,
-      rgba(23,30,25,0.72) 0%,
-      rgba(23,30,25,0.28) 30%,
-      rgba(23,30,25,0.28) 60%,
-      rgba(23,30,25,0.78) 100%);
-}
-
-/* Exit veil — navy fade sits above canvas, below content */
-.hero-exit-veil {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  background: var(--navy);
-  opacity: 0;
-  pointer-events: none;
-  will-change: opacity;
-}
-
-/* Hero inner — GPU layer for parallax + fade */
-.hero--sticky .hero__inner {
-  will-change: transform, opacity;
-  transform: translateZ(0);
-}
-
-/* Loading bar */
-#car-loader {
-  position: absolute;
-  bottom: 32px; left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 10px;
-}
-#car-loader__bar {
-  width: 200px; height: 2px;
-  background: rgba(183,198,194,0.2);
-  position: relative; overflow: hidden;
-}
-#car-loader__fill {
-  position: absolute; left: 0; top: 0; height: 100%;
-  background: var(--neon-bright); width: 0%;
-  transition: width 0.12s linear;
-}
-#car-loader__pct {
-  font-family: var(--body); font-size: 10px;
-  letter-spacing: 0.3em; color: rgba(183,198,194,0.5);
-  text-transform: uppercase;
-}
-
-/* Scroll hint — bouncing line */
-.car-scroll-hint {
-  position: absolute;
-  bottom: 40px; left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 8px;
-  opacity: 1; transition: opacity 0.6s ease;
-  pointer-events: none;
-}
-.car-scroll-hint.hidden { opacity: 0; }
-.car-scroll-hint__line {
-  width: 1px; height: 44px;
-  background: var(--neon-bright);
-  animation: car-pulse 1.6s ease-in-out infinite;
-}
-.car-scroll-hint__label {
-  font-family: var(--body); font-size: 10px;
-  letter-spacing: 0.35em; color: var(--neon-bright);
-  text-transform: uppercase;
-}
-@keyframes car-pulse {
-  0%, 100% { transform: translateY(0); opacity: 1; }
-  50%       { transform: translateY(8px); opacity: 0.3; }
-}
-
-/* Neon progress bar */
-.car-progress {
-  position: absolute;
-  top: 0; left: 0; height: 2px;
-  background: var(--neon-bright); width: 0%;
-  z-index: 12; pointer-events: none;
-  box-shadow: 0 0 8px var(--neon-bright);
-  transition: width 0.05s linear;
-}
-
-/* ============================================================
-   GLOBAL BACKGROUND CANVAS
-   — fixed at z-index 0; JS fades it in as hero exits then
-     idles the last frames behind every subsequent section
-   ============================================================ */
-#global-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  display: block;
-  pointer-events: none;
-  opacity: 0;
-  will-change: opacity;
-}
-
-/* ============================================================
-   SECTION STACKING — above global canvas (z 0)
-   Dark sections use rgba backgrounds so the ambient animation
-   glows through subtly; light sections stay fully opaque.
-   ============================================================ */
-.car-scroll-wrap { z-index: 2; }
-
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  background: var(--navy);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
-  padding-top: 150px;
-  padding-bottom: 60px;
-}
-.hero__inner { position: relative; z-index: 4; }
-.hero .orb    { z-index: 2; }
-.hero__kicker {
-  color: var(--sage);
-  margin-bottom: clamp(24px, 4vw, 44px);
-  display: flex; align-items: center; gap: 14px;
-}
-.hero__kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 14px var(--neon); }
-.hero__title {
-  font-family: var(--display);
-  text-transform: uppercase;
-  line-height: 0.84;
-  letter-spacing: -0.02em;
-  font-size: clamp(58px, 13.5vw, 210px);
-}
 .text-outline {
   color: transparent;
   -webkit-text-stroke: 1px var(--sage);
   text-stroke: 1px var(--sage);
-}
-.hero__bottom {
-  margin-top: clamp(40px, 7vw, 90px);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-.hero__lede {
-  max-width: 340px;
-  color: var(--taupe);
-  font-size: 14px;
-  letter-spacing: 0.04em;
-  line-height: 1.7;
-  text-transform: uppercase;
-}
-.hero__arrow {
-  width: 76px; height: 76px;
-  border: 1px solid rgba(183,198,194,0.5);
-  border-radius: 50%;
-  display: grid; place-items: center;
-  color: var(--sage);
-  flex-shrink: 0;
-}
-.hero__arrow svg { animation: bounce 2s var(--ease-fluid) infinite; }
-@keyframes bounce {
-  0%, 100% { transform: translateY(-5px); }
-  50%      { transform: translateY(5px); }
 }
 
 /* ============================================================
