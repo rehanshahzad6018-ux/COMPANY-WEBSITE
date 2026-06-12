@@ -426,6 +426,57 @@ button { font-family: inherit; cursor: crosshair; background: none; border: none
 .neon-btn__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--neon-bright); box-shadow: 0 0 12px var(--neon-bright); flex-shrink: 0; }
 
 /* ============================================================
+   SPLINE HERO SECTION
+   ============================================================ */
+.spline-hero {
+  position: relative;
+  z-index: 2;
+  background: var(--navy);
+  padding: clamp(60px, 8vw, 120px) 0;
+  overflow: hidden;
+}
+.spline-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.spline-hero__copy .eyebrow { color: var(--neon-bright); }
+.spline-hero__copy h1 {
+  font-family: var(--display);
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  font-size: clamp(44px, 6vw, 104px);
+  margin: 22px 0 26px;
+  background: linear-gradient(to bottom, var(--white), var(--sage));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.spline-hero__copy p {
+  color: var(--taupe);
+  max-width: 480px;
+  line-height: 1.75;
+  font-size: 15px;
+  margin-bottom: 28px;
+}
+.spline-hero__copy p em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--neon-bright);
+}
+.spline-hero__stage {
+  position: relative;
+  height: 520px;
+}
+.spline-hero__stage spline-viewer {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ============================================================
    CARDSWAP 3D SECTION
    ============================================================ */
 .swap-sec {
@@ -688,6 +739,8 @@ button { font-family: inherit; cursor: crosshair; background: none; border: none
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {
+  .spline-hero__grid { grid-template-columns: 1fr; gap: 30px; }
+  .spline-hero__stage { height: 380px; }
   .swap-grid { grid-template-columns: 1fr; gap: 50px; }
   .swap-stage-wrap { height: 420px; }
   .swap-stage { transform: none; width: 340px; height: 260px; }
