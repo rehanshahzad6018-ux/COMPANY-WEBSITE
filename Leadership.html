@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -43,14 +43,14 @@
 .ceo-photo-caption h2 {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(17px, 2vw, 24px); letter-spacing: -0.01em;
-  color: var(--white); line-height: 1.15; margin-bottom: 6px; font-weight: 700;
+  color: var(--neon-bright); line-height: 1.15; margin-bottom: 6px; font-weight: 700;
 }
 .ceo-photo-caption span {
   font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--soft-blue);
 }
 .ceo-badges {
-  display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 24px;
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0;
 }
 .ceo-badges span {
   padding: 7px 14px;
@@ -62,7 +62,7 @@
 .ceo-stats {
   display: grid; grid-template-columns: repeat(3, 1fr);
   border: 1px solid rgba(183,198,194,0.12); border-radius: 10px;
-  overflow: hidden;
+  overflow: hidden; margin-top: 75px;
 }
 .ceo-stat {
   padding: clamp(16px, 2vw, 22px) clamp(14px, 1.8vw, 20px);
@@ -80,12 +80,12 @@
 }
 
 /* ── TIMELINE ────────────────────────────────────────────── */
-.ceo-bio { color: var(--sage); font-size: 15px; line-height: 1.85; margin-bottom: 16px; }
-.ceo-timeline { display: flex; flex-direction: column; margin-top: 36px; }
+.ceo-bio { color: var(--sage); font-size: 15px; line-height: 1.85; margin-bottom: 16px; font-weight: 600; text-align: justify; }
+.ceo-timeline { display: flex; flex-direction: column; margin-top: 16px; }
 .tl-item {
   display: grid; grid-template-columns: 10px 1fr;
   gap: clamp(18px, 3vw, 36px);
-  padding-bottom: clamp(28px, 4vw, 44px);
+  padding-bottom: clamp(12px, 1.5vw, 18px);
 }
 .tl-item:last-child { padding-bottom: 0; }
 .tl-item:last-child .tl-line { display: none; }
@@ -104,21 +104,21 @@
 }
 .tl-role {
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(14px, 1.5vw, 19px); letter-spacing: -0.01em;
-  color: var(--white); margin-bottom: 5px; font-weight: 700;
+  font-size: clamp(12px, 1.2vw, 16px); letter-spacing: -0.01em;
+  color: var(--neon-bright); margin-bottom: 5px; font-weight: 700;
 }
 .tl-org { color: var(--soft-blue); font-size: 12px; margin-bottom: 8px; }
-.tl-desc { color: var(--taupe); font-size: 13px; line-height: 1.7; max-width: 58ch; }
+.tl-desc { color: var(--sage); font-size: 15px; line-height: 1.85; font-weight: 600; text-align: justify; }
 
 /* ── TEAM SECTION ────────────────────────────────────────── */
-.team-intro { margin-bottom: clamp(40px, 6vw, 64px); }
+.team-intro { margin-bottom: clamp(16px, 2vw, 24px); }
 .team-intro h2 {
   font-family: var(--display); font-weight: 700;
-  font-size: clamp(34px, 5vw, 68px); line-height: 1.04; letter-spacing: -0.02em;
-  margin-bottom: 18px;
+  font-size: clamp(22px, 3vw, 44px); line-height: 1.04; letter-spacing: -0.02em;
+  margin-bottom: 18px; white-space: nowrap; font-weight: 900;
 }
 .team-intro h2 em {
-  display: block; font-style: italic; font-weight: 300; color: var(--taupe);
+  font-style: italic; font-weight: 300; color: var(--taupe);
 }
 .team-intro p { color: var(--sage); font-size: 15px; line-height: 1.75; max-width: 54ch; }
 .team-cards {
@@ -134,7 +134,7 @@
   text-decoration: none; color: inherit;
   transition: transform 0.22s ease, border-color 0.22s ease;
 }
-.tc:hover { transform: translateY(-4px); border-color: rgba(0,229,214,0.25); }
+.tc:hover { transform: translateY(-4px); border-color: rgba(192,132,252,0.25); }
 .tc__media {
   aspect-ratio: 3 / 3.6;
   position: relative; display: flex; align-items: center; justify-content: center;
@@ -179,7 +179,7 @@
 <body>
 
 <nav class="nav" aria-label="Main navigation">
-  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technology and Security Solutions</span></span></a>
+  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technologies and Security Solutions</span></span></a>
   <div class="nav__links">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
@@ -205,12 +205,20 @@
   <a href="contact.html">Contact</a>
 </div>
 
+<!-- ── HERO ──────────────────────────────────────────────────────────── -->
+<section class="section section--navy" style="padding-bottom:0; padding-top:10px;">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="color:var(--neon-bright); margin-bottom:16px; letter-spacing:0.28em; display:flex; align-items:center; gap:12px;"><span style="display:block; width:32px; height:2px; background:var(--neon-bright); flex-shrink:0;"></span>Leadership</div>
+    <h1 class="reveal" style="font-family:var(--display); font-weight:700; font-size:clamp(24px,3.5vw,54px); line-height:0.92; letter-spacing:-0.03em;">A founder who <br><em style="font-style:italic; font-weight:300; color:var(--neon-bright);">has been in the field.</em></h1>
+  </div>
+</section>
+
 <!-- ── CEO PROFILE ───────────────────────────────────────────────────── -->
-<section class="section section--navy">
+<section class="section section--navy" style="padding-top:4px;">
   <div class="wrap ceo-grid">
 
     <!-- LEFT: photo + badges + stats -->
-    <div class="reveal">
+    <div class="reveal" style="display:flex; flex-direction:column; justify-content:flex-start;">
       <div class="ceo-photo-wrap">
         <img src="images/Abbu pic.jpeg" alt="Lt Col (R) Muhammad Shahzad Sarwar" loading="eager" fetchpriority="high" />
         <div class="ceo-photo-caption">
@@ -219,11 +227,16 @@
         </div>
       </div>
 
-      <div class="ceo-badges">
-        <span>MS Business Admin</span>
-        <span>MA Criminology</span>
-        <span>Intelligence Course</span>
-        <span>UN Medal</span>
+      <div class="ceo-badges" style="display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; gap:8px; flex-wrap:nowrap;">
+          <span>MS - Business Administration</span>
+          <span>MA - Criminology</span>
+          <span>UN Medal</span>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:nowrap;">
+          <span>Intelligence Course</span>
+          <span>Anti-Fraud &amp; Money Laundering Specialist</span>
+        </div>
       </div>
 
       <div class="ceo-stats">
@@ -244,7 +257,7 @@
 
     <!-- RIGHT: bio + timeline -->
     <div class="reveal">
-      <p class="ceo-bio">Lt Col (R) Shahzad Sarwar brings a credential no Silicon Valley résumé can replicate — active operational intelligence work in Pakistan's tribal regions, United Nations peacekeeping in the Democratic Republic of Congo, and budget governance for formations of 2,500+ personnel.</p>
+      <p class="ceo-bio">Lt Col (R) Muhammad Shahzad Sarwar brings a credential no Silicon Valley résumé can replicate — active operational intelligence work in Pakistan's tribal regions, United Nations peacekeeping in the Democratic Republic of Congo, and budget governance for formations of 2,500+ personnel.</p>
       <p class="ceo-bio">He founded CGW in 2025 to bring military-grade discipline and intelligence methodology to the world of AI product development — where most teams ship fast but think shallow.</p>
 
       <div class="ceo-timeline">
@@ -255,6 +268,16 @@
             <div class="tl-role">Founder &amp; CEO</div>
             <div class="tl-org">CGW — Cognitive Guardian Work</div>
             <p class="tl-desc">Leading AI, cybersecurity, and digital transformation products for Pakistan and global markets.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div>
+            <div class="tl-year">2025 — Present</div>
+            <div class="tl-role">Entrepreneurship</div>
+            <div class="tl-org">Hooriya Department Store — AI-POS (Point of Sales)</div>
+            <p class="tl-desc">An intelligent retail management ecosystem combining secure RBAC with deep AI-driven business intelligence. Features an executive analytics command centre with 20+ AI insight modules, real-time financial metrics, and a dark-mode UI built for fast-paced retail environments.</p>
           </div>
         </div>
 
@@ -294,10 +317,10 @@
 </section>
 
 <!-- ── TEAM ──────────────────────────────────────────────────────────── -->
-<section class="section section--navy" style="padding-top:0;">
+<section class="section section--navy" style="padding-top:0; padding-bottom:0;">
   <div class="wrap">
     <div class="team-intro reveal">
-      <h2>Small, senior,<br /><em>fully hands-on.</em></h2>
+      <h2 style="white-space:nowrap;">Small, senior, <em style="font-style:italic; color:var(--neon-bright);">fully hands-on.</em></h2>
       <p>Four practitioners. No junior filler. No account managers. Every person on every project is the person actually doing the work.</p>
     </div>
 
@@ -356,12 +379,11 @@
 <!-- ── FOOTER ────────────────────────────────────────────────────────── -->
 <footer class="footer">
   <div class="wrap">
-    <h2 class="reveal">Let's<br />Create</h2>
-    <a href="mailto:cgwofficialai@gmail.com" class="footer__email reveal">cgwofficialai@gmail.com</a>
     <div class="footer__bottom">
       <span>© 2026 CGW</span>
+      <a href="mailto:cgwofficialai@gmail.com" class="footer__contact">cgwofficialai@gmail.com</a>
       <div class="footer__legal">
-        <a href="#">Instagram</a>
+        <a href="https://www.instagram.com/cgwofficial_ai/" target="_blank" rel="noopener">Instagram</a>
         <a href="#">Dribbble</a>
         <a href="#">LinkedIn</a>
       </div>

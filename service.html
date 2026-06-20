@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -22,7 +22,7 @@
 <body>
 
 <nav class="nav">
-  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technology and Security Solutions</span></span></a>
+  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technologies and Security Solutions</span></span></a>
   <div class="nav__links">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
@@ -45,6 +45,18 @@
   <a href="careers.html">Careers</a>
   <a href="contact.html">Contact</a>
 </div>
+
+<!-- SERVICE HERO -->
+<section style="background:var(--navy); padding: 10px 0 clamp(30px,4vw,50px);">
+  <div class="wrap">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
+      <span style="display:block; width:32px; height:2px; background:var(--neon-bright);"></span>
+      <span style="font-family:var(--body); font-size:11px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--neon-bright);">What We Build</span>
+    </div>
+    <h1 style="font-family:var(--display); font-size:clamp(36px,5.5vw,82px); line-height:1.05; font-weight:700; letter-spacing:-0.02em; margin-bottom:4px; color:var(--white);">Seven capabilities.</h1>
+    <h1 style="font-family:var(--body); font-size:clamp(32px,5vw,76px); line-height:1.05; font-weight:400; letter-spacing:-0.01em; color:var(--taupe); margin:0;">One standard of excellence.</h1>
+  </div>
+</section>
 
 <!-- SERVICE ROWS -->
 <section class="section section--white">
@@ -113,12 +125,14 @@
 <!-- PROCESS -->
 <section class="section section--navy">
   <div class="wrap">
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(44px,8vw,120px); align-items:start; margin-bottom:clamp(60px,9vw,120px);">
+    <div class="reveal" style="margin-bottom:clamp(20px,3vw,36px);">
+      <div class="eyebrow" style="color:var(--taupe); margin-bottom:20px;">Our Process</div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; align-items:start; margin-bottom:clamp(30px,4vw,50px);">
       <div class="reveal">
-        <div class="eyebrow" style="color:var(--taupe); margin-bottom:20px;">Our Process</div>
         <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(34px,5vw,72px); line-height:0.88; letter-spacing:-0.02em;">How We<br />Work</h2>
       </div>
-      <div class="reveal" style="padding-top:8px;">
+      <div class="reveal">
         <p style="color:var(--taupe); font-size:16px; line-height:1.8; margin-bottom:18px;">We do not run cookie-cutter sprints. Every engagement is shaped around the specific problem and the team we are working with. That said, we do follow a consistent rhythm.</p>
         <p style="color:var(--taupe); font-size:16px; line-height:1.8;">Most projects move through four phases: Discover, Define, Design, Deliver. Each phase has clear inputs and outputs, and we share work continuously — never disappearing for three weeks only to reappear with a big reveal.</p>
       </div>
@@ -154,11 +168,11 @@
 </section>
 
 <!-- PRICING / ENGAGEMENT -->
-<section class="section section--charcoal">
+<section class="section section--charcoal" style="padding-bottom:0;">
   <div class="wrap">
-    <div class="reveal" style="margin-bottom:clamp(44px,6vw,80px);">
+    <div class="reveal" style="margin-bottom:clamp(16px,2vw,24px);">
       <div class="eyebrow" style="color:var(--taupe); margin-bottom:16px;">Engagement Models</div>
-      <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(32px,4.5vw,66px); line-height:0.9; letter-spacing:-0.02em;">We Work<br />Your Way</h2>
+      <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(32px,4.5vw,66px); line-height:0.9; letter-spacing:-0.02em;">We Work Your Way</h2>
     </div>
     <div id="pricing-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,3vw,40px);">
       <!-- cards injected by fetchPricing() -->
@@ -187,8 +201,8 @@
       function renderCards(plans) {
         const grid = document.getElementById('pricing-grid');
         grid.innerHTML = plans.map(p => {
-          const bg    = p.popular ? 'background:rgba(168,85,247,0.08); border:1px solid rgba(168,85,247,0.3);' : 'background:rgba(255,255,255,0.04); border:1px solid rgba(183,198,194,0.12);';
-          const badge = p.popular ? `<div style="position:absolute; top:16px; right:16px; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--neon-bright); border:1px solid rgba(168,85,247,0.4); padding:4px 10px; border-radius:20px;">Most Popular</div>` : '';
+          const bg    = p.popular ? 'background:rgba(139,92,246,0.08); border:1px solid rgba(139,92,246,0.3);' : 'background:rgba(255,255,255,0.04); border:1px solid rgba(183,198,194,0.12);';
+          const badge = p.popular ? `<div style="position:absolute; top:16px; right:16px; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--neon-bright); border:1px solid rgba(139,92,246,0.4); padding:4px 10px; border-radius:20px;">Most Popular</div>` : '';
           return `
             <div class="reveal" style="${bg} border-radius:8px; padding:clamp(24px,3vw,44px); position:relative;">
               ${badge}
@@ -212,28 +226,15 @@
 </section>
 
 
-<!-- CTA -->
-<section class="section section--navy">
-  <div class="wrap" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:18px;">
-    <span class="eyebrow" style="color:var(--neon-bright);">Have a project in mind?</span>
-    <h2 class="display reveal" style="font-size:clamp(40px,6vw,96px);">Let's build it</h2>
-    <p class="reveal" style="color:var(--taupe); max-width:480px; text-align:center; line-height:1.7; font-size:15px;">Tell us what you are working on. We reply to every serious enquiry within 48 hours and take on three or four new projects each year.</p>
-    <a href="contact.html" class="neon-btn reveal" data-text="Start a Project" style="display:inline-flex; margin-top:8px;">
-      <span class="neon-btn__dot"></span>
-      <span class="neon-btn__label">Start a Project</span>
-    </a>
-  </div>
-</section>
 
 <!-- FOOTER -->
 <footer class="footer">
   <div class="wrap">
-    <h2 class="reveal">Let's<br />Create</h2>
-    <a href="mailto:cgwofficialai@gmail.com" class="footer__email reveal">cgwofficialai@gmail.com</a>
     <div class="footer__bottom">
       <span>© 2026 CGW</span>
+      <a href="mailto:cgwofficialai@gmail.com" class="footer__contact">cgwofficialai@gmail.com</a>
       <div class="footer__legal">
-        <a href="#">Instagram</a>
+        <a href="https://www.instagram.com/cgwofficial_ai/" target="_blank" rel="noopener">Instagram</a>
         <a href="#">Dribbble</a>
         <a href="#">LinkedIn</a>
       </div>
@@ -246,3 +247,4 @@
 <script src="chat-widget.js"></script>
 </body>
 </html>
+

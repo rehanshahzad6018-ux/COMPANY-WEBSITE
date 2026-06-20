@@ -130,58 +130,12 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
   drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => toggle(false)));
 })();
 
-/* ---------- Contact form — AI auto-reply + real email ---------- */
+/* ---------- Contact form — save enquiry to server ---------- */
 (function () {
   const form = document.querySelector('.form');
   if (!form) return;
   const msgEl = form.querySelector('.form-msg');
   const submitBtn = form.querySelector('button[type="submit"]');
-
-  // ── Read credentials saved from admin Settings panel ──────────
-  function getCfg() {
-    return {
-      geminiKey:  localStorage.getItem('autoreply_gemini_key')  || '',
-      ejsPubKey:  localStorage.getItem('autoreply_ejs_pub')     || '',
-      ejsService: localStorage.getItem('autoreply_ejs_service') || '',
-      tplNotify:  localStorage.getItem('autoreply_tpl_notify')  || '',
-      tplReply:   localStorage.getItem('autoreply_tpl_reply')   || '',
-    };
-  }
-
-  // ── Gemini: generate AI reply text ────────────────────────────
-  async function geminiReply(name, message, budget, geminiKey) {
-    const prompt =
-      `You are the professional assistant at CGW — Cognitive Guardian Work, a senior AI technology & security studio working fully remote with clients worldwide.\n` +
-      `Write a warm, professional email reply to this website enquiry.\n\n` +
-      `Sender: ${name}\nBudget: ${budget || 'not specified'}\nMessage: ${message}\n\n` +
-      `Instructions:\n` +
-      `- Thank them by first name\n` +
-      `- Show genuine interest in their project\n` +
-      `- Say the team will follow up within 48 hours with next steps\n` +
-      `- Keep it concise (3 short paragraphs)\n` +
-      `- Sign off as "The CGW Team"\n\n` +
-      `Write only the email body — no subject line, no extra commentary.`;
-
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ role: 'user', parts: [{ text: prompt }] }],
-          generationConfig: { maxOutputTokens: 400, temperature: 0.7 }
-        })
-      }
-    );
-    if (!res.ok) throw new Error('gemini-' + res.status);
-    const d = await res.json();
-    return d.candidates?.[0]?.content?.parts?.map(p => p.text).join('') || '';
-  }
-
-  // ── Fallback reply if Gemini/EmailJS not configured ───────────
-  function fallbackReply(name) {
-    return `Hi ${name},\n\nThank you for reaching out to CGW! We have received your message and really appreciate your interest in working with us.\n\nOur team will review your enquiry and get back to you within 48 hours with more details on how we can bring your project to life.\n\nWarm regards,\nThe CGW Team\ncgwofficialai@gmail.com`;
-  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -198,65 +152,27 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
     if (msgEl) { msgEl.textContent = 'Sending…'; msgEl.style.color = ''; }
 
     // Save to server messages store
+    let ok = false;
     try {
-      await fetch('/api/messages', {
+      const res = await fetch('/api/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: data.name, email: data.email, budget: data.budget, message: data.message, source: 'contact' })
       });
+      ok = res.ok;
     } catch (_) {}
 
-    const cfg = getCfg();
-    const hasEmailJS = cfg.ejsPubKey && cfg.ejsService && cfg.tplNotify && cfg.tplReply;
-    const hasGemini  = !!cfg.geminiKey;
-
-    let replyText = fallbackReply(data.name);
-    let aiUsed = false;
-
-    // Step 1: generate AI reply
-    if (hasGemini) {
-      try {
-        const generated = await geminiReply(data.name, data.message, data.budget, cfg.geminiKey);
-        if (generated) { replyText = generated; aiUsed = true; }
-      } catch (_) {}
-    }
-
-    // Step 2: send emails via EmailJS
-    if (hasEmailJS && window.emailjs) {
-      try {
-        emailjs.init({ publicKey: cfg.ejsPubKey });
-
-        // a) Notify rehan
-        await emailjs.send(cfg.ejsService, cfg.tplNotify, {
-          from_name:  data.name,
-          from_email: data.email,
-          budget:     data.budget || 'Not specified',
-          message:    data.message,
-          to_email:   'rehanshahzad6018@gmail.com',
-        });
-
-        // b) AI reply to visitor
-        await emailjs.send(cfg.ejsService, cfg.tplReply, {
-          to_name:    data.name,
-          to_email:   data.email,
-          reply_body: replyText,
-        });
-
-        if (msgEl) {
-          msgEl.style.color = '#4ade80';
-          msgEl.textContent = aiUsed
-            ? '✓ Message sent! We just emailed you an AI-generated reply — check your inbox.'
-            : '✓ Message sent! We\'ll be in touch within 48 hours.';
-        }
-      } catch (err) {
-        if (msgEl) { msgEl.style.color = ''; msgEl.textContent = '✓ Message received — we\'ll be in touch within 48 hours.'; }
+    if (msgEl) {
+      if (ok) {
+        msgEl.style.color = '#4ade80';
+        msgEl.textContent = '✓ Message received — we\'ll be in touch within 48 hours.';
+      } else {
+        msgEl.style.color = '';
+        msgEl.textContent = 'Could not send right now. Please email cgwofficialai@gmail.com.';
       }
-    } else {
-      // EmailJS not set up yet — just confirm
-      if (msgEl) { msgEl.style.color = ''; msgEl.textContent = '✓ Message received — we\'ll be in touch within 48 hours.'; }
     }
 
-    form.reset();
+    if (ok) form.reset();
     if (submitBtn) submitBtn.disabled = false;
   });
 })();

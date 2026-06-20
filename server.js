@@ -31,6 +31,23 @@ const resumeUpload = multer({
 const LEADS_FILE   = path.join(__dirname, 'leads.json');
 const PRICING_FILE = path.join(__dirname, 'pricing.json');
 
+// ── CORS — allow localhost origins (dev) ───────────────────────
+const ALLOWED_ORIGINS = [
+  `http://localhost:${process.env.PORT || 3000}`,
+  `http://127.0.0.1:${process.env.PORT || 3000}`,
+];
+app.use((req, res, next) => {
+  const origin = req.headers.origin || '';
+  if (ALLOWED_ORIGINS.includes(origin) || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Admin-Token');
+    res.setHeader('Access-Control-Max-Age', '600');
+  }
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+});
+
 // ── Security headers ───────────────────────────────────────────
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -40,11 +57,14 @@ app.use((req, res, next) => {
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   res.setHeader('Content-Security-Policy',
     "default-src 'self'; " +
-    "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; " +
+    // 'unsafe-eval' is required by the Spline 3D viewer runtime (hero robot).
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://unpkg.com; " +
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
     "font-src 'self' https://fonts.gstatic.com; " +
-    "img-src 'self' data: blob:; " +
-    "connect-src 'self'; " +
+    "img-src 'self' data: blob: https://prod.spline.design https://*.spline.design; " +
+    "media-src 'self' data: blob: https://prod.spline.design https://*.spline.design; " +
+    "connect-src 'self' http://localhost:* http://127.0.0.1:* https://prod.spline.design https://*.spline.design https://unpkg.com; " +
+    "worker-src 'self' blob:; " +
     "frame-ancestors 'none';"
   );
   res.removeHeader('X-Powered-By');
@@ -54,10 +74,15 @@ app.use((req, res, next) => {
 // ── Block sensitive files from being served statically ─────────
 const BLOCKED_FILES = [
   'leads.json','applications.json','brain-memory.json',
-  'pricing.json','jobs.json','.env','store.json','messages.json'
+  'pricing.json','jobs.json','.env','.env.example','store.json','messages.json',
+  // logs & server-side source must never be downloadable
+  'server.log','server.js','ai-brain.js','package.json','package-lock.json','calls.json'
 ];
 app.use((req, res, next) => {
-  const base = path.basename(req.path).toLowerCase();
+  const reqPath = decodeURIComponent(req.path).toLowerCase();
+  const base = path.basename(reqPath);
+  // uploaded resumes are only accessible through the admin-authed download route
+  if (reqPath.startsWith('/uploads')) return res.status(403).end();
   if (BLOCKED_FILES.includes(base)) return res.status(403).end();
   next();
 });
@@ -89,12 +114,37 @@ function sanitize(str, maxLen = 2000) {
 }
 
 // ── Admin token auth (for destructive/write API routes) ────────
-const ADMIN_SECRET = process.env.ADMIN_SECRET || '6K68M4Jq6-8wa29QflP0cWpFAFoQuXwe';
+const crypto = require('crypto');
+const ADMIN_SECRET = process.env.ADMIN_SECRET;
+if (!ADMIN_SECRET || ADMIN_SECRET.length < 16) {
+  console.error('\n  ✖ FATAL: ADMIN_SECRET is not set (or too short).');
+  console.error('    Add a strong ADMIN_SECRET to your .env file, e.g.:');
+  console.error('      ADMIN_SECRET=' + crypto.randomBytes(24).toString('base64url') + '\n');
+  process.exit(1);
+}
+// Constant-time comparison to avoid timing attacks
+function safeEqual(a, b) {
+  const ba = Buffer.from(String(a));
+  const bb = Buffer.from(String(b));
+  if (ba.length !== bb.length) return false;
+  return crypto.timingSafeEqual(ba, bb);
+}
 function requireAdmin(req, res, next) {
-  const token = req.headers['x-admin-token'] || req.query._token;
-  if (token !== ADMIN_SECRET) return res.status(401).json({ error: 'Unauthorised' });
+  const token = req.headers['x-admin-token'] || req.query._token || '';
+  if (!safeEqual(token, ADMIN_SECRET)) return res.status(401).json({ error: 'Unauthorised' });
   next();
 }
+
+// ── Admin login (verifies username + password server-side; secret never shipped to browser) ──
+const ADMIN_USER = process.env.ADMIN_USER || 'admin';
+app.post('/api/admin/login', rateLimit(60000, 8), express.json({ limit: '4kb' }), (req, res) => {
+  const username = (req.body && req.body.username) || '';
+  const password = (req.body && req.body.password) || '';
+  if (!safeEqual(username, ADMIN_USER) || !safeEqual(password, ADMIN_SECRET)) {
+    return res.status(401).json({ error: 'Incorrect username or password.' });
+  }
+  res.json({ ok: true });
+});
 
 app.use(express.json({ limit: '50kb' }));
 app.use(express.urlencoded({ extended: true, limit: '50kb' }));
@@ -143,13 +193,10 @@ app.get('/api/brain/status', requireAdmin, (req, res) => {
   res.json({
     totalSessions:    users.length,
     channels: {
-      whatsapp: users.filter(u => u.startsWith('wa:')).length,
-      voice:    users.filter(u => u.startsWith('call:')).length,
-      email:    users.filter(u => u.startsWith('email:')).length,
+      web: users.filter(u => u.startsWith('web:')).length,
     },
-    openaiConfigured:  !!(process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== 'your_openai_key_here'),
     geminiConfigured:  !!(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your_free_gemini_key_here'),
-    model:             process.env.OPENAI_MODEL || 'gpt-4o-mini',
+    model:             'gemini-1.5-flash',
   });
 });
 
@@ -157,24 +204,6 @@ app.delete('/api/brain/memory', requireAdmin, (req, res) => {
   const MEMORY_FILE = path.join(__dirname, 'brain-memory.json');
   fs.writeFileSync(MEMORY_FILE, JSON.stringify({}, null, 2));
   res.json({ ok: true });
-});
-
-// ── Email AI (Gemini / OpenAI proxy) ──────────────────────────
-app.post('/api/chat', rateLimit(60000, 20), async (req, res) => {
-  const brain = require('./ai-brain');
-  const messages = (req.body && req.body.messages) || [];
-  const userId   = sanitize(req.body.userId || 'email:anonymous', 64);
-
-  const userMsg = sanitize(messages.filter(m => m.role === 'user').slice(-1)[0]?.content || '', 1000);
-  if (!userMsg) return res.status(400).json({ error: 'no message' });
-
-  try {
-    const result = await brain.think({ userId, userMessage: userMsg, channel: 'email', maxTokens: 400 });
-    res.json({ reply: result.reply });
-  } catch (e) {
-    console.error('[chat]', e.message);
-    res.status(500).json({ error: 'Something went wrong. Please try again.' });
-  }
 });
 
 // ── Website Chat Widget ────────────────────────────────────────
@@ -190,7 +219,7 @@ app.post('/api/website-chat', rateLimit(60000, 30), async (req, res) => {
     const result = await brain.think({
       userId,
       userMessage: cleanMsg,
-      channel: 'email',
+      channel: 'web',
       maxTokens: 350
     });
     res.json({ reply: result.reply });
@@ -340,19 +369,18 @@ app.patch('/api/applications/:id/read', requireAdmin, (req, res) => {
 
 // ── Startup log ────────────────────────────────────────────────
 app.listen(PORT, () => {
-  const openaiReady  = !!(process.env.OPENAI_API_KEY  && process.env.OPENAI_API_KEY  !== 'your_openai_key_here');
   const geminiReady  = !!(process.env.GEMINI_API_KEY  && process.env.GEMINI_API_KEY  !== 'your_free_gemini_key_here');
 
   console.log('\n ╔══════════════════════════════════════════════╗');
   console.log(` ║  CGW AI Platform  →  http://localhost:${PORT}  ║`);
   console.log(' ╠══════════════════════════════════════════════╣');
-  console.log(` ║  Central Brain  →  /api/brain/status`);
-  console.log(` ║  AI Model       →  ${openaiReady ? 'OpenAI ' + (process.env.OPENAI_MODEL||'gpt-4o-mini') + ' ✓' : geminiReady ? 'Gemini ✓ (fallback)' : '⚠ No AI key configured'}`);
+  console.log(` ║  ARIA Brain     →  /api/brain/status`);
+  console.log(` ║  AI Model       →  ${geminiReady ? 'Gemini ready' : 'No AI key configured'}`);
   console.log(' ╠══════════════════════════════════════════════╣');
-  console.log(` ║  ✉️  Email / Chat  →  /api/chat`);
+  console.log(` ║  Website Chat   →  /api/website-chat`);
   console.log(' ╚══════════════════════════════════════════════╝\n');
 
-  if (!openaiReady && !geminiReady) {
-    console.log('  ⚠  No AI key found. Add OPENAI_API_KEY or GEMINI_API_KEY to .env\n');
+  if (!geminiReady) {
+    console.log('  No AI key found. Add GEMINI_API_KEY to .env\n');
   }
 });

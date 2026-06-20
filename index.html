@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -25,7 +25,7 @@
 
 <!-- ============ NAV ============ -->
 <nav class="nav">
-  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technology and Security Solutions</span></span></a>
+  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technologies and Security Solutions</span></span></a>
   <div class="nav__links">
     <a href="index.html" class="is-active">Home</a>
     <a href="about.html">About</a>
@@ -54,19 +54,69 @@
 <section class="spline-hero">
   <div class="wrap spline-hero__grid">
     <div class="spline-hero__copy reveal">
-      <div class="eyebrow">CGW — AI Technology &amp; Security</div>
-      <h1>Building<br />Intelligent<br />Systems</h1>
-      <p>That safeguard people, organizations, infrastructure, and nations through <em>Artificial Intelligence</em>, <em>Cybersecurity</em>, <em>Predictive Intelligence</em>, and <em>Autonomous Security Operations</em>.</p>
-      <a href="contact.html" class="neon-btn" data-text="Start a Project">
-        <span class="neon-btn__dot"></span>
-        <span class="neon-btn__label">Start a Project</span>
-      </a>
+      <div class="hero-badge">
+        <span class="hero-badge__dot"></span>
+        PAKISTAN &nbsp;·&nbsp; USA &nbsp;·&nbsp; UK &nbsp;·&nbsp; REGISTERING 2026
+      </div>
+      <div class="hero-tags">
+        <div class="hero-tag">
+          <span class="hero-tag__dot"></span>
+          <span>Artificial Intelligence</span>
+        </div>
+        <div class="hero-tag">
+          <span class="hero-tag__dot"></span>
+          <span>Innovation</span>
+        </div>
+        <div class="hero-tag">
+          <span class="hero-tag__dot"></span>
+          <span>Growth</span>
+        </div>
+      </div>
+      <p class="hero-intro"><strong>Building Intelligent Systems</strong> that safeguard people, organizations, infrastructure, and nations through <em>Artificial Intelligence</em>, <em>Cybersecurity</em>, <em>Predictive Intelligence</em>, and <em>Autonomous Security Operations</em>.</p>
     </div>
     <div class="spline-hero__stage reveal">
       <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" loading-anim-type="spinner-small-dark"></spline-viewer>
+      <style>spline-viewer::part(logo){display:none!important}</style>
+      <script>
+        (function(){
+          var v=document.querySelector('spline-viewer');
+          if(!v)return;
+          function hide(){
+            var r=v.shadowRoot;
+            if(!r)return;
+            var targets=r.querySelectorAll('#logo,a[href*="spline.design"],a[href*="spline"],img[alt*="Spline"],[class*="logo"],[id*="logo"]');
+            targets.forEach(function(el){el.style.cssText='display:none!important;visibility:hidden!important;opacity:0!important;';});
+          }
+          /* poll every 300ms for 15s to catch late injection */
+          var attempts=0;
+          var t=setInterval(function(){
+            hide();
+            if(++attempts>50)clearInterval(t);
+          },300);
+          v.addEventListener('load',function(){ hide(); clearInterval(t); });
+        })();
+      </script>
     </div>
   </div>
 </section>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">Security &amp; Penetration Testing <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">AI-SOC Platform <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Full Stack Development <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">AI Chatbots &amp; Automation <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Security Intelligence Consulting <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Digital Transformation <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Security &amp; Penetration Testing <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">AI-SOC Platform <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Full Stack Development <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">AI Chatbots &amp; Automation <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Security Intelligence Consulting <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Digital Transformation <span class="ticker-dot">◆</span></span>
+  </div>
+</div>
 
 <!-- ============ CARDSWAP 3D ============ -->
 <section class="swap-sec" id="studio">
@@ -127,36 +177,16 @@
   </div>
 </section>
 
-<!-- ============ CAPABILITIES ============ -->
-<section class="caps" id="capabilities">
-  <div class="wrap caps__grid">
-    <div class="caps__label reveal">
-      <div class="eyebrow">Capabilities</div>
-      <div class="caps__list">
-        <div class="caps__item">Strategy</div>
-        <div class="caps__item">3D &amp; WebGL</div>
-        <div class="caps__item">Product Design</div>
-        <div class="caps__item">Motion</div>
-        <div class="caps__item">Brand Systems</div>
-        <div class="caps__item">Engineering</div>
-      </div>
-    </div>
-    <div class="caps__lead reveal">
-      <h3>We are a studio at the intersection of <em>design</em>, <em>technology</em> and <em>motion</em> — building digital products that feel inevitable and look like nothing else.</h3>
-    </div>
-  </div>
-</section>
 
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer" id="contact">
   <div class="wrap">
-    <h2 class="reveal">Let's<br />Create</h2>
-    <a href="mailto:cgwofficialai@gmail.com" class="footer__email reveal">cgwofficialai@gmail.com</a>
     <div class="footer__bottom">
       <span>© 2026 CGW</span>
+      <a href="mailto:cgwofficialai@gmail.com" class="footer__contact">cgwofficialai@gmail.com</a>
       <div class="footer__legal">
-        <a href="#">Instagram</a>
+        <a href="https://www.instagram.com/cgwofficial_ai/" target="_blank" rel="noopener">Instagram</a>
         <a href="#">Dribbble</a>
         <a href="#">LinkedIn</a>
       </div>
@@ -195,9 +225,9 @@
     backdrop-filter: blur(6px);
   }
   #admin-lock-btn:hover {
-    color: #a855f7;
-    border-color: rgba(168,85,247,0.4);
-    background: rgba(168,85,247,0.08);
+    color: #8b5cf6;
+    border-color: rgba(139,92,246,0.4);
+    background: rgba(139,92,246,0.08);
   }
 </style>
 </body>

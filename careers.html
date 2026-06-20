@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -27,8 +27,8 @@
   padding: 5px 13px; border-radius: 100px;
   margin-bottom: 18px;
 }
-.job-badge--intern    { background: rgba(168,85,247,0.14); color: var(--neon-bright); border: 1px solid rgba(168,85,247,0.35); }
-.job-badge--full-time { background: rgba(213,244,249,0.12); color: var(--cyan);        border: 1px solid rgba(213,244,249,0.3); }
+.job-badge--intern    { background: rgba(139,92,246,0.14); color: var(--neon-bright); border: 1px solid rgba(139,92,246,0.35); }
+.job-badge--full-time { background: rgba(231,220,255,0.12); color: var(--cyan);        border: 1px solid rgba(231,220,255,0.3); }
 .job-badge--part-time { background: rgba(159,141,139,0.14); color: var(--beige);       border: 1px solid rgba(159,141,139,0.3); }
 
 /* ── Job rows (dark sections) ── */
@@ -52,14 +52,14 @@
 .job-row__apply {
   flex-shrink: 0;
   font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700;
-  padding: 11px 22px; border: 1px solid rgba(168,85,247,0.5); border-radius: 100px;
-  color: var(--neon-bright); background: rgba(168,85,247,0.07);
+  padding: 11px 22px; border: 1px solid rgba(139,92,246,0.5); border-radius: 100px;
+  color: var(--neon-bright); background: rgba(139,92,246,0.07);
   transition: background 0.35s, box-shadow 0.35s, border-color 0.35s;
   cursor: pointer; font-family: var(--body);
 }
 .job-row__apply:hover {
-  background: rgba(168,85,247,0.18); border-color: var(--neon-bright);
-  box-shadow: 0 0 22px rgba(168,85,247,0.4);
+  background: rgba(139,92,246,0.18); border-color: var(--neon-bright);
+  box-shadow: 0 0 22px rgba(139,92,246,0.4);
 }
 @media (max-width: 860px) {
   .job-row { grid-template-columns: 1fr; gap: 10px; }
@@ -113,7 +113,7 @@
 <body>
 
 <nav class="nav">
-  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technology and Security Solutions</span></span></a>
+  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technologies and Security Solutions</span></span></a>
   <div class="nav__links">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
@@ -138,11 +138,11 @@
 </div>
 
 <!-- ============ OPEN POSITIONS ============ -->
-<section class="section section--navy" id="positions">
+<section class="section section--navy" id="positions" style="padding-top:10px;">
   <div class="wrap">
     <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px; margin-bottom:clamp(44px,6vw,80px);">
       <div class="reveal">
-        <div class="eyebrow" style="color:var(--neon-bright); margin-bottom:14px;">Open Roles</div>
+        <div class="eyebrow" style="color:var(--neon-bright); margin-bottom:14px; display:flex; align-items:center; gap:12px;"><span style="display:block; width:32px; height:2px; background:var(--neon-bright); flex-shrink:0;"></span>Open Roles</div>
         <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(40px,6vw,96px); line-height:0.85; letter-spacing:-0.02em;">Current<br />Openings</h2>
       </div>
       <p class="reveal" style="color:var(--taupe); max-width:340px; font-size:14px; line-height:1.75; text-align:right;">
@@ -156,51 +156,6 @@
   </div>
 </section>
 
-<!-- ============ WHY JOIN US ============ -->
-<section class="section section--charcoal">
-  <div class="wrap">
-    <div class="reveal" style="max-width:680px; margin-bottom:0;">
-      <div class="eyebrow" style="color:var(--taupe); margin-bottom:16px;">Why CGW</div>
-      <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(34px,5vw,72px); line-height:0.88; letter-spacing:-0.02em;">Build Real<br />Things</h2>
-      <p style="color:var(--taupe); font-size:16px; line-height:1.8; margin-top:20px; max-width:520px;">
-        We're a small studio with a big portfolio. You'll work directly on live projects, ship real code, and learn from people who have been building on the web for years.
-      </p>
-    </div>
-
-    <div class="values-grid">
-      <div class="value-card reveal">
-        <div class="value-card__icon">⚡</div>
-        <div class="value-card__title">Ship Fast</div>
-        <div class="value-card__body">No six-month projects that go nowhere. We move quickly, iterate, and launch.</div>
-      </div>
-      <div class="value-card reveal">
-        <div class="value-card__icon">🎯</div>
-        <div class="value-card__title">Real Ownership</div>
-        <div class="value-card__body">Interns and juniors own actual features. No coffee runs, no busywork.</div>
-      </div>
-      <div class="value-card reveal">
-        <div class="value-card__icon">🧠</div>
-        <div class="value-card__title">Learn by Doing</div>
-        <div class="value-card__body">Pair with senior engineers and designers on client work from day one.</div>
-      </div>
-      <div class="value-card reveal">
-        <div class="value-card__icon">🌍</div>
-        <div class="value-card__title">Remote-First</div>
-        <div class="value-card__body">Work from anywhere. Async by default, sync when it matters.</div>
-      </div>
-      <div class="value-card reveal">
-        <div class="value-card__icon">💜</div>
-        <div class="value-card__title">Craft Culture</div>
-        <div class="value-card__body">We care about quality deeply. Details matter here, and we take the time to get them right.</div>
-      </div>
-      <div class="value-card reveal">
-        <div class="value-card__icon">📈</div>
-        <div class="value-card__title">Grow Fast</div>
-        <div class="value-card__body">Strong performers move up. Internships often lead to full-time offers.</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ============ APPLICATION FORM ============ -->
 <section class="section section--navy" id="apply">
@@ -274,12 +229,11 @@
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="wrap">
-    <h2 class="reveal">Let's<br />Create</h2>
-    <a href="mailto:cgwofficialai@gmail.com" class="footer__email reveal">cgwofficialai@gmail.com</a>
     <div class="footer__bottom">
       <span>© 2026 CGW</span>
+      <a href="mailto:cgwofficialai@gmail.com" class="footer__contact">cgwofficialai@gmail.com</a>
       <div class="footer__legal">
-        <a href="#">Instagram</a>
+        <a href="https://www.instagram.com/cgwofficial_ai/" target="_blank" rel="noopener">Instagram</a>
         <a href="#">Dribbble</a>
         <a href="#">LinkedIn</a>
       </div>
@@ -440,7 +394,11 @@
         body: fd
       });
 
-      if (!res.ok) throw new Error('server error');
+      if (!res.ok) {
+        if (res.status === 429) throw new Error('Too many attempts. Please wait a minute and try again.');
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error || 'Server error (' + res.status + ')');
+      }
 
       /* Try EmailJS notification if configured */
       const ejsPub     = localStorage.getItem('autoreply_ejs_pub') || '';
@@ -468,7 +426,8 @@
 
     } catch (err) {
       applyMsg.style.color = '#f87171';
-      applyMsg.textContent = 'Something went wrong. Please email us directly at ' + CAREERS_EMAIL;
+      const msg = err.message && err.message !== 'server error' ? err.message : null;
+      applyMsg.textContent = msg || ('Something went wrong. Please email us directly at ' + CAREERS_EMAIL);
     }
 
     applyBtn.disabled = false;

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI POS APP — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:        #0e0f1a;
+    --card-bg:   #13141f;
+    --card2-bg:  #1a1b2e;
+    --border:    rgba(255,255,255,.07);
+    --purple:    #7c3aed;
+    --purple2:   #a855f7;
+    --pink:      #ec4899;
+    --green1:    #00f5a0;
+    --green2:    #00d4aa;
+    --text:      #e2e8f0;
+    --muted:     #64748b;
+    --role-bg:   #1c1d2e;
+    --role-hover:#21223a;
+    --radius:    18px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Ambient glow background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(124,58,237,.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 20%, rgba(0,245,160,.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Login frame */
+  .frame {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+  }
+
+  .card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: var(--radius);
+    padding: 36px 32px 28px;
+    z-index: 1;
+    animation: fadeUp .5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Avatar */
+  .avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 0 8px rgba(124,58,237,.15), 0 0 32px rgba(124,58,237,.3);
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 8px rgba(124,58,237,.15), 0 0 32px rgba(124,58,237,.3); }
+    50%      { box-shadow: 0 0 0 12px rgba(124,58,237,.1), 0 0 48px rgba(124,58,237,.4); }
+  }
+
+  /* Title */
+  .title {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: -.01em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .title-ai {
+    background: linear-gradient(90deg, #a855f7, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-right: 4px;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  /* Role grid */
+  .role-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .role-card {
+    background: var(--role-bg);
+    border: 1.5px solid rgba(255,255,255,.06);
+    border-radius: 13px;
+    padding: 16px 12px;
+    cursor: pointer;
+    transition: all .2s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .role-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(124,58,237,.08), transparent);
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  .role-card:hover {
+    background: var(--role-hover);
+    border-color: rgba(168,85,247,.3);
+    transform: translateY(-1px);
+  }
+
+  .role-card:hover::before { opacity: 1; }
+
+  .role-card.active {
+    border-color: #a855f7;
+    background: rgba(124,58,237,.12);
+    box-shadow: 0 0 0 1px rgba(168,85,247,.4), 0 0 20px rgba(124,58,237,.2);
+  }
+
+  .role-card.active::before { opacity: 1; }
+
+  .role-icon {
+    font-size: 26px;
+    margin-bottom: 8px;
+    display: block;
+    line-height: 1;
+  }
+
+  .role-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .role-sub {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Password input */
+  .input-wrap {
+    position: relative;
+    margin-bottom: 14px;
+  }
+
+  .input-wrap input {
+    width: 100%;
+    background: rgba(255,255,255,.04);
+    border: 1.5px solid rgba(255,255,255,.08);
+    border-radius: 12px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 14px 18px;
+    outline: none;
+    transition: border-color .2s, background .2s;
+    letter-spacing: .04em;
+  }
+
+  .input-wrap input::placeholder { color: var(--muted); letter-spacing: normal; }
+
+  .input-wrap input:focus {
+    border-color: rgba(168,85,247,.6);
+    background: rgba(124,58,237,.06);
+  }
+
+  /* Login button */
+  .login-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, var(--green1), var(--green2));
+    color: #0a1a15;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .03em;
+    cursor: pointer;
+    transition: all .2s ease;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .login-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,.15), transparent);
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  .login-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px rgba(0,245,160,.25);
+  }
+
+  .login-btn:hover::after { opacity: 1; }
+
+  .login-btn:active { transform: translateY(0); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+  <div class="card">
+
+    <h1 class="title">
+      <span class="title-ai">AI</span><span> POS APP</span>
+    </h1>
+    <p class="subtitle">Select your role and enter your secure password</p>
+
+    <div class="role-grid">
+      <div class="role-card active" data-role="admin">
+        <div class="role-name">Admin</div>
+        <div class="role-sub">Full Access</div>
+      </div>
+      <div class="role-card" data-role="manager">
+        <div class="role-name">Manager</div>
+        <div class="role-sub">Reports &amp; AI</div>
+      </div>
+      <div class="role-card" data-role="cashier">
+        <div class="role-name">Cashier</div>
+        <div class="role-sub">POS &amp; Sales</div>
+      </div>
+      <div class="role-card" data-role="inventory">
+        <div class="role-name">Inventory Staff</div>
+        <div class="role-sub">Stock Management</div>
+      </div>
+    </div>
+
+    <div class="input-wrap">
+      <input type="password" placeholder="Enter password" id="pw-input"/>
+    </div>
+
+    <button class="login-btn" id="login-btn">Login →</button>
+
+    <div class="footer">Secure AI POS APP — Powered by AI</div>
+
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.role-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.role-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+    });
+  });
+
+  document.getElementById('pw-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('login-btn').click();
+  });
+
+  document.getElementById('login-btn').addEventListener('click', () => {
+    const role = document.querySelector('.role-card.active')?.dataset.role || 'admin';
+    const pw   = document.getElementById('pw-input').value;
+    if (!pw) {
+      document.getElementById('pw-input').style.borderColor = '#f87171';
+      setTimeout(() => document.getElementById('pw-input').style.borderColor = '', 1200);
+      return;
+    }
+    alert(`Logging in as ${role}…`);
+  });
+</script>
+</body>
+</html>

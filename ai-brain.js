@@ -1,13 +1,13 @@
 ﻿/* ============================================================
-   TECHNO — Central AI Brain
+   CGW — ARIA Chat Brain  (website chat only)
    ============================================================
-   Single module shared by all three agents:
-   • WhatsApp Agent  (/whatsapp)
-   • Email Agent     (/api/chat)
-   • Voice Agent     (/voice)
+   The single backend brain for the ARIA chat widget shown on
+   the website (/api/website-chat). No email, WhatsApp or voice
+   agents — those were removed.
 
-   Supports OpenAI GPT-4o (primary) and Gemini (fallback).
-   Maintains per-user conversation memory in brain-memory.json.
+   Uses Google Gemini (gemini-1.5-flash) for replies, with a
+   built-in keyword fallback when no API key is configured.
+   Maintains per-visitor conversation memory in brain-memory.json.
    ============================================================ */
 const fs   = require('fs');
 const path = require('path');
@@ -236,69 +236,7 @@ function extractEmail(text) {
   return m ? m[0] : null;
 }
 
-// ── 0. OpenRouter (PRIMARY) ───────────────────────────────────────
-async function callOpenRouter(messages, maxTokens = 200) {
-  const key = process.env.OPENROUTER_API_KEY;
-  if (!key || key === 'your_openrouter_key_here') throw new Error('no-openrouter-key');
-  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${key}`,
-      'HTTP-Referer': 'https://cgw-ai.com',
-      'X-Title': 'CGW ARIA Chatbot',
-    },
-    body: JSON.stringify({
-      model: process.env.OPENROUTER_MODEL || 'meta-llama/llama-3.1-8b-instruct:free',
-      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
-      max_tokens: maxTokens,
-      temperature: 0.7,
-    })
-  });
-  if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(`openrouter-${res.status}: ${e.error?.message||'unknown'}`); }
-  const data = await res.json();
-  const text = data.choices?.[0]?.message?.content?.trim() || '';
-  if (!text) throw new Error('openrouter-empty');
-  return text;
-}
-
-// ── 1. OpenAI GPT ────────────────────────────────────────────────
-async function callOpenAI(messages, maxTokens = 200) {
-  const key = process.env.OPENAI_API_KEY;
-  if (!key || key === 'your_openai_key_here') throw new Error('no-openai-key');
-  const res = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-    body: JSON.stringify({
-      model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
-      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
-      max_tokens: maxTokens, temperature: 0.7,
-    })
-  });
-  if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(`openai-${res.status}: ${e.error?.message||'unknown'}`); }
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content?.trim() || '';
-}
-
-// ── 2. Groq — FREE, no credit card (console.groq.com) ────────────
-async function callGroq(messages, maxTokens = 200) {
-  const key = process.env.GROQ_API_KEY;
-  if (!key || key === 'your_groq_key_here') throw new Error('no-groq-key');
-  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-    body: JSON.stringify({
-      model: 'llama3-8b-8192',   // free model on Groq
-      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
-      max_tokens: maxTokens, temperature: 0.7,
-    })
-  });
-  if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(`groq-${res.status}: ${e.error?.message||'unknown'}`); }
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content?.trim() || '';
-}
-
-// ── 3. Gemini — FREE (aistudio.google.com) ───────────────────────
+// ── Gemini — FREE (aistudio.google.com) ───────────────────────
 async function callGemini(messages, maxTokens = 200) {
   const key = process.env.GEMINI_API_KEY;
   if (!key || key === 'your_free_gemini_key_here') throw new Error('no-gemini-key');
@@ -351,31 +289,13 @@ async function think({ userId, userMessage, channel = 'unknown', maxTokens = 200
     .map(m => ({ role: m.role, content: m.content }));
 
   let reply = '';
-  // Try all AI providers in order: OpenRouter → OpenAI → Groq → Gemini → smart fallback
+  // Gemini only → smart fallback
   try {
-    reply = await callOpenRouter(recentMessages, maxTokens);
-    console.log('[brain] ✓ OpenRouter');
-  } catch (e0) {
-    console.warn('[brain] OpenRouter:', e0.message);
-    try {
-      reply = await callOpenAI(recentMessages, maxTokens);
-      console.log('[brain] ✓ OpenAI');
-    } catch (e1) {
-      console.warn('[brain] OpenAI:', e1.message);
-      try {
-        reply = await callGroq(recentMessages, maxTokens);
-        console.log('[brain] ✓ Groq (free)');
-      } catch (e2) {
-        console.warn('[brain] Groq:', e2.message);
-        try {
-          reply = await callGemini(recentMessages, maxTokens);
-          console.log('[brain] ✓ Gemini (free)');
-        } catch (e3) {
-          console.warn('[brain] Gemini:', e3.message, '— using smart fallback');
-          reply = getFallbackReply(userMessage);
-        }
-      }
-    }
+    reply = await callGemini(recentMessages, maxTokens);
+    console.log('[brain] ✓ Gemini (free)');
+  } catch (e) {
+    console.warn('[brain] Gemini:', e.message, '— using smart fallback');
+    reply = getFallbackReply(userMessage);
   }
 
   // Log assistant reply
@@ -404,19 +324,19 @@ const SMART_RULES = [
     reply: "CGW — Cognitive Guardian Work is a senior technology studio founded in 2026, working fully remote with clients worldwide. We deliver AI applications, full-stack web platforms, cybersecurity assessments, 2D game development, and Python automation for ambitious clients worldwide. Small team, big portfolio — 3–4 projects per year, fully hands-on." },
 
   { keys: ['service','offer','what do you do','capability','speciali','help with','build'],
-    reply: "CGW offers 5 core services:\n\n1️⃣ Full Stack Development — React, Next.js, Node.js, PostgreSQL — complete web apps\n2️⃣ AI Chatbot & Automation — custom AI chatbots for websites & WhatsApp\n3️⃣ Python Scripts & Bots — automation, scrapers, desktop apps, API integrations\n4️⃣ 2D Game Development — Pygame, JavaFX, MonoGame — full source code\n5️⃣ Penetration Testing & Security — OWASP Top 10 assessments with full reports\n\nVisit service.html for full details. Which area interests you?" },
+    reply: "CGW offers 5 core services:\n\n1. Full Stack Development — React, Next.js, Node.js, PostgreSQL — complete web apps\n2. AI Chatbot & Automation — custom AI chatbots for websites & WhatsApp\n3. Python Scripts & Bots — automation, scrapers, desktop apps, API integrations\n4. 2D Game Development — Pygame, JavaFX, MonoGame — full source code\n5. Penetration Testing & Security — OWASP Top 10 assessments with full reports\n\nVisit service.html for full details. Which area interests you?" },
 
   { keys: ['price','cost','budget','how much','rate','fee','charge','quote','afford','pricing','expensive','package'],
-    reply: "CGW engagement models:\n\n💰 Sprint — from $15,000 (2–4 weeks) · focused single-problem engagement\n💰 Project — from $45,000 (6–16 weeks) · full product from discovery to delivery ⭐ Most Popular\n💰 Retainer — from $8,000/month · ongoing senior design partner on-call\n\nEmail cgwofficialai@gmail.com for a tailored quote — we respond within 48 hours." },
+    reply: "CGW engagement models:\n\nSprint — from $15,000 (2–4 weeks) · focused single-problem engagement\nProject — from $45,000 (6–16 weeks) · full product from discovery to delivery Most Popular\nRetainer — from $8,000/month · ongoing senior design partner on-call\n\nEmail cgwofficialai@gmail.com for a tailored quote — we respond within 48 hours." },
 
   { keys: ['ceo','founder','shahzad','sarwar','lt col','who started','who founded','who runs','who is the boss','leadership','muhammad shahzad'],
     reply: "CGW was founded by Lt Col (R) Muhammad Shahzad Sarwar — a Military Intelligence Veteran and Corporate Leader with 25+ years of experience. Former Pakistan Army officer and United Nations peacekeeper (MONUC, DRC). Holds MS in Business Administration and MA in Criminology.\n\nKey stats: PKR 56M+ recovered through investigations · PKR 300M+ annual budgets managed · 4,300+ sites & personnel governed · UN Medal recipient.\n\nPhilosophy: \"Securing the Future Through Intelligence, Innovation and AI.\"\n\nFull bio: Leadership.html" },
 
   { keys: ['team','staff','people','members','who work','employees','engineers','rehan','usman','moiz','faisal','cto'],
-    reply: "The CGW team — small, senior, fully hands-on:\n\n🧠 Rehan Shahzad — CTO: Python, Flask, JavaScript, RAG systems, AI-powered apps\n💻 Muhammad Usman — Full Stack Developer: HTML, CSS, Tailwind, JavaScript, SQL\n🔐 Abdul Moiz — Cybersecurity Engineer: pentesting, bug bounty, network security, Google Cybersecurity certified\n🎮 Rana Faisal Mustafa — Game & App Developer: Python, Java, C#, C++\n\nNo juniors, no account managers — just makers. See our-leadership.html for full profiles." },
+    reply: "The CGW team — small, senior, fully hands-on:\n\nRehan Shahzad — CTO: Python, Flask, JavaScript, RAG systems, AI-powered apps\nMuhammad Usman — Full Stack Developer: HTML, CSS, Tailwind, JavaScript, SQL\nAbdul Moiz — Cybersecurity Engineer: pentesting, bug bounty, network security, Google Cybersecurity certified\nRana Faisal Mustafa — Game & App Developer: Python, Java, C#, C++\n\nNo juniors, no account managers — just makers. See our-leadership.html for full profiles." },
 
   { keys: ['portfolio','work','project','case stud','example','past work','what have you built','our work'],
-    reply: "CGW's portfolio (10 projects — visit our-work.html for all):\n\n🤖 AI POS App — Full-Stack SaaS with RBAC & 20+ AI modules\n🌍 GlobalVisa Services — 500K+ visas, 98% success rate platform\n🏢 Orbit Technologies — High-performance corporate landing page\n🎓 NUTECH Virtual Tour — 11-location interactive campus tour\n🖥️ API Response Monitor — .NET 8 health monitoring with GitHub Actions\n📝 C++ Text Editor — Gap buffer, O(1) insert/delete, Vim interface\n🎮 Java Fighting Game — Street Fighter-inspired, pixel-art samurai\n🔍 Nmap Network Mapping — Full 0–65535 port scan, 20+ services found\n🛡️ OpenVAS Dashboard — 170K+ vulnerability tests, 33K+ Critical findings\n🕵️ Sn1per Footprinting — DNS recon, subdomain hijacking, exposure mapping" },
+    reply: "CGW's portfolio (10 projects — visit our-work.html for all):\n\nAI POS App — Full-Stack SaaS with RBAC & 20+ AI modules\nGlobalVisa Services — 500K+ visas, 98% success rate platform\nOrbit Technologies — High-performance corporate landing page\nNUTECH Virtual Tour — 11-location interactive campus tour\nAPI Response Monitor — .NET 8 health monitoring with GitHub Actions\nC++ Text Editor — Gap buffer, O(1) insert/delete, Vim interface\nJava Fighting Game — Street Fighter-inspired, pixel-art samurai\nNmap Network Mapping — Full 0–65535 port scan, 20+ services found\nOpenVAS Dashboard — 170K+ vulnerability tests, 33K+ Critical findings\nSn1per Footprinting — DNS recon, subdomain hijacking, exposure mapping" },
 
   { keys: ['ai pos','pos app','point of sale','retail'],
     reply: "AI POS App (2026) — our flagship SaaS project. Intelligent retail management with RBAC (Admin, Manager, Cashier, Inventory Staff roles), executive AI analytics dashboard with 20+ modules (basket sizes, inventory forecasting, cash flow, credit risk), real-time financial metrics, and dark-mode UI built for fast-paced retail. Uses Claude AI." },
@@ -449,7 +369,7 @@ const SMART_RULES = [
     reply: "Sn1per Footprinting (2026) — automated recon via Sn1per v9.2. Combined host pinging, DNS gathering, subdomain hijacking checks. Integrated Nmap revealed 20+ services including critical admin shell ports: exec(512), login(513), shell(514), plus FTP, SSH, Telnet, MySQL, PostgreSQL, VNC. All loot saved to structured workspace." },
 
   { keys: ['process','how does it work','how do you work','approach','methodology','steps','phases','workflow'],
-    reply: "CGW's 4-phase process:\n\n1️⃣ Discover (1–2 wks) — stakeholder interviews, competitive audit, user research\n2️⃣ Define (1 wk) — strategy brief, information architecture, creative direction\n3️⃣ Design (4–12 wks) — iterative cycles, live Figma, async feedback, recorded reviews\n4️⃣ Deliver (1–2 wks) — handoff specs, design system docs, engineering support & QA\n\nTotal: 6–16 weeks. Work shared continuously — no big-reveal surprises." },
+    reply: "CGW's 4-phase process:\n\n1. Discover (1–2 wks) — stakeholder interviews, competitive audit, user research\n2. Define (1 wk) — strategy brief, information architecture, creative direction\n3. Design (4–12 wks) — iterative cycles, live Figma, async feedback, recorded reviews\n4. Deliver (1–2 wks) — handoff specs, design system docs, engineering support & QA\n\nTotal: 6–16 weeks. Work shared continuously — no big-reveal surprises." },
 
   { keys: ['timeline','how long','duration','weeks','months','turnaround','deadline','delivery'],
     reply: "Most projects: 6–12 weeks from kickoff to delivery. Larger builds up to 16 weeks. Sprint engagements: 2–4 weeks. Clear milestones set throughout — no disappearing acts." },
@@ -458,7 +378,7 @@ const SMART_RULES = [
     reply: "To start a project with CGW, email cgwofficialai@gmail.com with:\n• Brief description of your project\n• Your budget range\n• Preferred timing\n\nWe reply within 48 hours. We take on 3–4 new projects per year — or visit contact.html to fill the contact form." },
 
   { keys: ['contact','email','reach','get in touch','talk','message','enquiry'],
-    reply: "📧 Email: cgwofficialai@gmail.com\n📍 Fully remote studio — we partner with clients worldwide\n\nWe reply to every serious enquiry within 48 hours. Or visit contact.html to send a message directly." },
+    reply: "Email: cgwofficialai@gmail.com\nFully remote studio — we partner with clients worldwide\n\nWe reply to every serious enquiry within 48 hours. Or visit contact.html to send a message directly." },
 
   { keys: ['career','job','hire','hiring','role','join','apply','opening','work for','internship','vacancy'],
     reply: "CGW is hiring people obsessed with craft! Visit careers.html to see open positions and apply.\n\nWhy join us: Ship Fast · Real Ownership · Learn by Doing · Remote-First · Craft Culture · Grow Fast\n\nTo apply: email cgwofficialai@gmail.com with your role interest, a short note about why CGW, and your portfolio/GitHub. We reply within 5 business days." },
@@ -482,7 +402,7 @@ const SMART_RULES = [
     reply: "CGW is a fully remote studio — no physical office. The team works from anywhere and partners with clients worldwide, async by default, sync when it matters." },
 
   { keys: ['page','website','navigate','where can i find','which page'],
-    reply: "CGW website pages:\n🏠 Home — index.html\n👥 Leadership — Leadership.html\n🛡️ Why CGW — why-cgw.html\n🛠️ Services — service.html\n💼 Portfolio — our-work.html\n📋 Careers — careers.html\n📬 Contact — contact.html\n\nWhich page can I help you with?" },
+    reply: "CGW website pages:\nHome — index.html\nLeadership — Leadership.html\nWhy CGW — why-cgw.html\nServices — service.html\nPortfolio — our-work.html\nCareers — careers.html\nContact — contact.html\n\nWhich page can I help you with?" },
 
   { keys: ['thanks','thank you','cheers','great','awesome','perfect','helpful','appreciate','shukria','shukriya'],
     reply: "Happy to help! Is there anything else you'd like to know about CGW, our services, team, or how to get started?" },

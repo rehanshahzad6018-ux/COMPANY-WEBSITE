@@ -81,7 +81,7 @@
   }
   .tchat-header-info { flex: 1; }
   .tchat-header-name {
-    font-family: 'Anton', 'Arial Narrow', sans-serif;
+    font-family: Arial, sans-serif;
     text-transform: uppercase; letter-spacing: 0.1em;
     font-size: 15px; color: #fff; line-height: 1;
   }
@@ -121,13 +121,15 @@
 
   /* Messages */
   .tchat-messages {
-    flex: 1; overflow-y: auto; padding: 16px 14px;
+    flex: 1; min-height: 0; overflow-y: auto; padding: 16px 14px;
     display: flex; flex-direction: column; gap: 10px;
     scroll-behavior: smooth;
+    overscroll-behavior: contain;
   }
-  .tchat-messages::-webkit-scrollbar { width: 3px; }
+  .tchat-messages::-webkit-scrollbar { width: 8px; }
   .tchat-messages::-webkit-scrollbar-track { background: transparent; }
-  .tchat-messages::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.3); border-radius: 2px; }
+  .tchat-messages::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.4); border-radius: 4px; }
+  .tchat-messages::-webkit-scrollbar-thumb:hover { background: rgba(168,85,247,0.65); }
 
   .tchat-msg { display: flex; flex-direction: column; max-width: 82%; }
   .tchat-msg.user { align-self: flex-end; align-items: flex-end; }
@@ -268,7 +270,7 @@
     </div>
 
     <!-- CHAT TAB -->
-    <div id="tchat-tab-chat" style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+    <div id="tchat-tab-chat" style="display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;">
       <div class="tchat-messages" id="tchat-messages"></div>
       <div class="tchat-input-row">
         <textarea class="tchat-input" id="tchat-input" placeholder="Ask ARIA anything…" rows="1"></textarea>
@@ -527,3 +529,4 @@
   });
 
 })();
+

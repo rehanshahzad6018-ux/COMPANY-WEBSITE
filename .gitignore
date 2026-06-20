@@ -1,6 +1,8 @@
 node_modules/
 .env
-uploads/resumes/
+uploads/
+*.log
+server.log
 
 # Runtime data — generated at runtime, contains real visitor PII
 # (jobs.json is kept tracked — it's admin-managed listing content, not visitor data)

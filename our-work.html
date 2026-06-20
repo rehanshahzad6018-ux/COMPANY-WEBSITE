@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -19,6 +19,15 @@
 <meta name="twitter:image" content="https://cgw-ai.com/images/cgw-logo.png" />
 <link rel="stylesheet" href="index.css" />
 <style>
+  /* ── Our Work page: keep grid dark, remove white break ── */
+  .works {
+    background: var(--navy) !important;
+    color: var(--white) !important;
+  }
+  .works .work__meta h3 { color: var(--white) !important; }
+  .works .work__meta p  { color: var(--sage)  !important; }
+  .works .work__tag     { color: var(--soft-blue) !important; }
+
   /* ── PROJECT MODAL (fullscreen) ── */
   .pmodal {
     position: fixed; inset: 0; z-index: 1000;
@@ -81,7 +90,7 @@
     cursor: pointer; transition: background 0.2s, border-color 0.2s; z-index: 3;
     display: none;
   }
-  .pmodal__arrow:hover { background: rgba(0,229,214,0.12); border-color: var(--neon-bright); }
+  .pmodal__arrow:hover { background: rgba(192,132,252,0.12); border-color: var(--neon-bright); }
   .pmodal__arrow--prev { left: 18px; }
   .pmodal__arrow--next { right: 18px; }
   .pmodal__arrow.visible { display: flex; }
@@ -149,7 +158,7 @@
 <body>
 
 <nav class="nav">
-  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technology and Security Solutions</span></span></a>
+  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technologies and Security Solutions</span></span></a>
   <div class="nav__links">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
@@ -173,8 +182,16 @@
   <a href="contact.html">Contact</a>
 </div>
 
+<!-- ── HERO ──────────────────────────────────────────────────────────── -->
+<section class="section section--navy" style="padding-bottom:0; padding-top:10px;">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="color:var(--neon-bright); margin-bottom:24px; letter-spacing:0.28em; display:flex; align-items:center; gap:12px;"><span style="display:block; width:32px; height:2px; background:var(--neon-bright); flex-shrink:0;"></span>Selected Work</div>
+    <h1 class="reveal" style="font-family:var(--display); font-weight:700; font-size:clamp(44px,8vw,108px); line-height:0.92; letter-spacing:-0.03em; max-width:16ch;">Built with<br /><em style="font-style:italic; font-weight:300; color:var(--taupe);">precision and intent.</em></h1>
+  </div>
+</section>
+
 <!-- PROJECT GRID -->
-<section class="works" style="padding-top: clamp(60px,8vw,110px);">
+<section class="works" style="padding-top: clamp(16px,2vw,24px);">
   <div class="wrap">
     <div class="works__grid">
 
@@ -318,12 +335,11 @@
 <section class="featured" style="padding: clamp(80px,11vw,160px) 0;">
   <div class="wrap featured__grid">
     <div class="featured__media reveal">
-      <div class="featured__square"></div>
       <img src="images/proj-aipos-login.jpeg" alt="AI POS App — Secure Role Selection Portal" />
     </div>
     <div class="featured__copy reveal">
       <span class="featured__label">Featured Case Study</span>
-      <h2>AI-Powered Point of Sale</h2>
+      <h2 style="color:var(--neon-bright); font-size:clamp(30px,3.5vw,60px); white-space:nowrap;">AI-Powered<br />Point of Sale</h2>
       <p>A next-generation retail management ecosystem combining rigid operational security with deep AI-driven business intelligence. We built a complete RBAC gatekeeper interface tailoring access for Admin, Manager, Cashier, and Inventory Staff roles — then paired it with a comprehensive executive analytics command centre.</p>
       <p style="color:var(--taupe); font-size:14px; line-height:1.75; margin-top:16px;">The AI Brain dashboard surfaces real-time financial metrics — automated basket sizes, inventory forecasting, cash flow engines and credit risk analysis — across 20+ specialised analytical modules, all wrapped in a high-fidelity dark-mode UI built for fast-paced retail and corporate decision-making.</p>
       <div style="display:flex; gap:44px; margin-top:30px; margin-bottom:10px;">
@@ -340,39 +356,24 @@
           <div style="color:var(--taupe); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; margin-top:6px;">Real-Time Metrics</div>
         </div>
       </div>
-      <a href="contact.html" class="featured__link">
-        Start a Similar Project
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
+      <a href="contact.html" class="neon-btn" data-text="Start a Similar Project">
+        <span class="neon-btn__dot"></span>
+        <span class="neon-btn__label">Start a Similar Project</span>
       </a>
     </div>
   </div>
 </section>
 
 
-<!-- CTA -->
-<section class="section section--navy">
-  <div class="wrap" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:18px;">
-    <span class="eyebrow" style="color:var(--neon-bright);">Ready to build something?</span>
-    <h2 class="display reveal" style="font-size:clamp(40px,6vw,96px);">Your project<br />next</h2>
-    <p class="reveal" style="color:var(--taupe); max-width:460px; text-align:center; line-height:1.7; font-size:15px;">We take three or four projects a year. If the timing and brief are right, we would love to hear from you.</p>
-    <a href="contact.html" class="neon-btn reveal" data-text="Start a Project" style="display:inline-flex; margin-top:8px;">
-      <span class="neon-btn__dot"></span>
-      <span class="neon-btn__label">Start a Project</span>
-    </a>
-  </div>
-</section>
 
 <!-- FOOTER -->
 <footer class="footer">
   <div class="wrap">
-    <h2 class="reveal">Let's<br />Create</h2>
-    <a href="mailto:cgwofficialai@gmail.com" class="footer__email reveal">cgwofficialai@gmail.com</a>
     <div class="footer__bottom">
       <span>© 2026 CGW</span>
+      <a href="mailto:cgwofficialai@gmail.com" class="footer__contact">cgwofficialai@gmail.com</a>
       <div class="footer__legal">
-        <a href="#">Instagram</a>
+        <a href="https://www.instagram.com/cgwofficial_ai/" target="_blank" rel="noopener">Instagram</a>
         <a href="#">Dribbble</a>
         <a href="#">LinkedIn</a>
       </div>
