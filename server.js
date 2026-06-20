@@ -150,8 +150,9 @@ app.use(express.json({ limit: '50kb' }));
 app.use(express.urlencoded({ extended: true, limit: '50kb' }));
 
 // ── Static site ────────────────────────────────────────────────
-app.use(express.static(__dirname, { extensions: ['html'] }));
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+const STATIC_DIR = path.join(__dirname, '..', 'public_html');
+app.use(express.static(STATIC_DIR, { extensions: ['html'] }));
+app.get('/', (req, res) => res.sendFile(path.join(STATIC_DIR, 'index.html')));
 
 // ── Leads DB ───────────────────────────────────────────────────
 function readLeads()      { try { return JSON.parse(fs.readFileSync(LEADS_FILE,'utf8')); } catch(e) { return []; } }
