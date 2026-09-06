@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CGW — Why CGW</title>
-<meta name="description" content="Why CGW? Military-grade discipline, senior AI engineering, and security-first architecture — built for clients who can't afford to get it wrong." />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#ffffff" />
+<title>Why Choose CGW | AI &amp; Cybersecurity Solutions</title>
+<meta name="description" content="Discover why businesses choose CGW for AI development, cybersecurity, software solutions, automation, and security intelligence." />
+<link rel="canonical" href="https://cgw-ai.com/why-cgw.html" />
 <link rel="icon" type="image/png" href="images/cgw-logo.png" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="apple-touch-icon" href="images/cgw-logo.png" />
@@ -13,332 +16,151 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://cgw-ai.com/why-cgw.html" />
 <meta property="og:image" content="https://cgw-ai.com/images/cgw-logo.png" />
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="CGW — Why CGW" />
 <meta name="twitter:description" content="Military-grade discipline, senior AI engineering, and security-first architecture — built for clients who can't afford to get it wrong." />
 <meta name="twitter:image" content="https://cgw-ai.com/images/cgw-logo.png" />
 <link rel="stylesheet" href="index.css" />
-<style>
-/* -- HERO --------------------------------------------------- */
-.why-hero {
-  padding: 10px 0 clamp(30px, 4vw, 50px);
-  background: var(--navy);
-  position: relative; overflow: hidden;
-}
-.why-hero::before {
-  content: '';
-  position: absolute; top: -120px; right: -80px;
-  width: 520px; height: 520px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(192,132,252,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-.why-hero__eyebrow {
-  display: flex; align-items: center; gap: 14px;
-  color: var(--neon-bright); font-size: 11px;
-  letter-spacing: 0.32em; text-transform: uppercase; margin-bottom: 28px;
-}
-.why-hero__eyebrow::before {
-  content: ''; width: 28px; height: 1px; background: var(--neon-bright);
-}
-.why-hero h1 {
-  font-family: var(--display); font-weight: 700;
-  font-size: clamp(48px, 8vw, 110px); line-height: 0.92;
-  letter-spacing: -0.03em; margin-bottom: 36px;
-}
-.why-hero h1 em {
-  display: block; font-style: italic; font-weight: 300; color: var(--taupe);
-  white-space: nowrap;
-}
-.why-hero__lede {
-  color: var(--sage); font-size: clamp(15px, 1.6vw, 18px);
-  line-height: 1.8; max-width: 52ch;
-}
-
-/* -- DIFFERENTIATORS GRID ---------------------------------- */
-.diff-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: rgba(183,198,194,0.1);
-  border: 1px solid rgba(183,198,194,0.1);
-  border-radius: 12px;
-  overflow: hidden;
-}
-.diff-card {
-  background: var(--navy);
-  padding: clamp(28px, 3.5vw, 48px);
-  display: flex; flex-direction: column; gap: 16px;
-  transition: background 0.3s;
-}
-.diff-card:hover { background: rgba(192,132,252,0.03); }
-.diff-num {
-  font-family: var(--display); font-size: 11px;
-  letter-spacing: 0.28em; color: var(--neon-bright);
-  text-transform: uppercase;
-}
-.diff-icon {
-  font-size: 28px; line-height: 1;
-}
-.diff-title {
-  font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(17px, 1.8vw, 22px); letter-spacing: -0.01em;
-  color: var(--white); line-height: 1.1;
-}
-.diff-body {
-  color: var(--taupe); font-size: 14px; line-height: 1.75;
-}
-
-/* -- VS TABLE ---------------------------------------------- */
-.vs-table {
-  width: 100%; border-collapse: collapse;
-  font-size: 14px;
-}
-.vs-table thead th {
-  padding: 14px 20px; text-align: left;
-  font-family: var(--display); text-transform: uppercase;
-  font-size: 11px; letter-spacing: 0.18em;
-  border-bottom: 1px solid rgba(183,198,194,0.14);
-}
-.vs-table thead th:nth-child(2) { color: var(--neon-bright); }
-.vs-table thead th:nth-child(3) { color: var(--taupe); }
-.vs-table tbody tr {
-  border-bottom: 1px solid rgba(183,198,194,0.07);
-  transition: background 0.2s;
-}
-.vs-table tbody tr:hover { background: rgba(255,255,255,0.02); }
-.vs-table tbody td {
-  padding: 16px 20px; color: var(--white); vertical-align: top;
-  font-weight: 700; font-size: 14px;
-}
-.vs-table tbody td:first-child {
-  color: var(--white); font-weight: 700; font-size: 14px;
-  width: 30%;
-}
-.vs-table tbody td:nth-child(2) { color: var(--neon-bright); }
-.vs-table tbody td:nth-child(3) { color: var(--sage); font-weight: 600; }
-.vs-check { color: var(--neon-bright); font-size: 15px; font-weight: 700; }
-.vs-cross  { color: rgba(183,198,194,0.5); font-size: 15px; }
-
-/* -- PROOF STATS ------------------------------------------- */
-.proof-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 1px; background: rgba(183,198,194,0.1);
-  border: 1px solid rgba(183,198,194,0.1);
-  border-radius: 12px; overflow: hidden;
-}
-.proof-stat {
-  background: var(--navy);
-  padding: clamp(24px, 3vw, 40px) clamp(20px, 2.5vw, 32px);
-  display: flex; flex-direction: column; gap: 8px;
-}
-.proof-stat__num {
-  font-family: var(--display);
-  font-size: clamp(34px, 4.5vw, 58px);
-  line-height: 0.9; letter-spacing: -0.02em;
-  color: var(--white);
-}
-.proof-stat__num span { color: var(--neon-bright); }
-.proof-stat__label {
-  font-size: 12px; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--taupe);
-}
-
-/* -- METHODOLOGY ------------------------------------------- */
-.method-list {
-  display: flex; flex-direction: column;
-  counter-reset: method;
-}
-.method-item {
-  display: grid; grid-template-columns: 56px 1fr;
-  gap: clamp(20px, 3vw, 44px);
-  padding: clamp(28px, 3vw, 40px) 0;
-  border-top: 1px solid rgba(183,198,194,0.1);
-  counter-increment: method;
-}
-.method-item:last-child { border-bottom: 1px solid rgba(183,198,194,0.1); }
-.method-num {
-  font-family: var(--display); font-size: 13px;
-  letter-spacing: 0.2em; color: rgba(183,198,194,0.3);
-  text-transform: uppercase; padding-top: 4px;
-}
-.method-num::before { content: counter(method, decimal-leading-zero); }
-.method-title {
-  font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(20px, 2.2vw, 30px); letter-spacing: -0.01em;
-  color: var(--white); margin-bottom: 12px;
-}
-.method-body { color: var(--taupe); font-size: 14px; line-height: 1.8; }
-
-@media (max-width: 900px) {
-  .diff-grid { grid-template-columns: 1fr 1fr; }
-  .proof-grid { grid-template-columns: 1fr 1fr; }
-  .adv-grid { grid-template-columns: 1fr !important; }
-}
-@media (max-width: 560px) {
-  .diff-grid { grid-template-columns: 1fr; }
-  .proof-grid { grid-template-columns: 1fr 1fr; }
-  .method-item { grid-template-columns: 40px 1fr; }
-}
-</style>
 </head>
 <body>
 
 <nav class="nav">
-  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technologies and Security Solutions</span></span></a>
-  <div class="nav__links">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="service.html">Service</a>
-    <a href="Leadership.html">Leadership</a>
-    <a href="why-cgw.html" class="is-active" aria-current="page">Why CGW</a>
-    <a href="our-work.html">Our Work</a>
-    <a href="careers.html">Careers</a>
-    <a href="contact.html" class="nav__cta">Contact</a>
+  <div class="wrap nav__inner">
+    <a href="/" class="nav__logo">
+      <img src="images/cgw-logo.png" alt="CGW" style="height:48px;width:auto;display:block;border-radius:8px;" />
+      <span class="nav__logo-text">Cognitive Guardian Works<span class="nav__logo-tagline">AI Technologies &amp; Security Solutions</span></span>
+    </a>
+    <div class="nav__links">
+      <a href="/">Home</a>
+      <div class="nav__has-drop">
+        <a href="/about.html" class="nav__drop-trigger is-active">Company <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__drop">
+          <a href="/about.html" class="nav__drop-item">About CGW</a>
+          <a href="/Leadership.html" class="nav__drop-item">Leadership</a>
+          <a href="/why-cgw.html" class="nav__drop-item">Why CGW</a>
+        </div>
+      </div>
+      <div class="nav__has-drop">
+        <a href="/service.html" class="nav__drop-trigger">Services <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__drop">
+          <a href="/service.html" class="nav__drop-item">All Services</a>
+          <a href="/service.html" class="nav__drop-item">AI Development</a>
+          <a href="/service.html" class="nav__drop-item">Cybersecurity</a>
+          <a href="/service.html" class="nav__drop-item">Software Development</a>
+          <a href="/service.html" class="nav__drop-item">Security Intelligence</a>
+        </div>
+      </div>
+      <a href="/our-work.html">Our Work</a>
+      <a href="/careers.html">Careers</a>
+      <a href="/contact.html" class="nav__cta">Contact Us</a>
+    </div>
+    <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
-  <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mnav">
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="service.html">Service</a>
-  <a href="Leadership.html">Leadership</a>
-  <a href="why-cgw.html" class="is-active">Why CGW</a>
-  <a href="our-work.html">Our Work</a>
-  <a href="careers.html">Careers</a>
-  <a href="contact.html">Contact</a>
+  <a href="/">Home</a>
+  <a href="/about.html">About</a>
+  <a href="/service.html">Services</a>
+  <a href="/Leadership.html">Leadership</a>
+  <a href="/why-cgw.html" class="is-active" aria-current="page">Why CGW</a>
+  <a href="/our-work.html">Our Work</a>
+  <a href="/careers.html">Careers</a>
+  <a href="/contact.html">Contact</a>
 </div>
 
-<!-- -- HERO -------------------------------------------------------- -->
-<section class="why-hero">
-  <div class="wrap" style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(40px,6vw,90px); align-items:center;">
-    <!-- LEFT -->
-    <div>
-      <div class="why-hero__eyebrow">Why CGW</div>
-      <h1 class="reveal">
-        Not every<br />
-        team is built<br />
-        <em>for this.</em>
-      </h1>
-      <p class="why-hero__lede reveal">Most technology studios were built to chase volume. CGW was built around a different premise — that a small team of senior practitioners, led by military-grade discipline, will always outperform a large team of generalists chasing deadlines.</p>
-    </div>
-    <!-- RIGHT: Performance Indicators Card -->
-    <div class="reveal">
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(183,198,194,0.12); border-radius:12px; overflow:hidden;">
-        <div style="display:flex; align-items:center; justify-content:space-between; padding:18px 24px; border-bottom:1px solid rgba(183,198,194,0.1);">
-          <span style="font-size:9px; letter-spacing:0.26em; text-transform:uppercase; color:rgba(183,198,194,0.45); font-family:var(--body);">CGW Performance Indicators</span>
-          <span style="font-size:8px; letter-spacing:0.16em; text-transform:uppercase; padding:4px 10px; background:rgba(192,132,252,0.1); border:1px solid rgba(192,132,252,0.25); border-radius:4px; color:var(--neon-bright); font-family:var(--body);">Key Metrics</span>
-        </div>
-        <div style="display:flex; flex-direction:column;">
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid rgba(183,198,194,0.07);">
-            <span style="font-size:13px; color:var(--sage);">Client retention rate</span>
-            <span style="font-family:var(--display); font-size:18px; color:var(--neon-bright); letter-spacing:-0.01em;">100%</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid rgba(183,198,194,0.07);">
-            <span style="font-size:13px; color:var(--sage);">Max engagements per year</span>
-            <span style="font-family:var(--display); font-size:18px; color:var(--white); letter-spacing:-0.01em;">4</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid rgba(183,198,194,0.07);">
-            <span style="font-size:13px; color:var(--sage);">Security vulnerabilities shipped</span>
-            <span style="font-family:var(--display); font-size:18px; color:#22c55e; letter-spacing:-0.01em;">0</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid rgba(183,198,194,0.07);">
-            <span style="font-size:13px; color:var(--sage);">AI integrations deployed</span>
-            <span style="font-family:var(--display); font-size:18px; color:var(--white); letter-spacing:-0.01em;">6+</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid rgba(183,198,194,0.07);">
-            <span style="font-size:13px; color:var(--sage);">Value recovered via audits (PKR)</span>
-            <span style="font-family:var(--display); font-size:18px; color:#8b5cf6; letter-spacing:-0.01em;">56M+</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid rgba(183,198,194,0.07);">
-            <span style="font-size:13px; color:var(--sage);">Years combined leadership exp.</span>
-            <span style="font-family:var(--display); font-size:18px; color:var(--white); letter-spacing:-0.01em;">25+</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px;">
-            <span style="font-size:13px; color:var(--sage);">Jurisdictions incorporating</span>
-            <span style="font-family:var(--display); font-size:18px; color:var(--white); letter-spacing:-0.01em;">3</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- -- ADVANTAGE SECTION -------------------------------------------- -->
-<section class="section section--navy" style="padding-top:0; padding-bottom:0;">
-  <div class="wrap" style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(48px,7vw,110px); align-items:start;">
-
-    <!-- LEFT -->
-    <div class="reveal">
-      <h2 style="font-family:var(--display); font-weight:700; font-size:clamp(34px,5vw,68px); line-height:1.0; letter-spacing:-0.02em; margin-bottom:28px;">The advantage that<br /><em style="font-style:italic; font-weight:300; color:var(--taupe);">sets us apart.</em></h2>
-      <p style="color:var(--sage); font-size:15px; line-height:1.85; margin-bottom:16px;">Most technology companies are founded purely by engineers. CGW is co-founded by a senior executive with 25 years of organisational leadership, partnered with an AI engineer from one of Pakistan's premier technology universities.</p>
-      <p style="color:var(--sage); font-size:15px; line-height:1.85;">That combination — strategic operational thinking and technical depth — is what produces systems that work in the real world, not just in demos.</p>
-    </div>
-
-    <!-- RIGHT: numbered list -->
-    <div class="reveal" style="display:flex; flex-direction:column; gap:0;">
-      <div style="display:grid; grid-template-columns:32px 1fr; gap:20px; padding:22px 0; border-top:1px solid rgba(183,198,194,0.1);">
-        <span style="font-size:10px; letter-spacing:0.2em; color:rgba(183,198,194,0.35); padding-top:4px; font-family:var(--mono);">01</span>
-        <div>
-          <div style="font-weight:600; font-size:14px; color:var(--white); margin-bottom:7px;">Executive-Grade Precision</div>
-          <p style="color:var(--taupe); font-size:13px; line-height:1.7;">Systems built for environments where failure has real consequences. Zero-tolerance for security vulnerabilities, budget overruns, or deliverables that miss the brief.</p>
-        </div>
-      </div>
-      <div style="display:grid; grid-template-columns:32px 1fr; gap:20px; padding:22px 0; border-top:1px solid rgba(183,198,194,0.1);">
-        <span style="font-size:10px; letter-spacing:0.2em; color:rgba(183,198,194,0.35); padding-top:4px; font-family:var(--mono);">02</span>
-        <div>
-          <div style="font-weight:600; font-size:14px; color:var(--white); margin-bottom:7px;">Strategy-Driven Product Design</div>
-          <p style="color:var(--taupe); font-size:13px; line-height:1.7;">We analyse risk surfaces, data flows, and operational requirements before writing a single line of code — a discipline forged through years of high-stakes decision-making.</p>
-        </div>
-      </div>
-      <div style="display:grid; grid-template-columns:32px 1fr; gap:20px; padding:22px 0; border-top:1px solid rgba(183,198,194,0.1);">
-        <span style="font-size:10px; letter-spacing:0.2em; color:rgba(183,198,194,0.35); padding-top:4px; font-family:var(--mono);">03</span>
-        <div>
-          <div style="font-weight:600; font-size:14px; color:var(--white); margin-bottom:7px;">Full-Stack AI, Not a Wrapper</div>
-          <p style="color:var(--taupe); font-size:13px; line-height:1.7;">Our AI products use fine-tuned models, custom RAG pipelines, and proprietary integrations — not generic ChatGPT wrappers relabeled as AI solutions.</p>
-        </div>
-      </div>
-      <div style="display:grid; grid-template-columns:32px 1fr; gap:20px; padding:22px 0; border-top:1px solid rgba(183,198,194,0.1); border-bottom:1px solid rgba(183,198,194,0.1);">
-        <span style="font-size:10px; letter-spacing:0.2em; color:rgba(183,198,194,0.35); padding-top:4px; font-family:var(--mono);">04</span>
-        <div>
-          <div style="font-weight:600; font-size:14px; color:var(--white); margin-bottom:7px;">Focused Engagement</div>
-          <p style="color:var(--taupe); font-size:13px; line-height:1.7;">We take 3–4 projects per year. When we commit, we are fully committed — with no divided attention across a dozen clients simultaneously.</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- -- PROOF STATS -------------------------------------------------- -->
-<section class="section section--navy" style="padding-top:0;">
+<!-- HERO -->
+<section class="page-hero">
   <div class="wrap">
+    <div class="eyebrow reveal" style="margin-bottom:16px;">Why CGW</div>
+    <h1 class="reveal" style="font-family:var(--display); text-transform:uppercase; font-size:clamp(36px,6vw,88px); line-height:0.92; letter-spacing:-0.02em; color:var(--text); font-weight:700; max-width:18ch;">Not Every Team<br /><em style="color:var(--accent);">Is Built for This.</em></h1>
+    <p class="page-hero__lede reveal">Most technology studios were built to chase volume. CGW was built around a different premise — that a small team of senior practitioners, led by military-grade discipline, will always outperform a large team of generalists chasing deadlines.</p>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="wrap stats-bar__grid">
+    <div class="stat-item reveal"><div class="stat-item__num">25+</div><div class="stat-item__label">Years Leadership</div></div>
+    <div class="stat-item reveal"><div class="stat-item__num">3–4</div><div class="stat-item__label">Projects Per Year</div></div>
+    <div class="stat-item reveal"><div class="stat-item__num">3</div><div class="stat-item__label">Jurisdictions — PK · US · UK</div></div>
+    <div class="stat-item reveal"><div class="stat-item__num">0</div><div class="stat-item__label">Junior Developers</div></div>
+  </div>
+</div>
+
+<!-- ADVANTAGE SECTION -->
+<section class="section section--light">
+  <div class="wrap" style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(48px,7vw,110px); align-items:start;">
+    <div class="reveal">
+      <div class="eyebrow" style="margin-bottom:20px;">The Advantage</div>
+      <h2 style="font-family:var(--display); font-weight:700; font-size:clamp(34px,5vw,68px); line-height:1.0; letter-spacing:-0.02em; color:var(--text); margin-bottom:28px;">The advantage that<br /><em style="font-style:italic; font-weight:300; color:var(--text-3);">sets us apart.</em></h2>
+      <p style="color:var(--text-2); font-size:15px; line-height:1.85; margin-bottom:16px;">Most technology companies are founded purely by engineers. CGW is co-founded by a senior executive with 25 years of organisational leadership, partnered with an AI engineer from one of Pakistan's premier technology universities.</p>
+      <p style="color:var(--text-2); font-size:15px; line-height:1.85;">That combination — strategic operational thinking and technical depth — is what produces systems that work in the real world, not just in demos.</p>
+    </div>
+    <div class="reveal" style="display:flex; flex-direction:column; gap:0;">
+      <div style="display:grid; grid-template-columns:32px 1fr; gap:20px; padding:22px 0; border-top:1px solid var(--border);">
+        <span style="font-size:10px; letter-spacing:0.2em; color:var(--text-3); padding-top:4px; font-family:var(--mono);">01</span>
+        <div>
+          <div style="font-weight:600; font-size:14px; color:var(--text); margin-bottom:7px;">Executive-Grade Precision</div>
+          <p style="color:var(--text-3); font-size:13px; line-height:1.7;">Systems built for environments where failure has real consequences. Zero-tolerance for security vulnerabilities, budget overruns, or deliverables that miss the brief.</p>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:32px 1fr; gap:20px; padding:22px 0; border-top:1px solid var(--border);">
+        <span style="font-size:10px; letter-spacing:0.2em; color:var(--text-3); padding-top:4px; font-family:var(--mono);">02</span>
+        <div>
+          <div style="font-weight:600; font-size:14px; color:var(--text); margin-bottom:7px;">Strategy-Driven Product Design</div>
+          <p style="color:var(--text-3); font-size:13px; line-height:1.7;">We analyse risk surfaces, data flows, and operational requirements before writing a single line of code — a discipline forged through years of high-stakes decision-making.</p>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:32px 1fr; gap:20px; padding:22px 0; border-top:1px solid var(--border);">
+        <span style="font-size:10px; letter-spacing:0.2em; color:var(--text-3); padding-top:4px; font-family:var(--mono);">03</span>
+        <div>
+          <div style="font-weight:600; font-size:14px; color:var(--text); margin-bottom:7px;">Full-Stack AI, Not a Wrapper</div>
+          <p style="color:var(--text-3); font-size:13px; line-height:1.7;">Our AI products use fine-tuned models, custom RAG pipelines, and proprietary integrations — not generic ChatGPT wrappers relabeled as AI solutions.</p>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:32px 1fr; gap:20px; padding:22px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+        <span style="font-size:10px; letter-spacing:0.2em; color:var(--text-3); padding-top:4px; font-family:var(--mono);">04</span>
+        <div>
+          <div style="font-weight:600; font-size:14px; color:var(--text); margin-bottom:7px;">Focused Engagement</div>
+          <p style="color:var(--text-3); font-size:13px; line-height:1.7;">We take 3–4 projects per year. When we commit, we are fully committed — with no divided attention across a dozen clients simultaneously.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STATS -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="margin-bottom:20px;">Performance Indicators</div>
+    <h2 class="reveal" style="font-family:var(--display); text-transform:uppercase; font-size:clamp(28px,4vw,54px); line-height:0.95; letter-spacing:-0.02em; color:var(--text); margin-bottom:clamp(32px,4vw,56px);">By the numbers.</h2>
     <div class="proof-grid reveal">
       <div class="proof-stat">
-        <div class="proof-stat__num">25<span>+</span></div>
-        <div class="proof-stat__label">Years combined leadership experience</div>
+        <div class="proof-stat__num">100<span>%</span></div>
+        <div class="proof-stat__label">Client retention rate</div>
       </div>
       <div class="proof-stat">
         <div class="proof-stat__num">3–4</div>
-        <div class="proof-stat__label">Projects taken per year — full focus</div>
-      </div>
-      <div class="proof-stat">
-        <div class="proof-stat__num">3</div>
-        <div class="proof-stat__label">Jurisdictions — PK · US · UK</div>
+        <div class="proof-stat__label">Projects per year — full focus</div>
       </div>
       <div class="proof-stat">
         <div class="proof-stat__num">0</div>
-        <div class="proof-stat__label">Junior developers on your project</div>
+        <div class="proof-stat__label">Security vulnerabilities shipped</div>
+      </div>
+      <div class="proof-stat">
+        <div class="proof-stat__num">56M<span>+</span></div>
+        <div class="proof-stat__label">PKR recovered via audits</div>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- -- 6 DIFFERENTIATORS -------------------------------------------- -->
-<section class="section section--charcoal">
+<!-- 6 DIFFERENTIATORS -->
+<section class="section section--light">
   <div class="wrap">
-    <div class="eyebrow reveal" style="color:var(--neon-bright); margin-bottom:20px;">What sets us apart</div>
-    <h2 class="reveal" style="font-family:var(--display); text-transform:uppercase; font-size:clamp(34px,5vw,72px); line-height:0.92; letter-spacing:-0.02em; margin-bottom:clamp(16px,2vw,24px);">Six reasons<br />clients choose CGW.</h2>
+    <div class="eyebrow reveal" style="margin-bottom:20px;">What Sets Us Apart</div>
+    <h2 class="reveal" style="font-family:var(--display); text-transform:uppercase; font-size:clamp(34px,5vw,72px); line-height:0.92; letter-spacing:-0.02em; color:var(--text); margin-bottom:clamp(16px,2vw,24px);">Six reasons<br />clients choose CGW.</h2>
 
     <div class="diff-grid">
       <div class="diff-card reveal">
@@ -359,7 +181,7 @@
       <div class="diff-card reveal">
         <div class="diff-num">04</div>
         <div class="diff-title">Senior Practitioners Only</div>
-        <p class="diff-body">Four specialists, zero junior filler. The engineer who scopes your project is the engineer who builds it. No account managers sitting between you and the work. No handoffs. No dilution.</p>
+        <p class="diff-body">Three specialists, zero junior filler. The engineer who scopes your project is the engineer who builds it. No account managers sitting between you and the work. No handoffs. No dilution.</p>
       </div>
       <div class="diff-card reveal">
         <div class="diff-num">05</div>
@@ -376,11 +198,11 @@
 </section>
 
 
-<!-- -- CGW vs GENERIC AGENCIES -------------------------------------- -->
-<section class="section section--charcoal" style="padding-top:0;">
+<!-- CGW vs GENERIC AGENCIES -->
+<section class="section section--alt">
   <div class="wrap">
-    <div class="eyebrow reveal" style="color:var(--neon-bright); margin-bottom:20px;">The honest comparison</div>
-    <h2 class="reveal" style="font-family:var(--display); text-transform:uppercase; font-size:clamp(30px,4.5vw,64px); line-height:0.95; letter-spacing:-0.02em; margin-bottom:clamp(32px,4vw,56px);">CGW vs. the rest.</h2>
+    <div class="eyebrow reveal" style="margin-bottom:20px;">The Honest Comparison</div>
+    <h2 class="reveal" style="font-family:var(--display); text-transform:uppercase; font-size:clamp(30px,4.5vw,64px); line-height:0.95; letter-spacing:-0.02em; color:var(--text); margin-bottom:clamp(32px,4vw,56px);">CGW vs. the rest.</h2>
 
     <div class="reveal" style="overflow-x:auto;">
       <table class="vs-table">
@@ -434,16 +256,52 @@
 </section>
 
 
-<!-- -- FOOTER ------------------------------------------------------- -->
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="wrap cta-band__inner reveal">
+    <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(28px,4vw,60px); line-height:0.95; letter-spacing:-0.02em; color:#fff;">Ready to work with a<br />team that delivers?</h2>
+    <p style="color:rgba(255,255,255,0.8); font-size:15px; line-height:1.7; max-width:46ch;">We reply to every serious enquiry within 48 hours. Let's talk.</p>
+    <a href="/contact.html" class="btn btn--outline-inv" style="margin-top:8px;">Get in Touch</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer class="footer">
   <div class="wrap">
-    <div class="footer__bottom">
-      <span>© 2026 CGW</span>
-      <a href="mailto:cgwofficialai@gmail.com" class="footer__contact">cgwofficialai@gmail.com</a>
-      <div class="footer__legal">
-        <a href="https://www.instagram.com/cgwofficial_ai/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.linkedin.com/company/cgw-ai/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a>
+    <div class="footer__cols">
+      <div class="footer__brand">
+        <a href="/"><img src="images/cgw-logo.png" alt="CGW" style="height:44px;border-radius:8px;" /></a>
+        <p>Building intelligent AI &amp; security systems for Pakistan, USA &amp; UK.</p>
+        <div class="footer__socials">
+          <a href="https://www.instagram.com/cgwofficial_ai/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/cgw-ai/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
       </div>
+      <div class="footer__nav">
+        <div class="footer__nav-col">
+          <div class="footer__nav-head">Company</div>
+          <a href="/about.html">About CGW</a>
+          <a href="/Leadership.html">Leadership</a>
+          <a href="/why-cgw.html">Why CGW</a>
+          <a href="/careers.html">Careers</a>
+        </div>
+        <div class="footer__nav-col">
+          <div class="footer__nav-head">Services</div>
+          <a href="/service.html">AI Development</a>
+          <a href="/service.html">Cybersecurity</a>
+          <a href="/service.html">Software Dev</a>
+          <a href="/service.html">Security Intelligence</a>
+        </div>
+        <div class="footer__nav-col">
+          <div class="footer__nav-head">Contact</div>
+          <a href="mailto:cgwofficialai@gmail.com">cgwofficialai@gmail.com</a>
+          <a href="/contact.html">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 CGW — Cognitive Guardian Works</span>
+      <div class="footer__legal"><span>Pakistan · USA · UK</span></div>
     </div>
   </div>
 </footer>

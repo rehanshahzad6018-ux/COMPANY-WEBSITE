@@ -340,3 +340,104 @@ window.addEventListener('load', () => {
     images[cap] = img;
   }
 })();
+
+/* ============================================================
+   SPLINE HERO — lazy, non-blocking load + pause when off-screen
+   ============================================================ */
+(function splineHero() {
+  const stage = document.getElementById('splineStage');
+  if (!stage) return;
+  const url = stage.dataset.splineUrl;
+  if (!url) return;
+
+  const RUNTIME = 'https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js';
+  let viewer = null;
+  let mounted = false;
+
+  function loadRuntime() {
+    if (window.customElements && customElements.get('spline-viewer')) return Promise.resolve();
+    if (!window.__splineRuntimePromise) {
+      window.__splineRuntimePromise = new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.type = 'module';
+        s.src = RUNTIME;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+    return window.__splineRuntimePromise;
+  }
+
+  function hideLogo() {
+    const r = viewer && viewer.shadowRoot;
+    if (!r) return;
+    r.querySelectorAll('#logo,a[href*="spline"],[class*="logo"],[id*="logo"]')
+      .forEach((el) => { el.style.cssText = 'display:none!important;visibility:hidden!important;opacity:0!important;'; });
+  }
+
+  function mount() {
+    if (mounted) return;
+    mounted = true;
+    loadRuntime().then(() => {
+      viewer = document.createElement('spline-viewer');
+      viewer.setAttribute('url', url);
+      viewer.setAttribute('loading-anim-type', 'spinner-small-dark');
+      stage.appendChild(viewer);
+      viewer.addEventListener('load', () => { hideLogo(); setTimeout(hideLogo, 500); });
+      [400, 1200, 2500].forEach((t) => setTimeout(hideLogo, t));
+    }).catch(() => { mounted = false; });
+  }
+
+  function setPaused(paused) {
+    stage.classList.toggle('is-paused', paused);
+    if (!viewer) return;
+    try { paused ? (viewer.pause && viewer.pause()) : (viewer.play && viewer.play()); } catch (e) {}
+  }
+
+  const mountIO = new IntersectionObserver((entries) => {
+    if (entries.some((e) => e.isIntersecting)) { mount(); mountIO.disconnect(); }
+  }, { rootMargin: '300px' });
+  mountIO.observe(stage);
+
+  const pauseIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => setPaused(!e.isIntersecting));
+  }, { threshold: 0.01 });
+  pauseIO.observe(stage);
+
+  document.addEventListener('visibilitychange', () => setPaused(document.hidden));
+})();
+
+/* ============================================================
+   USA LAUNCH TOAST
+   ============================================================ */
+(function usaLaunchToast() {
+  if (sessionStorage.getItem('cgw_usa_seen')) return;
+
+  const toast = document.createElement('div');
+  toast.className = 'usa-toast';
+  toast.setAttribute('role', 'status');
+  toast.setAttribute('aria-live', 'polite');
+  toast.innerHTML =
+    '<span class="usa-toast__flag">🇺🇸</span>' +
+    '<div class="usa-toast__body">' +
+      '<div class="usa-toast__label">Now Live &nbsp;·&nbsp; North America</div>' +
+      '<div class="usa-toast__msg">CGW is officially live in the United States</div>' +
+    '</div>' +
+    '<button class="usa-toast__close" aria-label="Dismiss">✕</button>';
+
+  document.body.appendChild(toast);
+
+  let timer = setTimeout(dismiss, 8000);
+  setTimeout(() => toast.classList.add('is-visible'), 700);
+
+  function dismiss() {
+    clearTimeout(timer);
+    toast.classList.remove('is-visible');
+    toast.classList.add('is-out');
+    sessionStorage.setItem('cgw_usa_seen', '1');
+    setTimeout(() => toast.remove(), 650);
+  }
+
+  toast.querySelector('.usa-toast__close').addEventListener('click', dismiss);
+})();

@@ -3,89 +3,193 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CGW — About</title>
-<meta name="description" content="CGW — Cognitive Guardian Works is a specialist AI and security intelligence studio, co-founded by a military intelligence veteran and an AI engineer, serving clients who need systems that actually work under pressure." />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#ffffff" />
+<title>About CGW | AI &amp; Cybersecurity Solutions</title>
+<meta name="description" content="Learn about CGW, our team, mission, and expertise in artificial intelligence, software development, cybersecurity, and security intelligence." />
+<link rel="canonical" href="https://cgw-ai.com/about.html" />
 <link rel="icon" type="image/png" href="images/cgw-logo.png" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="apple-touch-icon" href="images/cgw-logo.png" />
 <meta property="og:title" content="CGW — About" />
-<meta property="og:description" content="CGW — Cognitive Guardian Works is a specialist AI and security intelligence studio, co-founded by a military intelligence veteran and an AI engineer, serving clients who need systems that actually work under pressure." />
+<meta property="og:description" content="CGW — Cognitive Guardian Works is a specialist AI and security intelligence studio, co-founded by a military intelligence veteran and an AI engineer." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://cgw-ai.com/about.html" />
 <meta property="og:image" content="https://cgw-ai.com/images/cgw-logo.png" />
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="CGW — About" />
-<meta name="twitter:description" content="CGW — Cognitive Guardian Works is a specialist AI and security intelligence studio, co-founded by a military intelligence veteran and an AI engineer, serving clients who need systems that actually work under pressure." />
+<meta name="twitter:description" content="CGW — Cognitive Guardian Works is a specialist AI and security intelligence studio, co-founded by a military intelligence veteran and an AI engineer." />
 <meta name="twitter:image" content="https://cgw-ai.com/images/cgw-logo.png" />
 <link rel="stylesheet" href="index.css" />
+<style>
+.mission-box {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: clamp(18px, 2.5vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mission-box__title {
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: clamp(14px, 1.4vw, 18px);
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.mission-box__body {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--text-3);
+}
+@keyframes gp-pulse-anim {
+  0%   { transform: scale(1);   opacity: 1; }
+  50%  { transform: scale(1.3); opacity: 0.6; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+</style>
 </head>
 <body>
 
 <nav class="nav">
-  <a href="index.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive Gaurdian Works<span class="nav__logo-tagline">AI Technologies and Security Solutions</span></span></a>
-  <div class="nav__links">
-    <a href="index.html">Home</a>
-    <a href="about.html" class="is-active" aria-current="page">About</a>
-    <a href="service.html">Service</a>
-    <a href="Leadership.html">Leadership</a>
-    <a href="why-cgw.html">Why CGW</a>
-    <a href="our-work.html">Our Work</a>
-    <a href="careers.html">Careers</a>
-    <a href="contact.html" class="nav__cta">Contact</a>
+  <div class="wrap nav__inner">
+    <a href="/" class="nav__logo">
+      <img src="images/cgw-logo.png" alt="CGW" style="height:48px;width:auto;display:block;border-radius:8px;" />
+      <span class="nav__logo-text">Cognitive Guardian Works<span class="nav__logo-tagline">AI Technologies &amp; Security Solutions</span></span>
+    </a>
+    <div class="nav__links">
+      <a href="/">Home</a>
+      <div class="nav__has-drop">
+        <a href="/about.html" class="nav__drop-trigger is-active">Company <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__drop">
+          <a href="/about.html" class="nav__drop-item">About CGW</a>
+          <a href="/Leadership.html" class="nav__drop-item">Leadership</a>
+          <a href="/why-cgw.html" class="nav__drop-item">Why CGW</a>
+        </div>
+      </div>
+      <div class="nav__has-drop">
+        <a href="/service.html" class="nav__drop-trigger">Services <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__drop">
+          <a href="/service.html" class="nav__drop-item">All Services</a>
+          <a href="/service.html" class="nav__drop-item">AI Development</a>
+          <a href="/service.html" class="nav__drop-item">Cybersecurity</a>
+          <a href="/service.html" class="nav__drop-item">Software Development</a>
+          <a href="/service.html" class="nav__drop-item">Security Intelligence</a>
+        </div>
+      </div>
+      <a href="/our-work.html">Our Work</a>
+      <a href="/careers.html">Careers</a>
+      <a href="/contact.html" class="nav__cta">Contact Us</a>
+    </div>
+    <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
-  <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mnav">
-  <a href="index.html">Home</a>
-  <a href="about.html" class="is-active">About</a>
-  <a href="service.html">Service</a>
-  <a href="Leadership.html">Leadership</a>
-    <a href="why-cgw.html">Why CGW</a>
-    <a href="our-work.html">Our Work</a>
-  <a href="careers.html">Careers</a>
-  <a href="contact.html">Contact</a>
+  <a href="/">Home</a>
+  <a href="/about.html" class="is-active">About</a>
+  <a href="/service.html">Services</a>
+  <a href="/Leadership.html">Leadership</a>
+  <a href="/why-cgw.html">Why CGW</a>
+  <a href="/our-work.html">Our Work</a>
+  <a href="/careers.html">Careers</a>
+  <a href="/contact.html">Contact</a>
 </div>
 
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="margin-bottom:16px;">About CGW</div>
+    <h1 class="reveal" style="font-family:var(--display); text-transform:uppercase; font-size:clamp(36px,6vw,88px); line-height:0.92; letter-spacing:-0.02em; color:var(--text); font-weight:700; max-width:16ch;">Where Intelligence<br /><em style="color:var(--accent);">Meets AI Innovation</em></h1>
+    <p class="page-hero__lede reveal">CGW is a specialist AI and security intelligence studio, co-founded by a military intelligence veteran and an AI engineer — built to deliver systems that actually work under pressure.</p>
+  </div>
+</section>
+
 <!-- MISSION -->
-<section class="section section--navy" style="padding-top:10px;">
+<section class="section section--light">
   <div class="wrap" style="display:grid; grid-template-columns:1.1fr 1fr; gap:clamp(40px,7vw,110px); align-items:start;">
     <div class="reveal">
-      <div class="eyebrow" style="color:var(--neon-bright); margin-bottom:20px; display:flex; align-items:center; gap:12px;"><span style="display:block; width:32px; height:2px; background:var(--neon-bright); flex-shrink:0;"></span>Our Mission</div>
-      <h2 style="font-family:var(--display); font-size:clamp(34px,5vw,72px); line-height:1.08; letter-spacing:-0.02em; font-weight:700; margin-bottom:28px;">Where intelligence<br /><em style="font-style:italic; font-weight:300; color:var(--taupe);">meets innovation.</em></h2>
-      <p style="color:var(--sage); font-size:15px; line-height:1.85; margin-bottom:18px; font-weight:600;">CGW was built on a singular premise: the principles that make intelligence operations effective — precision, adaptability, and uncompromising security — are exactly what modern AI products demand.</p>
-      <p style="color:var(--sage); font-size:15px; line-height:1.85; font-weight:600;">We are not a generic software house. We are a specialist AI and security intelligence studio, co-founded by a military intelligence veteran and an AI engineer, serving clients who need systems that actually work under pressure.</p>
+      <div class="eyebrow" style="margin-bottom:20px;">Our Mission</div>
+      <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(28px,4vw,56px); line-height:1.0; letter-spacing:-0.02em; color:var(--text); font-weight:700; margin-bottom:24px;">Built on a<br /><em style="color:var(--accent);">singular premise.</em></h2>
+      <p style="font-size:15px; line-height:1.85; color:var(--text-2); margin-bottom:16px; font-weight:500;">CGW was built on a singular premise: the principles that make intelligence operations effective — precision, adaptability, and uncompromising security — are exactly what modern AI development, cybersecurity, and software development demand.</p>
+      <p style="font-size:15px; line-height:1.85; color:var(--text-2); font-weight:500;">We are not a generic software house. We are a specialist AI and security intelligence studio, co-founded by a military intelligence veteran and an AI engineer, serving clients who need systems that actually work under pressure.</p>
     </div>
+    <div class="reveal" style="display:flex; flex-direction:column; gap:14px;">
+      <div class="mission-box">
+        <div class="mission-box__title">Precision over volume</div>
+        <p class="mission-box__body">We take 3–4 projects per year. Every engagement receives the full capacity of our team — no diluted attention, no offshore hand-offs, no junior developers on your project.</p>
+      </div>
+      <div class="mission-box">
+        <div class="mission-box__title">Security-first architecture</div>
+        <p class="mission-box__body">Every product we build is reviewed through a cybersecurity lens from day one — not patched after launch. Our penetration testing background is baked into our development culture.</p>
+      </div>
+      <div class="mission-box">
+        <div class="mission-box__title">Global. Local. Trusted.</div>
+        <p class="mission-box__body">Incorporated in Pakistan, USA, and UK. We operate with international standards and the credibility of a leadership team with UN and multinational corporate experience.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div class="reveal" style="display:flex; flex-direction:column; gap:12px;">
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(183,198,194,0.12); border-radius:8px; padding:clamp(12px,1.5vw,18px);">
-        <div style="font-family:var(--display); text-transform:uppercase; font-size:clamp(16px,1.6vw,20px); letter-spacing:-0.01em; margin-bottom:10px;">Precision over volume</div>
-        <p style="color:var(--taupe); font-size:14px; line-height:1.75;">We take 3–4 projects per year. Every engagement receives the full capacity of our team — no diluted attention, no offshore hand-offs.</p>
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="wrap stats-bar__grid">
+    <div class="stat-item reveal">
+      <div class="stat-item__num">25<span>+</span></div>
+      <div class="stat-item__label">Years Combined Leadership</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-item__num">9</div>
+      <div class="stat-item__label">Service Capabilities</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-item__num">3</div>
+      <div class="stat-item__label">Countries — PK · US · UK</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-item__num">0</div>
+      <div class="stat-item__label">Security Vulnerabilities Shipped</div>
+    </div>
+  </div>
+</div>
+
+<!-- OUR VALUES -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:clamp(32px,4vw,52px);">
+      <div class="eyebrow" style="margin-bottom:12px;">Our Values</div>
+      <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(28px,4vw,52px); line-height:0.95; letter-spacing:-0.02em; color:var(--text);">The principles that<br />guide every decision.</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="feature-card__icon">🎯</div>
+        <div class="feature-card__title">Precision</div>
+        <p class="feature-card__body">We take 3–4 projects per year by design. Full capacity, zero dilution. When you engage CGW, you receive the complete undivided attention of a senior team — not a slice spread across twelve simultaneous clients.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(183,198,194,0.12); border-radius:8px; padding:clamp(12px,1.5vw,18px);">
-        <div style="font-family:var(--display); text-transform:uppercase; font-size:clamp(16px,1.6vw,20px); letter-spacing:-0.01em; margin-bottom:10px;">Security-first architecture</div>
-        <p style="color:var(--taupe); font-size:14px; line-height:1.75;">Every product we build is reviewed through a cybersecurity lens from day one — not patched after launch. Our penetration testing background is baked into our development culture.</p>
+      <div class="feature-card reveal">
+        <div class="feature-card__icon">🔐</div>
+        <div class="feature-card__title">Security-First</div>
+        <p class="feature-card__body">Every product is reviewed through a cybersecurity lens from day one — not patched after launch. Security is a discipline forged through years of real operational experience, not a checkbox on a launch checklist.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(183,198,194,0.12); border-radius:8px; padding:clamp(12px,1.5vw,18px);">
-        <div style="font-family:var(--display); text-transform:uppercase; font-size:clamp(16px,1.6vw,20px); letter-spacing:-0.01em; margin-bottom:10px;">Global. Local. Trusted.</div>
-        <p style="color:var(--taupe); font-size:14px; line-height:1.75;">Incorporated in Pakistan, USA, and UK. We operate with international standards and the credibility of a leadership team with UN and multinational corporate experience.</p>
+      <div class="feature-card reveal">
+        <div class="feature-card__icon">🌍</div>
+        <div class="feature-card__title">Global Standards</div>
+        <p class="feature-card__body">International governance credibility through US and UK incorporation, combined with the cost efficiency and operational depth of Pakistan's premier AI talent pipeline. World-class output at every engagement.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- GLOBAL PRESENCE -->
-<section class="section section--navy" id="global-presence" style="padding-top:0; padding-bottom:0;">
+<section class="section section--light" id="global-presence">
   <div class="wrap" style="display:grid; grid-template-columns:1fr 1.1fr; gap:clamp(40px,7vw,100px); align-items:center;">
-
-    <!-- LEFT -->
     <div class="reveal">
-      <div class="eyebrow" style="color:var(--neon-bright); margin-bottom:24px; letter-spacing:0.18em;">Global Presence</div>
-      <h2 style="font-family:var(--display); font-size:clamp(36px,5vw,72px); line-height:1.05; letter-spacing:-0.02em; font-weight:700; margin-bottom:16px;">Built in Pakistan.<br /><em style="font-style:italic; font-weight:300; color:var(--taupe);">Trusted globally.</em></h2>
-      <p style="color:var(--sage); font-size:15px; line-height:1.85; width:100%; margin-bottom:40px; font-weight:600; text-align:justify;">CGW is registering in three jurisdictions — giving clients the governance credibility of US and UK incorporation, combined with the cost efficiency and operational depth of Pakistan's premier AI talent pipeline.</p>
+      <div class="eyebrow" style="margin-bottom:20px;">Global Presence</div>
+      <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(28px,4vw,56px); line-height:1.0; letter-spacing:-0.02em; color:var(--text); font-weight:700; margin-bottom:16px;">Built in Pakistan.<br /><em style="color:var(--accent);">Trusted globally.</em></h2>
+      <p style="font-size:15px; line-height:1.85; color:var(--text-2); font-weight:500; margin-bottom:36px;">CGW is registering in three jurisdictions — giving clients the governance credibility of US and UK incorporation, combined with the cost efficiency and operational depth of Pakistan's premier AI talent pipeline.</p>
 
       <div style="display:flex; flex-direction:column; gap:0;">
-        <!-- PK -->
-        <div class="gp-row gp-row--live">
+        <div class="gp-row" style="border-top:none;">
           <span class="gp-code">PK</span>
           <div class="gp-info">
             <span class="gp-country">Pakistan</span>
@@ -93,16 +197,14 @@
           </div>
           <span class="gp-badge gp-badge--live">LIVE</span>
         </div>
-        <!-- US -->
         <div class="gp-row">
           <span class="gp-code">US</span>
           <div class="gp-info">
             <span class="gp-country">United States</span>
-            <span class="gp-detail">North America operations — Registering 2026</span>
+            <span class="gp-detail">North America operations — Live</span>
           </div>
-          <span class="gp-badge gp-badge--year">2026</span>
+          <span class="gp-badge gp-badge--live">LIVE</span>
         </div>
-        <!-- GB -->
         <div class="gp-row">
           <span class="gp-code">GB</span>
           <div class="gp-info">
@@ -114,118 +216,125 @@
       </div>
     </div>
 
-    <!-- RIGHT: MAP CARD -->
-    <div class="reveal" style="background:rgba(255,255,255,0.04); border:1px solid rgba(183,198,194,0.12); border-radius:14px; padding:clamp(24px,3vw,40px) clamp(24px,3vw,40px) 0; position:relative; overflow:hidden;">
-      <div style="font-size:10px; letter-spacing:0.2em; color:rgba(183,198,194,0.45); text-align:center; margin-bottom:18px; text-transform:uppercase;">Active &amp; Planned Markets</div>
-
+    <div class="reveal" style="background:var(--bg-alt); border:1px solid var(--border); border-radius:14px; padding:clamp(20px,3vw,36px) clamp(20px,3vw,36px) 0; position:relative; overflow:hidden;">
+      <div style="font-size:10px; letter-spacing:0.2em; color:var(--text-3); text-align:center; margin-bottom:16px; text-transform:uppercase;">Active &amp; Planned Markets</div>
       <div style="position:relative; width:100%;">
         <img src="images/WORLD MAP.jpg" alt="World Map" style="width:100%; height:auto; display:block; border-radius:8px;" />
-        <!-- USA marker — center of United States -->
-        <div style="position:absolute; top:36%; left:18%; display:flex; flex-direction:column; align-items:center; gap:2px;">
-          <div style="width:11px;height:11px;border-radius:50%;background:#000;box-shadow:0 0 12px rgba(0,0,0,0.6);border:2px solid #555;animation:gp-pulse-anim 2s ease-in-out infinite;"></div>
-          <span style="font-size:8px;letter-spacing:0.1em;color:#000;font-family:var(--mono);text-shadow:none;font-weight:700;">USA</span>
+        <div style="position:absolute; top:35%; left:20%; display:flex; flex-direction:column; align-items:center; gap:2px;">
+          <div style="width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px rgba(29,111,212,0.5);border:2px solid #fff;animation:gp-pulse-anim 2s ease-in-out infinite;"></div>
+          <span style="font-size:8px;letter-spacing:0.1em;color:var(--accent);font-family:var(--mono);font-weight:700;">USA</span>
         </div>
-        <!-- UK marker — United Kingdom -->
-        <div style="position:absolute; top:33%; left:43%; display:flex; flex-direction:column; align-items:center; gap:2px;">
-          <div style="width:11px;height:11px;border-radius:50%;background:#000;box-shadow:0 0 12px rgba(0,0,0,0.6);border:2px solid #555;animation:gp-pulse-anim 2s ease-in-out infinite;"></div>
-          <span style="font-size:8px;letter-spacing:0.1em;color:#000;font-family:var(--mono);text-shadow:none;font-weight:700;">UK</span>
+        <div style="position:absolute; top:29%; left:47%; display:flex; flex-direction:column; align-items:center; gap:2px;">
+          <div style="width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px rgba(29,111,212,0.5);border:2px solid #fff;animation:gp-pulse-anim 2s ease-in-out infinite;"></div>
+          <span style="font-size:8px;letter-spacing:0.1em;color:var(--accent);font-family:var(--mono);font-weight:700;">UK</span>
         </div>
-        <!-- PK HQ marker — Pakistan -->
-        <div style="position:absolute; top:39%; left:65%; display:flex; flex-direction:column; align-items:center; gap:2px;">
-          <div style="width:13px;height:13px;border-radius:50%;background:#000;box-shadow:0 0 18px rgba(0,0,0,0.6);border:2px solid #555;animation:gp-pulse-anim 2s ease-in-out infinite;"></div>
-          <span style="font-size:8px;letter-spacing:0.1em;color:#000;font-family:var(--mono);text-shadow:none;font-weight:700;">PK HQ</span>
+        <div style="position:absolute; top:40%; left:65%; display:flex; flex-direction:column; align-items:center; gap:2px;">
+          <div style="width:13px;height:13px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px rgba(29,111,212,0.6);border:2px solid #fff;animation:gp-pulse-anim 2s ease-in-out infinite;"></div>
+          <span style="font-size:8px;letter-spacing:0.1em;color:var(--accent);font-family:var(--mono);font-weight:700;">PK HQ</span>
         </div>
       </div>
-      <style>
-@keyframes gp-pulse-anim {
-  0%   { transform: scale(1);   opacity: 1;   box-shadow: 0 0 0 0 rgba(0,0,0,0.6); }
-  50%  { transform: scale(1.3); opacity: 0.6; box-shadow: 0 0 0 10px rgba(0,0,0,0); }
-  100% { transform: scale(1);   opacity: 1;   box-shadow: 0 0 0 0 rgba(0,0,0,0); }
-}
-</style>
-
-      <p style="font-size:11px; letter-spacing:0.05em; color:rgba(183,198,194,0.38); text-align:center; margin-top:18px; font-family:var(--mono);">Multi-jurisdiction structure enables global contracts with local accountability.</p>
+      <p style="font-size:11px; letter-spacing:0.05em; color:var(--text-3); text-align:center; margin-top:16px; font-family:var(--mono); padding-bottom:20px;">Multi-jurisdiction structure enables global contracts with local accountability.</p>
     </div>
   </div>
 </section>
 
-<style>
-.gp-row {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 18px 0;
-  border-top: 1px solid rgba(183,198,194,0.12);
-}
-.gp-code {
-  font-family:var(--mono);
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  color: rgba(183,198,194,0.45);
-  min-width: 28px;
-}
-.gp-info {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  flex: 1;
-}
-.gp-country {
-  font-size: 15px;
-  font-weight: 600;
-  color: #e8ede9;
-  letter-spacing: -0.01em;
-}
-.gp-detail {
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  color: rgba(183,198,194,0.45);
-  font-family:var(--body);
-  text-transform: uppercase;
-}
-.gp-badge {
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  font-family:var(--body);
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.gp-badge--live {
-  background: rgba(192,132,252,0.12);
-  color: #c084fc;
-  border: 1px solid rgba(192,132,252,0.35);
-}
-.gp-badge--year {
-  background: rgba(192,132,252,0.06);
-  color: rgba(192,132,252,0.65);
-  border: 1px solid rgba(192,132,252,0.2);
-}
-.gp-badge--pipe {
-  background: rgba(255,186,0,0.08);
-  color: #ffba00;
-  border: 1px solid rgba(255,186,0,0.3);
-}
-.gp-pulse {
-  animation: gp-pulse 2.4s ease-in-out infinite;
-}
-@keyframes gp-pulse {
-  0%, 100% { r: 14; opacity: 0.5; }
-  50% { r: 20; opacity: 0; }
-}
-</style>
+<!-- TEAM -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:clamp(32px,4vw,52px);">
+      <div class="eyebrow" style="margin-bottom:12px;">Our Team</div>
+      <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(28px,4vw,52px); line-height:0.95; letter-spacing:-0.02em; color:var(--text);">Three practitioners.<br />No junior filler.</h2>
+      <p style="font-size:15px; line-height:1.8; color:var(--text-2); max-width:52ch; margin-top:16px;">Every person on every project is the person actually doing the work. No account managers. No hand-offs. No dilution.</p>
+    </div>
+
+    <div class="team-cards">
+      <a class="tc tc--rs reveal" href="/contact.html">
+        <div class="tc__media">
+          <img src="images/rehan shahzad.jpeg" alt="Muhammad Rehan Shahzad" />
+          <span class="tc__initials">RS</span>
+        </div>
+        <div class="tc__meta">
+          <div class="tc__name">Muhammad Rehan Shahzad</div>
+          <div class="tc__role">CTO &nbsp;·&nbsp; AI &amp; Web Lead</div>
+          <p class="tc__desc">BS Artificial Intelligence, NUTECH Islamabad. Specialises in intelligent applications, RAG systems, Flask, Python, and production-grade AI integrations. Ships end-to-end AI products.</p>
+        </div>
+      </a>
+      <a class="tc tc--am reveal" href="/contact.html">
+        <div class="tc__media">
+          <img src="images/abdul moiz.jpeg" alt="Abdul Moiz" />
+          <span class="tc__initials">AM</span>
+        </div>
+        <div class="tc__meta">
+          <div class="tc__name">Abdul Moiz</div>
+          <div class="tc__role">Cybersecurity Engineer</div>
+          <p class="tc__desc">Penetration tester and bug bounty hunter. API security, network defense, and vulnerability assessment. Google Cybersecurity certified. Interned at Cisco Networking Academy.</p>
+        </div>
+      </a>
+      <a class="tc tc--rf reveal" href="/contact.html">
+        <div class="tc__media">
+          <img src="images/faisal mustafa.jpeg" alt="Rana Faisal Mustafa" />
+          <span class="tc__initials">RF</span>
+        </div>
+        <div class="tc__meta">
+          <div class="tc__name">Rana Faisal Mustafa</div>
+          <div class="tc__role">Game &amp; App Developer</div>
+          <p class="tc__desc">Python, Java, C#, C++. Develops 2D games, custom desktop tools, and cross-platform applications using OOP-first architecture. Builds efficient, engaging digital solutions.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="wrap">
+    <div class="cta-band__inner">
+      <div class="reveal">
+        <h2>Ready to work<br />with us?</h2>
+        <p>Tell us about your project — we reply within 48 hours and take on 3–4 engagements per year.</p>
+      </div>
+      <a href="/contact.html" class="btn btn--outline-inv reveal" style="font-size:15px; padding:14px 32px;">Get in Touch <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer class="footer">
   <div class="wrap">
-    <div class="footer__bottom">
-      <span>© 2026 CGW</span>
-      <a href="mailto:cgwofficialai@gmail.com" class="footer__contact">cgwofficialai@gmail.com</a>
-      <div class="footer__legal">
-        <a href="https://www.instagram.com/cgwofficial_ai/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.linkedin.com/company/cgw-ai/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a>
+    <div class="footer__cols">
+      <div class="footer__brand">
+        <a href="/"><img src="images/cgw-logo.png" alt="CGW" style="height:44px;border-radius:8px;" /></a>
+        <p>Building intelligent AI &amp; security systems for Pakistan, USA &amp; UK.</p>
+        <div class="footer__socials">
+          <a href="https://www.instagram.com/cgwofficial_ai/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/cgw-ai/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
       </div>
+      <div class="footer__nav">
+        <div class="footer__nav-col">
+          <div class="footer__nav-head">Company</div>
+          <a href="/about.html">About CGW</a>
+          <a href="/Leadership.html">Leadership</a>
+          <a href="/why-cgw.html">Why CGW</a>
+          <a href="/careers.html">Careers</a>
+        </div>
+        <div class="footer__nav-col">
+          <div class="footer__nav-head">Services</div>
+          <a href="/service.html">AI Development</a>
+          <a href="/service.html">Cybersecurity</a>
+          <a href="/service.html">Software Dev</a>
+          <a href="/service.html">Security Intelligence</a>
+        </div>
+        <div class="footer__nav-col">
+          <div class="footer__nav-head">Contact</div>
+          <a href="mailto:cgwofficialai@gmail.com">cgwofficialai@gmail.com</a>
+          <a href="/contact.html">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 CGW — Cognitive Guardian Works</span>
+      <div class="footer__legal"><span>Pakistan · USA · UK</span></div>
     </div>
   </div>
 </footer>
@@ -235,4 +344,3 @@
 <script src="chat-widget.js"></script>
 </body>
 </html>
-
