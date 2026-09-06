@@ -1,9 +1,9 @@
 /* ============================================================
-   TECHNO — shared site interactions (all pages)
+   TECHNO - shared site interactions (all pages)
    ============================================================ */
 
 /* ---------- Scroll reveal ---------- */
-// Signal JS is available — reveal CSS only hides elements when this class is present
+// Signal JS is available - reveal CSS only hides elements when this class is present
 document.documentElement.classList.add('js');
 
 const io = new IntersectionObserver((entries) => {
@@ -60,133 +60,86 @@ document.querySelectorAll('.neon-btn').forEach(wireTypingButton);
   drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => toggle(false)));
 })();
 
-/* ---------- Contact form — AI auto-reply + real email ---------- */
+/* ---------- Contact form - sends to the server, which emails us ---------- */
 (function () {
   const form = document.querySelector('.form');
   if (!form) return;
-  const msgEl = form.querySelector('.form-msg');
+
+  const msgEl     = form.querySelector('.form-msg');
   const submitBtn = form.querySelector('button[type="submit"]');
+  const labelEl   = submitBtn ? submitBtn.querySelector('.neon-btn__label') : null;
+  // wireTypingButton() rebuilds the label as [text span][caret span]
+  const textSpan  = labelEl ? (labelEl.firstElementChild || labelEl) : null;
+  const idleText  = textSpan ? textSpan.textContent : '';
+  const openedAt  = Date.now();
+  let sending = false;
 
-  // ── Read credentials saved from admin Settings panel ──────────
-  function getCfg() {
-    return {
-      geminiKey:  localStorage.getItem('autoreply_gemini_key')  || '',
-      ejsPubKey:  localStorage.getItem('autoreply_ejs_pub')     || '',
-      ejsService: localStorage.getItem('autoreply_ejs_service') || '',
-      tplNotify:  localStorage.getItem('autoreply_tpl_notify')  || '',
-      tplReply:   localStorage.getItem('autoreply_tpl_reply')   || '',
-    };
+  const SUCCESS  = 'Message sent successfully. We\u2019ll get back to you shortly.';
+  const FAILURE  = 'Something went wrong. Please try again or email us directly.';
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function say(text, tone) {
+    if (!msgEl) return;
+    msgEl.textContent = text;
+    msgEl.style.color = tone === 'ok' ? '#1a7f37' : tone === 'error' ? '#c62828' : '';
   }
 
-  // ── Gemini: generate AI reply text ────────────────────────────
-  async function geminiReply(name, message, budget, geminiKey) {
-    const prompt =
-      `You are the professional assistant at CGW — Cognitive Guardian Work, a senior AI technology & security studio working fully remote with clients worldwide.\n` +
-      `Write a warm, professional email reply to this website enquiry.\n\n` +
-      `Sender: ${name}\nBudget: ${budget || 'not specified'}\nMessage: ${message}\n\n` +
-      `Instructions:\n` +
-      `- Thank them by first name\n` +
-      `- Show genuine interest in their project\n` +
-      `- Say the team will follow up within 48 hours with next steps\n` +
-      `- Keep it concise (3 short paragraphs)\n` +
-      `- Sign off as "The CGW Team"\n\n` +
-      `Write only the email body — no subject line, no extra commentary.`;
-
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ role: 'user', parts: [{ text: prompt }] }],
-          generationConfig: { maxOutputTokens: 400, temperature: 0.7 }
-        })
-      }
-    );
-    if (!res.ok) throw new Error('gemini-' + res.status);
-    const d = await res.json();
-    return d.candidates?.[0]?.content?.parts?.map(p => p.text).join('') || '';
-  }
-
-  // ── Fallback reply if Gemini/EmailJS not configured ───────────
-  function fallbackReply(name) {
-    return `Hi ${name},\n\nThank you for reaching out to CGW! We have received your message and really appreciate your interest in working with us.\n\nOur team will review your enquiry and get back to you within 48 hours with more details on how we can bring your project to life.\n\nWarm regards,\nThe CGW Team\ncgwofficialai@gmail.com`;
+  function setSending(on) {
+    sending = on;
+    if (submitBtn) {
+      // stop the neon typing animation so it cannot overwrite the label
+      submitBtn.dispatchEvent(new MouseEvent('mouseleave'));
+      submitBtn.disabled = on;
+      submitBtn.setAttribute('aria-busy', on ? 'true' : 'false');
+      submitBtn.style.opacity = on ? '0.6' : '';
+      submitBtn.style.cursor  = on ? 'progress' : '';
+    }
+    if (textSpan) textSpan.textContent = on ? 'Sending\u2026' : idleText;
   }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (sending) return;
+
+    const field = (sel) => form.querySelector(sel);
     const data = {
-      name:    form.querySelector('#name')?.value.trim()    || '',
-      email:   form.querySelector('#email')?.value.trim()   || '',
-      budget:  form.querySelector('#budget')?.value.trim()  || '',
-      message: form.querySelector('#message')?.value.trim() || '',
+      name:    field('#name')?.value.trim()    || '',
+      email:   field('#email')?.value.trim()   || '',
+      budget:  field('#budget')?.value.trim()  || '',
+      message: field('#message')?.value.trim() || '',
+      company: field('#company')?.value.trim() || '',   // honeypot - must stay empty
+      elapsed: Date.now() - openedAt,
     };
-    if (!data.name || !data.email || !data.message) return;
 
-    // UI: loading state
-    if (submitBtn) submitBtn.disabled = true;
-    if (msgEl) { msgEl.textContent = 'Sending…'; msgEl.style.color = ''; }
+    // Validation
+    if (data.name.length < 2) {
+      say('Please enter your name.', 'error'); field('#name')?.focus(); return;
+    }
+    if (!EMAIL_RE.test(data.email)) {
+      say('Please enter a valid email address.', 'error'); field('#email')?.focus(); return;
+    }
+    if (data.message.length < 5) {
+      say('Please tell us a little about the project.', 'error'); field('#message')?.focus(); return;
+    }
 
-    // Save to server messages store
+    setSending(true);
+    say('Sending your message\u2026');
+
     try {
-      await fetch('/api/messages', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: data.name, email: data.email, budget: data.budget, message: data.message, source: 'contact' })
+        body: JSON.stringify(data),
       });
-    } catch (_) {}
-
-    const cfg = getCfg();
-    const hasEmailJS = cfg.ejsPubKey && cfg.ejsService && cfg.tplNotify && cfg.tplReply;
-    const hasGemini  = !!cfg.geminiKey;
-
-    let replyText = fallbackReply(data.name);
-    let aiUsed = false;
-
-    // Step 1: generate AI reply
-    if (hasGemini) {
-      try {
-        const generated = await geminiReply(data.name, data.message, data.budget, cfg.geminiKey);
-        if (generated) { replyText = generated; aiUsed = true; }
-      } catch (_) {}
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || !out.ok) throw new Error(out.error || ('http-' + res.status));
+      say(SUCCESS, 'ok');
+      form.reset();
+    } catch (err) {
+      console.error('[contact]', err.message);
+      say(FAILURE, 'error');
+    } finally {
+      setSending(false);
     }
-
-    // Step 2: send emails via EmailJS
-    if (hasEmailJS && window.emailjs) {
-      try {
-        emailjs.init({ publicKey: cfg.ejsPubKey });
-
-        // a) Notify rehan
-        await emailjs.send(cfg.ejsService, cfg.tplNotify, {
-          from_name:  data.name,
-          from_email: data.email,
-          budget:     data.budget || 'Not specified',
-          message:    data.message,
-          to_email:   'rehanshahzad6018@gmail.com',
-        });
-
-        // b) AI reply to visitor
-        await emailjs.send(cfg.ejsService, cfg.tplReply, {
-          to_name:    data.name,
-          to_email:   data.email,
-          reply_body: replyText,
-        });
-
-        if (msgEl) {
-          msgEl.style.color = '#4ade80';
-          msgEl.textContent = aiUsed
-            ? '✓ Message sent! We just emailed you an AI-generated reply — check your inbox.'
-            : '✓ Message sent! We\'ll be in touch within 48 hours.';
-        }
-      } catch (err) {
-        if (msgEl) { msgEl.style.color = ''; msgEl.textContent = '✓ Message received — we\'ll be in touch within 48 hours.'; }
-      }
-    } else {
-      // EmailJS not set up yet — just confirm
-      if (msgEl) { msgEl.style.color = ''; msgEl.textContent = '✓ Message received — we\'ll be in touch within 48 hours.'; }
-    }
-
-    form.reset();
-    if (submitBtn) submitBtn.disabled = false;
   });
 })();

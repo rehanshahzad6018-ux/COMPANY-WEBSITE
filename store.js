@@ -1,5 +1,5 @@
 /* ============================================================
-   TECHNO — data layer
+   TECHNO - data layer
    ------------------------------------------------------------
    Talks to the backend API (/api/leads) when a server is
    running, and transparently falls back to localStorage when
@@ -9,7 +9,7 @@
 window.TechnoStore = (function () {
   const KEY = 'techno_leads';
   const API = '/api/leads';
-  // In the design preview the built-in assistant exists — stay on
+  // In the design preview the built-in assistant exists - stay on
   // localStorage there so we don't fire requests at a non-existent API.
   const PREVIEW = !!(window.claude && window.claude.complete);
 

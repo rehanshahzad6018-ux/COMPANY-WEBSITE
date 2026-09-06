@@ -9,3 +9,8 @@ brain-memory.json
 calls.json
 leads.json
 messages.json
+
+# runtime logs
+server.err.log
+whatsapp-logs.json
+server.log

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CGW — Admin Panel</title>
+<title>CGW - Admin Panel</title>
 <link rel="icon" type="image/png" href="images/cgw-logo.png" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <meta name="robots" content="noindex, nofollow" />
@@ -130,7 +130,7 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-card">
-    <div class="login-logo"><img src="images/cgw-logo.png" alt="CGW"/></div>
+    <div class="login-logo"><img src="images/cgw-logo.png" alt="CGW" /></div>
     <div class="login-title">Admin Panel</div>
     <div class="login-sub">Sign in to manage messages &amp; enquiries</div>
     <div class="lf">
@@ -149,7 +149,7 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sb-logo">
-    <img src="images/cgw-logo.png" alt="CGW"/>
+    <img src="images/cgw-logo.png" alt="CGW" />
     <span>Admin</span>
   </div>
   <nav class="sb-nav">
@@ -264,33 +264,53 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
 
 <div id="toast"></div>
 
+<script src="api-config.js"></script>
 <script>
 (function(){
-  const PASS = '6K68M4Jq6-8wa29QflP0cWpFAFoQuXwe';
-  const TK   = 'cgw_admin_auth';
+  const TK = 'cgw_admin_auth';
+  // Filled in only after a successful server-side login - never hardcoded here,
+  // because this file is public to anyone who opens /admin.html.
+  let PASS = localStorage.getItem(TK) || '';
 
   /* ── Auth ── */
-  function loggedIn(){ return localStorage.getItem(TK) === PASS; }
+  function loggedIn(){ return !!PASS; }
   if (loggedIn()) boot();
 
   document.getElementById('lp').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('login-btn').click(); });
   document.getElementById('lu').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('lp').focus(); });
 
-  document.getElementById('login-btn').addEventListener('click', () => {
+  document.getElementById('login-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('login-btn');
+    const err = document.getElementById('login-err');
     const u = document.getElementById('lu').value.trim();
     const p = document.getElementById('lp').value;
-    if (u === 'admin' && p === PASS) {
+
+    btn.disabled = true;
+    err.textContent = '';
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: u, password: p })
+      });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || !out.token) throw new Error(out.error || 'Incorrect username or password.');
+      PASS = out.token;
       localStorage.setItem(TK, PASS);
+      document.getElementById('lp').value = '';
       boot();
-    } else {
-      document.getElementById('login-err').textContent = 'Incorrect username or password.';
+    } catch (e) {
+      err.textContent = e.message;
       document.getElementById('lp').value = '';
       document.getElementById('lp').focus();
+    } finally {
+      btn.disabled = false;
     }
   });
 
   document.getElementById('logout-btn').addEventListener('click', () => {
     localStorage.removeItem(TK);
+    PASS = '';
     location.reload();
   });
 
@@ -493,7 +513,7 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
             ${a.phone?`<div style="font-size:12px;color:#8b949e;margin-top:2px;">${esc(a.phone)}</div>`:''}
           </div>
           <div style="display:flex;gap:6px;flex-shrink:0;">
-            ${a.resume?`<a href="/api/applications/${esc(a.id)}/resume?_token=${PASS}" class="btn" target="_blank" style="font-size:12px;padding:5px 10px;">📄 Resume</a>`:''}
+            ${a.resume?`<a href="/api/applications/${esc(a.id)}/resume?_token=${PASS}" class="btn" target="_blank" style="font-size:12px;padding:5px 10px;">Resume</a>`:''}
             <a href="mailto:${esc(a.email)}?subject=Re:%20Your%20application%20to%20CGW" class="btn btn-primary" target="_blank" style="font-size:12px;padding:5px 10px;">Reply</a>
             <button class="btn btn-danger" style="font-size:12px;padding:5px 10px;" onclick="delApp('${esc(a.id)}',this)">Delete</button>
           </div>
@@ -538,7 +558,7 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
   function renderJobsList(){
     const c = document.getElementById('jobs-list');
     if(!jobsCache.length){
-      c.innerHTML = '<div class="empty-state"><p>No job listings yet — post your first opening above</p></div>';
+      c.innerHTML = '<div class="empty-state"><p>No job listings yet - post your first opening above</p></div>';
       return;
     }
     c.innerHTML = jobsCache.map(j=>`
@@ -608,7 +628,16 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:10
   });
 
   /* ── Boot ── */
-  function boot(){
+  async function boot(){
+    // the stored token may be from an older ADMIN_SECRET - check before showing data
+    const ok = await fetch('/api/leads', { headers: ah() }).then(r => r.ok).catch(() => false);
+    if (!ok) {
+      localStorage.removeItem(TK);
+      PASS = '';
+      document.getElementById('login-screen').style.display = '';
+      document.getElementById('login-err').textContent = 'Session expired - please sign in again.';
+      return;
+    }
     document.getElementById('login-screen').style.display='none';
     loadMessages();
     loadApps();

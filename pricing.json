@@ -2,17 +2,17 @@
   {
     "id": "sprint",
     "name": "Sprint",
-    "duration": "2–4",
+    "duration": "2-4",
     "unit": "Weeks",
-    "description": "A focused, time-boxed engagement for a specific problem — a new feature, a design audit, a motion language definition, or a landing page.",
+    "description": "A focused, time-boxed engagement for a specific problem - a new feature, a design audit, a motion language definition, or a landing page.",
     "popular": false
   },
   {
     "id": "project",
     "name": "Project",
-    "duration": "6–16",
+    "duration": "4-6",
     "unit": "Weeks",
-    "description": "Full product design engagement from discovery through delivery. This is how most of our best work gets done — a clear brief, dedicated team, full ownership.",
+    "description": "Full product design engagement from discovery through delivery. This is how most of our best work gets done - a clear brief, dedicated team, full ownership.",
     "popular": true
   },
   {
@@ -20,7 +20,7 @@
     "name": "Retainer",
     "duration": "Ongoing",
     "unit": "Monthly",
-    "description": "A monthly allocation of studio time for teams that need a senior design partner on-call — ongoing feature work, design reviews, and system evolution.",
+    "description": "A monthly allocation of senior team time for teams that need a senior design partner on-call - ongoing feature work, design reviews, and system evolution.",
     "popular": false
   }
 ]

@@ -3,20 +3,31 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CGW — Careers</title>
-<meta name="description" content="Join CGW — we're hiring people obsessed with craft. Real ownership, remote-first culture, and a chance to ship production work from day one." />
+<title>Careers at CGW | Remote AI &amp; Cybersecurity Jobs</title>
+<meta name="description" content="Join CGW-AI. Remote-first roles and internships in AI development, full-stack engineering and cybersecurity - real ownership, production work from day one." />
 <link rel="icon" type="image/png" href="images/cgw-logo.png" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="apple-touch-icon" href="images/cgw-logo.png" />
-<meta property="og:title" content="CGW — Careers" />
-<meta property="og:description" content="Join CGW — we're hiring people obsessed with craft. Real ownership, remote-first culture, and a chance to ship production work from day one." />
+<meta property="og:title" content="Careers at CGW | Remote AI &amp; Cybersecurity Jobs" />
+<meta property="og:description" content="Join CGW-AI. Remote-first roles and internships in AI development, full-stack engineering and cybersecurity - real ownership, production work from day one." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://cgw-ai.com/careers.html" />
-<meta property="og:image" content="https://cgw-ai.com/images/cgw-logo.png" />
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="CGW — Careers" />
-<meta name="twitter:description" content="Join CGW — we're hiring people obsessed with craft. Real ownership, remote-first culture, and a chance to ship production work from day one." />
-<meta name="twitter:image" content="https://cgw-ai.com/images/cgw-logo.png" />
+<meta property="og:image" content="https://cgw-ai.com/images/og-cover.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Careers at CGW | Remote AI &amp; Cybersecurity Jobs" />
+<meta name="twitter:description" content="Join CGW-AI. Remote-first roles and internships in AI development, full-stack engineering and cybersecurity - real ownership, production work from day one." />
+<meta name="twitter:image" content="https://cgw-ai.com/images/og-cover.png" />
+<meta name="keywords" content="AI developer jobs, cybersecurity internship, full stack developer jobs, remote tech jobs Pakistan, software engineering internship, machine learning jobs, penetration testing jobs, tech careers, apply developer role" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta name="author" content="CGW-AI - Cognitive Guardian Work" />
+<link rel="canonical" href="https://cgw-ai.com/careers.html" />
+<meta property="og:site_name" content="CGW-AI" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image:alt" content="CGW - Cognitive Guardian Work: AI products, full-stack development and cybersecurity" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta name="twitter:image:alt" content="CGW - Cognitive Guardian Work: AI products, full-stack development and cybersecurity" />
 <link rel="stylesheet" href="techno.css" />
 <style>
 /* ── Job type badges ── */
@@ -27,9 +38,9 @@
   padding: 5px 13px; border-radius: 100px;
   margin-bottom: 18px;
 }
-.job-badge--intern    { background: rgba(168,85,247,0.14); color: var(--neon-bright); border: 1px solid rgba(168,85,247,0.35); }
-.job-badge--full-time { background: rgba(213,244,249,0.12); color: var(--cyan);        border: 1px solid rgba(213,244,249,0.3); }
-.job-badge--part-time { background: rgba(159,141,139,0.14); color: var(--beige);       border: 1px solid rgba(159,141,139,0.3); }
+.job-badge--intern    { background: rgba(47,149,214,0.14); color: var(--neon-bright); border: 1px solid rgba(47,149,214,0.35); }
+.job-badge--full-time { background: rgba(47,149,214,0.12); color: var(--neon-bright); border: 1px solid rgba(47,149,214,0.3); }
+.job-badge--part-time { background: rgba(88,119,146,0.14); color: var(--beige);       border: 1px solid rgba(88,119,146,0.3); }
 
 /* ── Job rows (dark sections) ── */
 .job-row {
@@ -38,28 +49,28 @@
   gap: clamp(16px, 3vw, 44px);
   align-items: center;
   padding: clamp(24px, 3.5vw, 40px) 0;
-  border-top: 1px solid rgba(183,198,194,0.15);
+  border-top: 1px solid rgba(53,89,122,0.15);
   transition: background 0.35s, padding-left 0.35s var(--ease-fluid);
   border-radius: 4px;
 }
-.job-row:last-child { border-bottom: 1px solid rgba(183,198,194,0.15); }
+.job-row:last-child { border-bottom: 1px solid rgba(53,89,122,0.15); }
 .job-row:hover { padding-left: 10px; }
-.job-row__num  { font-family: var(--display); font-size: clamp(18px, 2vw, 26px); color: rgba(183,198,194,0.3); }
+.job-row__num  { font-family: var(--display); font-size: clamp(18px, 2vw, 26px); color: rgba(53,89,122,0.42); }
 .job-row__title { font-family: var(--display); text-transform: uppercase; font-size: clamp(22px, 3vw, 42px); line-height: 0.95; letter-spacing: -0.01em; }
 .job-row__meta  { display: flex; flex-direction: column; gap: 6px; }
 .job-row__dept  { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); }
-.job-row__loc   { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(183,198,194,0.5); }
+.job-row__loc   { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--taupe); }
 .job-row__apply {
   flex-shrink: 0;
   font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700;
-  padding: 11px 22px; border: 1px solid rgba(168,85,247,0.5); border-radius: 100px;
-  color: var(--neon-bright); background: rgba(168,85,247,0.07);
+  padding: 11px 22px; border: 1px solid rgba(47,149,214,0.5); border-radius: 100px;
+  color: var(--neon-bright); background: rgba(47,149,214,0.07);
   transition: background 0.35s, box-shadow 0.35s, border-color 0.35s;
   cursor: pointer; font-family: var(--body);
 }
 .job-row__apply:hover {
-  background: rgba(168,85,247,0.18); border-color: var(--neon-bright);
-  box-shadow: 0 0 22px rgba(168,85,247,0.4);
+  background: rgba(47,149,214,0.18); border-color: var(--neon-bright);
+  box-shadow: 0 8px 22px rgba(47,149,214,0.3);
 }
 @media (max-width: 860px) {
   .job-row { grid-template-columns: 1fr; gap: 10px; }
@@ -75,10 +86,13 @@
   margin-top: clamp(50px, 7vw, 90px);
 }
 .value-card {
-  border-top: 1px solid rgba(183,198,194,0.2);
+  border-top: 1px solid rgba(53,89,122,0.2);
   padding-top: 24px;
 }
-.value-card__icon { font-size: 26px; margin-bottom: 14px; }
+.value-card__icon {
+  font-family: var(--display); font-size: 26px; line-height: 1;
+  color: var(--neon-bright); margin-bottom: 14px; letter-spacing: -0.02em;
+}
 .value-card__title { font-family: var(--display); text-transform: uppercase; font-size: clamp(16px, 1.8vw, 22px); margin-bottom: 10px; }
 .value-card__body  { color: var(--taupe); font-size: 13px; line-height: 1.75; }
 @media (max-width: 700px) {
@@ -103,19 +117,29 @@
 .jobs-empty {
   text-align: center;
   padding: clamp(60px, 10vw, 110px) 0;
-  border: 1px dashed rgba(183,198,194,0.25);
+  border: 1px dashed rgba(53,89,122,0.25);
   border-radius: 10px;
 }
 .jobs-empty h3 { font-family: var(--display); text-transform: uppercase; font-size: clamp(26px, 3vw, 42px); margin-bottom: 12px; }
 .jobs-empty p  { color: var(--taupe); font-size: 14px; line-height: 1.7; max-width: 380px; margin: 0 auto 28px; }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cgw-ai.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Careers" }
+  ]
+}
+</script>
 </head>
 <body>
 
 <nav class="nav">
-  <a href="Techno.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive<br />Gaurdian Work</span></a>
+  <a href="/" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;" width="886" height="397" loading="eager" fetchpriority="high" decoding="async" /><span class="nav__logo-text">Cognitive<br />Gaurdian Work</span></a>
   <div class="nav__links">
-    <a href="Techno.html">Home</a>
+    <a href="/">Home</a>
     <a href="our-ceo.html">Our CEO</a>
     <a href="team.html">Team</a>
     <a href="service.html">Service</a>
@@ -126,7 +150,7 @@
   <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mnav">
-  <a href="Techno.html">Home</a>
+  <a href="/">Home</a>
   <a href="our-ceo.html">Our CEO</a>
   <a href="team.html">Team</a>
   <a href="service.html">Service</a>
@@ -137,10 +161,9 @@
 
 <!-- ============ HERO ============ -->
 <header class="page-hero">
-  <div class="orb" style="background:var(--neon); top:6%; right:-4%; opacity:0.08; animation-delay:-1s;"></div>
-  <div class="orb" style="background:var(--soft-blue); bottom:-10%; left:-2%; animation-delay:-4s;"></div>
+  <div class="orb" style="background:var(--neon); top:6%; right:-4%; opacity:0.16; animation-delay:-1s;"></div>
+  <div class="orb" style="background:var(--soft-blue); bottom:-10%; left:-2%; animation-delay:-4s; opacity:0.3;"></div>
   <div class="wrap page-hero__inner">
-    <div class="crumb"><span class="dot"></span>We're Hiring</div>
     <h1>Work With<br />Us</h1>
     <p class="page-hero__lede">We hire people who are obsessed with craft. Designers, engineers, and thinkers who push every pixel and every line of code until it's exactly right.</p>
   </div>
@@ -155,7 +178,7 @@
         <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(40px,6vw,96px); line-height:0.85; letter-spacing:-0.02em;">Current<br />Openings</h2>
       </div>
       <p class="reveal" style="color:var(--taupe); max-width:340px; font-size:14px; line-height:1.75; text-align:right;">
-        Can't find your role? Send us a general application — we read every one.
+        Can't find your role? Send us a general application - we read every one.
       </p>
     </div>
 
@@ -172,38 +195,38 @@
       <div class="eyebrow" style="color:var(--taupe); margin-bottom:16px;">Why CGW</div>
       <h2 style="font-family:var(--display); text-transform:uppercase; font-size:clamp(34px,5vw,72px); line-height:0.88; letter-spacing:-0.02em;">Build Real<br />Things</h2>
       <p style="color:var(--taupe); font-size:16px; line-height:1.8; margin-top:20px; max-width:520px;">
-        We're a small studio with a big portfolio. You'll work directly on live projects, ship real code, and learn from people who have been building on the web for years.
+        We're a small team with a big portfolio. You'll work directly on live projects, ship real code, and learn from people who have been building on the web for years.
       </p>
     </div>
 
     <div class="values-grid">
       <div class="value-card reveal">
-        <div class="value-card__icon">⚡</div>
+        <div class="value-card__icon">01</div>
         <div class="value-card__title">Ship Fast</div>
         <div class="value-card__body">No six-month projects that go nowhere. We move quickly, iterate, and launch.</div>
       </div>
       <div class="value-card reveal">
-        <div class="value-card__icon">🎯</div>
+        <div class="value-card__icon">02</div>
         <div class="value-card__title">Real Ownership</div>
         <div class="value-card__body">Interns and juniors own actual features. No coffee runs, no busywork.</div>
       </div>
       <div class="value-card reveal">
-        <div class="value-card__icon">🧠</div>
+        <div class="value-card__icon">03</div>
         <div class="value-card__title">Learn by Doing</div>
         <div class="value-card__body">Pair with senior engineers and designers on client work from day one.</div>
       </div>
       <div class="value-card reveal">
-        <div class="value-card__icon">🌍</div>
+        <div class="value-card__icon">04</div>
         <div class="value-card__title">Remote-First</div>
         <div class="value-card__body">Work from anywhere. Async by default, sync when it matters.</div>
       </div>
       <div class="value-card reveal">
-        <div class="value-card__icon">💜</div>
+        <div class="value-card__icon">05</div>
         <div class="value-card__title">Craft Culture</div>
         <div class="value-card__body">We care about quality deeply. Details matter here, and we take the time to get them right.</div>
       </div>
       <div class="value-card reveal">
-        <div class="value-card__icon">📈</div>
+        <div class="value-card__icon">06</div>
         <div class="value-card__title">Grow Fast</div>
         <div class="value-card__body">Strong performers move up. Internships often lead to full-time offers.</div>
       </div>
@@ -254,9 +277,9 @@
       </div>
       <div class="field">
         <label for="ap-position">Position</label>
-        <select id="ap-position" style="background:transparent; border:none; border-bottom:1px solid rgba(183,198,194,0.3); color:var(--white); font-family:var(--body); font-size:17px; padding:12px 0; width:100%; transition:border-color 0.4s var(--ease-fluid); cursor:pointer;">
-          <option value="" style="background:var(--navy);">— Select a position —</option>
-          <option value="General Application" style="background:var(--navy);">General Application</option>
+        <select id="ap-position" style="background:transparent; border:none; border-bottom:1px solid rgba(53,89,122,0.3); color:var(--navy); font-family:var(--body); font-size:17px; padding:12px 0; width:100%; transition:border-color 0.4s var(--ease-fluid); cursor:pointer;">
+          <option value="" style="background:var(--white);"> - Select a position - </option>
+          <option value="General Application" style="background:var(--white);">General Application</option>
         </select>
       </div>
       <div class="field">
@@ -265,7 +288,7 @@
       </div>
       <div class="field">
         <label for="ap-resume">Resume / CV <span style="color:var(--taupe); font-size:11px;">(PDF or Word, optional, max 5MB)</span></label>
-        <input id="ap-resume" type="file" accept=".pdf,.doc,.docx,.rtf" style="background:transparent; border:none; border-bottom:1px solid rgba(183,198,194,0.3); color:var(--sage); font-family:var(--body); font-size:14px; padding:12px 0; width:100%; cursor:pointer;" />
+        <input id="ap-resume" type="file" accept=".pdf,.doc,.docx,.rtf" style="background:transparent; border:none; border-bottom:1px solid rgba(53,89,122,0.3); color:var(--sage); font-family:var(--body); font-size:14px; padding:12px 0; width:100%; cursor:pointer;" />
       </div>
       <div class="field">
         <label for="ap-message">Why do you want to join CGW?</label>
@@ -273,7 +296,6 @@
       </div>
       <div class="form-msg" id="apply-msg"></div>
       <button class="neon-btn" type="submit" id="apply-submit" data-text="Send Application">
-        <span class="neon-btn__dot"></span>
         <span class="neon-btn__label">Send Application</span>
       </button>
     </form>
@@ -288,9 +310,8 @@
     <div class="footer__bottom">
       <span>© 2026 CGW</span>
       <div class="footer__legal">
-        <a href="#">Instagram</a>
-        <a href="#">Dribbble</a>
-        <a href="#">LinkedIn</a>
+        <a href="https://www.instagram.com/cgwofficial_ai" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.linkedin.com/company/cgw-ai/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </div>
   </div>
@@ -298,13 +319,14 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="api-config.js"></script>
 <script src="store.js"></script>
 <script src="site.js"></script>
 <script src="techno.js"></script>
 
 <script>
 (function careersPage() {
-  /* ── CAREERS EMAIL — update this when you have the address ── */
+  /* ── CAREERS EMAIL - update this when you have the address ── */
   const CAREERS_EMAIL = 'cgwofficialai@gmail.com';
 
   /* ── Update mailto link ── */
@@ -342,7 +364,7 @@
       const opt = document.createElement('option');
       opt.value = j.title;
       opt.textContent = j.title;
-      opt.style.background = 'var(--navy)';
+      opt.style.background = 'var(--white)';
       posSelect.appendChild(opt);
     });
 
@@ -352,7 +374,6 @@
           '<h3>No Open Roles Right Now</h3>' +
           '<p>We\'re not actively hiring, but we\'re always interested in exceptional talent. Send us a general application.</p>' +
           '<a href="#apply" class="neon-btn" data-text="Send General Application" style="display:inline-flex;">' +
-            '<span class="neon-btn__dot"></span>' +
             '<span class="neon-btn__label">Send General Application</span>' +
           '</a>' +
         '</div>';
@@ -384,7 +405,7 @@
       if (typeof io !== 'undefined') io.observe(el);
     });
 
-    /* Apply Now buttons — pre-fill form and scroll */
+    /* Apply Now buttons - pre-fill form and scroll */
     jobsList.querySelectorAll('.job-row__apply').forEach(btn => {
       btn.addEventListener('click', () => {
         const title = btn.dataset.job;
@@ -427,13 +448,13 @@
     const resumeFile  = resumeInput.files[0] || null;
 
     if (!data.name || !data.email || !data.message) {
-      applyMsg.style.color = '#f87171';
+      applyMsg.style.color = '#c02626';
       applyMsg.textContent = 'Please fill in your name, email, and message.';
       return;
     }
     if (resumeFile && resumeFile.size > 5 * 1024 * 1024) {
-      applyMsg.style.color = '#f87171';
-      applyMsg.textContent = 'Resume file is too large — please keep it under 5MB.';
+      applyMsg.style.color = '#c02626';
+      applyMsg.textContent = 'Resume file is too large - please keep it under 5MB.';
       return;
     }
 
@@ -469,16 +490,16 @@
             message:    data.message,
             to_email:   CAREERS_EMAIL,
           });
-        } catch (_) { /* EmailJS optional — application already saved */ }
+        } catch (_) { /* EmailJS optional - application already saved */ }
       }
 
-      applyMsg.style.color = '#4ade80';
+      applyMsg.style.color = '#1a7f37';
       applyMsg.textContent = 'Application sent! We will be in touch within 5 business days.';
       applyForm.reset();
       posSelect.selectedIndex = 0;
 
     } catch (err) {
-      applyMsg.style.color = '#f87171';
+      applyMsg.style.color = '#c02626';
       applyMsg.textContent = 'Something went wrong. Please email us directly at ' + CAREERS_EMAIL;
     }
 

@@ -3,20 +3,31 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CGW — Our Work</title>
-<meta name="description" content="Browse CGW's portfolio — AI-powered SaaS platforms, web applications, game development projects, and cybersecurity engagements." />
+<title>Our Work: AI, SaaS, Web &amp; Game Projects | CGW</title>
+<meta name="description" content="CGW-AI portfolio: AI-powered SaaS platforms, web applications, cybersecurity engagements and 2D games - 10 projects with full technical breakdowns." />
 <link rel="icon" type="image/png" href="images/cgw-logo.png" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="apple-touch-icon" href="images/cgw-logo.png" />
-<meta property="og:title" content="CGW — Our Work" />
-<meta property="og:description" content="Browse CGW's portfolio — AI-powered SaaS platforms, web applications, game development projects, and cybersecurity engagements." />
+<meta property="og:title" content="Our Work: AI, SaaS, Web &amp; Game Projects | CGW" />
+<meta property="og:description" content="CGW-AI portfolio: AI-powered SaaS platforms, web applications, cybersecurity engagements and 2D games - 10 projects with full technical breakdowns." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://cgw-ai.com/our-work.html" />
-<meta property="og:image" content="https://cgw-ai.com/images/cgw-logo.png" />
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="CGW — Our Work" />
-<meta name="twitter:description" content="Browse CGW's portfolio — AI-powered SaaS platforms, web applications, game development projects, and cybersecurity engagements." />
-<meta name="twitter:image" content="https://cgw-ai.com/images/cgw-logo.png" />
+<meta property="og:image" content="https://cgw-ai.com/images/og-cover.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Our Work: AI, SaaS, Web &amp; Game Projects | CGW" />
+<meta name="twitter:description" content="CGW-AI portfolio: AI-powered SaaS platforms, web applications, cybersecurity engagements and 2D games - 10 projects with full technical breakdowns." />
+<meta name="twitter:image" content="https://cgw-ai.com/images/og-cover.png" />
+<meta name="keywords" content="AI SaaS portfolio, POS system development, RBAC dashboard, web application portfolio, virtual tour development, Nmap network scanning, OpenVAS vulnerability management, Sn1per reconnaissance, network security audit, Java game development, C++ text editor, .NET API monitoring, software portfolio" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta name="author" content="CGW-AI - Cognitive Guardian Work" />
+<link rel="canonical" href="https://cgw-ai.com/our-work.html" />
+<meta property="og:site_name" content="CGW-AI" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image:alt" content="CGW - Cognitive Guardian Work: AI products, full-stack development and cybersecurity" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta name="twitter:image:alt" content="CGW - Cognitive Guardian Work: AI products, full-stack development and cybersecurity" />
 <link rel="stylesheet" href="techno.css" />
 <style>
   .page-hero {
@@ -46,36 +57,69 @@
   .pmodal.is-open { opacity: 1; pointer-events: all; }
   .pmodal__backdrop {
     position: absolute; inset: 0;
-    background: rgba(11,16,13,0.93);
+    background: rgba(13,43,69,0.55);
     backdrop-filter: blur(10px);
   }
   .pmodal__box {
     position: relative; z-index: 1;
-    background: #1b2420;
-    border: 1px solid rgba(183,198,194,0.11);
+    background: var(--white);
+    border: 1px solid var(--line-strong);
+    box-shadow: 0 30px 80px rgba(13,43,69,0.22);
     border-radius: 12px;
-    max-width: 980px; width: 100%;
+    max-width: 1180px; width: 100%;
     max-height: 88vh; overflow-y: auto;
-    display: grid; grid-template-columns: 1fr 1fr;
+    /* wider image column: these are full-page screenshots, they need room */
+    display: grid; grid-template-columns: 1.45fr 1fr; align-items: start;
     transform: translateY(28px) scale(0.97);
     transition: transform 0.48s var(--ease-fluid);
-    scrollbar-width: thin; scrollbar-color: rgba(183,198,194,0.15) transparent;
+    scrollbar-width: thin; scrollbar-color: rgba(53,89,122,0.15) transparent;
   }
   .pmodal.is-open .pmodal__box { transform: translateY(0) scale(1); }
   .pmodal__images {
-    display: flex; flex-direction: column; gap: 6px; overflow: hidden;
+    position: relative; overflow: hidden;
+    /* keep its own shape instead of stretching to match a long description,
+       and stay in view while the text beside it scrolls */
+    align-self: start; position: sticky; top: 0;
+    aspect-ratio: 16 / 10;
     border-radius: 12px 0 0 12px;
+    background: var(--sky-soft);
   }
   .pmodal__img-main {
-    flex: 1; width: 100%; min-height: 260px;
-    object-fit: cover; object-position: top;
-    border-radius: 12px 0 0 0;
+    width: 100%; height: 100%;
+    /* contain, not cover: these are wide screenshots and cropping them to a
+       tall column cut the page into an unreadable slice */
+    object-fit: contain; object-position: center;
+    padding: 16px; box-sizing: border-box;
+    border-radius: 12px 0 0 12px;
+    opacity: 1; transition: opacity 0.25s var(--ease-fluid);
   }
-  .pmodal__img-thumb {
-    width: 100%; aspect-ratio: 16/7;
-    object-fit: cover; object-position: top;
-    border-radius: 0 0 0 12px;
+  .pmodal__images.is-swapping .pmodal__img-main { opacity: 0; }
+  .pmodal__img-main[hidden] { display: none; }
+  video.pmodal__img-main { background: #0d1117; }
+  /* prev / next arrows - only shown when a project has more than one image */
+  .pmodal__nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(13,43,69,0.10);
+    background: rgba(255,255,255,0.88);
+    color: var(--navy); cursor: pointer;
+    box-shadow: 0 4px 14px rgba(13,43,69,0.12);
+    transition: background 0.3s var(--ease-fluid), transform 0.3s var(--ease-fluid);
+    z-index: 2;
   }
+  .pmodal__nav:hover { background: #fff; transform: translateY(-50%) scale(1.08); }
+  .pmodal__nav--prev { left: 14px; }
+  .pmodal__nav--next { right: 14px; }
+  .pmodal__nav[hidden] { display: none; }
+  .pmodal__counter {
+    position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%);
+    padding: 5px 12px; border-radius: 100px;
+    background: rgba(255,255,255,0.9); border: 1px solid rgba(13,43,69,0.08);
+    font-size: 11px; letter-spacing: 0.14em; color: var(--navy);
+    z-index: 2;
+  }
+  .pmodal__counter[hidden] { display: none; }
   .pmodal__content {
     padding: clamp(24px, 3.5vw, 44px);
     display: flex; flex-direction: column; gap: 14px;
@@ -96,13 +140,13 @@
   .pmodal__tag {
     font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
     padding: 5px 11px;
-    border: 1px solid rgba(183,198,194,0.18);
+    border: 1px solid rgba(53,89,122,0.18);
     border-radius: 100px; color: var(--sage);
   }
   .pmodal__cta {
     display: inline-flex; align-items: center; gap: 10px;
     font-family: var(--display); text-transform: uppercase;
-    font-size: 12px; letter-spacing: 0.1em; color: var(--white);
+    font-size: 12px; letter-spacing: 0.1em; color: var(--navy);
     margin-top: auto; padding-top: 12px;
     transition: color 0.3s;
   }
@@ -112,28 +156,347 @@
   .pmodal__close {
     position: absolute; top: 14px; right: 14px;
     width: 34px; height: 34px; border-radius: 50%;
-    background: rgba(183,198,194,0.08);
-    border: 1px solid rgba(183,198,194,0.14);
-    color: var(--white); display: flex;
+    background: rgba(47,149,214,0.10);
+    border: 1px solid rgba(47,149,214,0.22);
+    color: var(--navy); display: flex;
     align-items: center; justify-content: center;
     cursor: pointer; transition: background 0.3s; z-index: 2;
   }
-  .pmodal__close:hover { background: rgba(183,198,194,0.18); }
+  .pmodal__close:hover { background: rgba(53,89,122,0.18); }
 
   @media (max-width: 680px) {
     .pmodal__box { grid-template-columns: 1fr; }
     .pmodal__images { border-radius: 12px 12px 0 0; }
-    .pmodal__img-main { min-height: 200px; border-radius: 12px 12px 0 0; }
-    .pmodal__img-thumb { display: none !important; }
+    .pmodal__images { position: relative; aspect-ratio: 16 / 10; }
+    .pmodal__img-main { border-radius: 12px 12px 0 0; padding: 10px; }
+    .pmodal__nav { width: 36px; height: 36px; }
+    .pmodal__nav--prev { left: 10px; }
+    .pmodal__nav--next { right: 10px; }
+  }
+  /* ── CATEGORY SECTIONS ── */
+  .work-cat { padding: clamp(70px, 9vw, 120px) 0; position: relative; z-index: 2; color: var(--navy); }
+  .work-cat--white { background: var(--white); }
+  .work-cat--sky   { background: var(--sky-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .work-cat__head { margin-bottom: clamp(36px, 5vw, 64px); }
+  .work-cat__head .eyebrow { color: var(--neon-bright); display: block; margin-bottom: 16px; }
+  .work-cat__head h2 {
+    font-family: var(--display); text-transform: uppercase;
+    font-size: clamp(34px, 5.5vw, 84px); line-height: 0.88;
+    letter-spacing: -0.02em; color: var(--navy);
+  }
+  .work-cat__head p {
+    color: var(--taupe); font-size: 15px; line-height: 1.8;
+    margin-top: 20px; max-width: 560px;
+  }
+  /* Sections holding a single project keep the card from stranding half a row */
+  .works__grid--single { grid-template-columns: 1fr; max-width: 720px; }
+  .works__grid--single .work:nth-child(even) { margin-top: 0; }
+
+  /* ── JUMP NAV ── */
+  .work-jump {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 10px; margin-top: clamp(28px, 4vw, 46px);
+  }
+  .work-jump a {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600;
+    color: var(--neon-bright);
+    border: 1px solid rgba(47,149,214,0.35);
+    background: rgba(47,149,214,0.07);
+    padding: 10px 18px; border-radius: 100px;
+    transition: background 0.35s var(--ease-fluid), border-color 0.35s var(--ease-fluid), color 0.35s;
+  }
+  .work-jump a:hover { background: var(--neon); border-color: var(--neon); color: var(--white); }
+  @media (max-width: 520px) {
+    .work-jump a { font-size: 10px; letter-spacing: 0.14em; padding: 9px 14px; }
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cgw-ai.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Our Work" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "CGW portfolio",
+  "description": "Projects delivered by CGW - Cognitive Guardian Work.",
+  "numberOfItems": 13,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "AI POS App",
+        "description": "Full-stack retail SaaS with role-based access and 20+ AI analytics modules.",
+        "image": "https://cgw-ai.com/images/proj-aipos-dashboard.jpeg",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "CGW Enterprise Suite",
+        "description": "Desktop ERP and HRMS covering 66 modules across an enterprise.",
+        "image": "https://cgw-ai.com/images/proj-cgw-erp-departments.png",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "POS Point of Sale",
+        "description": "Desktop point-of-sale with live billing, stock control, invoicing and reports.",
+        "image": "https://cgw-ai.com/images/proj-pos-dashboard.png",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "Mama's Cookies",
+        "description": "Cookie brand e-commerce storefront with cart, delivery and nationwide shipping.",
+        "image": "https://cgw-ai.com/images/proj-mamas-cookies-home.jpeg",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "PaperHug",
+        "description": "Handmade brand storefront with product pages, cart and checkout.",
+        "image": "https://cgw-ai.com/images/proj-paperhugs-home.jpeg",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "Unity Drift Racer",
+        "description": "Unity 6 drift racing game with a custom car controller and drift model.",
+        "image": "https://cgw-ai.com/images/proj-drift-1.jpeg",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "Wave Shooter",
+        "description": "Python and Pygame arcade shooter with escalating waves and a dash mechanic.",
+        "image": "https://cgw-ai.com/images/proj-shooter-1.jpeg",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "Java Fighting Game",
+        "description": "2D samurai fighting game built in Java with a custom game loop.",
+        "image": "https://cgw-ai.com/images/proj-fighting-game.png",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "API Response Monitor",
+        "description": ".NET 8 endpoint health monitor with CSV logging and GitHub Actions runs.",
+        "image": "https://cgw-ai.com/images/proj-api-monitor.png",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "C++ Text Editor",
+        "description": "Gap-buffer text editor written in C++ without STL containers.",
+        "image": "https://cgw-ai.com/images/proj-texteditor.png",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 11,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "Nmap Network Mapping",
+        "description": "Full-range stealth SYN port scan and service enumeration.",
+        "image": "https://cgw-ai.com/images/proj-nmap.jpeg",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 12,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "OpenVAS Vulnerability Dashboard",
+        "description": "Greenbone deployment tracking 170,109 vulnerability tests.",
+        "image": "https://cgw-ai.com/images/proj-openvas.jpeg",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "item": {
+        "@type": "CreativeWork",
+        "name": "Sn1per Footprinting",
+        "description": "Automated reconnaissance pipeline with DNS and subdomain checks.",
+        "image": "https://cgw-ai.com/images/proj-sn1per.jpeg",
+        "url": "https://cgw-ai.com/our-work.html",
+        "creator": {
+          "@type": "Organization",
+          "name": "CGW",
+          "url": "https://cgw-ai.com/"
+        }
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Unity Drift Racer gameplay",
+  "description": "Gameplay of a 3D drift racing game built in Unity 6 with a custom car controller, wheel colliders and a tuned drift model.",
+  "thumbnailUrl": "https://cgw-ai.com/proj-drift-1.jpeg",
+  "contentUrl": "https://cgw-ai.com/proj-drift-video.mp4",
+  "uploadDate": "2026-09-02",
+  "duration": "PT1M8S",
+  "publisher": {
+    "@type": "Organization",
+    "name": "CGW",
+    "url": "https://cgw-ai.com/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Wave Shooter gameplay",
+  "description": "Gameplay of a wave-based arcade space shooter written in Python with Pygame, showing scoring, waves and the dash mechanic.",
+  "thumbnailUrl": "https://cgw-ai.com/proj-shooter-1.jpeg",
+  "contentUrl": "https://cgw-ai.com/proj-shooter-video.mp4",
+  "uploadDate": "2026-09-02",
+  "duration": "PT53S",
+  "publisher": {
+    "@type": "Organization",
+    "name": "CGW",
+    "url": "https://cgw-ai.com/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Java Fighting Game gameplay",
+  "description": "Gameplay of a 2D samurai fighting game built in Java, showing both player health bars and the round timer.",
+  "thumbnailUrl": "https://cgw-ai.com/proj-fighting-1.jpeg",
+  "contentUrl": "https://cgw-ai.com/proj-fighting-video.mp4",
+  "uploadDate": "2026-09-02",
+  "duration": "PT33S",
+  "publisher": {
+    "@type": "Organization",
+    "name": "CGW",
+    "url": "https://cgw-ai.com/"
+  }
+}
+</script>
 </head>
 <body>
 
 <nav class="nav">
-  <a href="Techno.html" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;"/><span class="nav__logo-text">Cognitive<br />Gaurdian Work</span></a>
+  <a href="/" class="nav__logo"><img src="images/cgw-logo.png" alt="CGW" style="height:60px;width:auto;display:block;border-radius:10px;" width="886" height="397" loading="eager" fetchpriority="high" decoding="async" /><span class="nav__logo-text">Cognitive<br />Gaurdian Work</span></a>
   <div class="nav__links">
-    <a href="Techno.html">Home</a>
+    <a href="/">Home</a>
     <a href="our-ceo.html">Our CEO</a>
     <a href="team.html">Team</a>
     <a href="service.html">Service</a>
@@ -144,7 +507,7 @@
   <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mnav">
-  <a href="Techno.html">Home</a>
+  <a href="/">Home</a>
   <a href="our-ceo.html">Our CEO</a>
   <a href="team.html">Team</a>
   <a href="service.html">Service</a>
@@ -155,21 +518,33 @@
 
 <!-- HERO -->
 <header class="page-hero">
-  <div class="orb" style="background:var(--sage); bottom:-12%; left:-4%;"></div>
-  <div class="orb" style="background:var(--neon); top:8%; right:-4%; animation-delay:-3s; opacity:0.07;"></div>
+  <div class="orb" style="background:var(--soft-blue); bottom:-12%; left:-4%; opacity:0.28;"></div>
+  <div class="orb" style="background:var(--neon); top:8%; right:-4%; animation-delay:-3s; opacity:0.16;"></div>
   <div class="wrap page-hero__inner">
     <h1>Our<br />Work</h1>
+    <nav class="work-jump" aria-label="Project categories">
+      <a href="#web">Web &amp; SaaS</a>
+      <a href="#cyber">Cybersecurity</a>
+      <a href="#games">Games</a>
+      <a href="#tools">Software &amp; Tools</a>
+    </nav>
   </div>
 </header>
 
-<!-- PROJECT GRID -->
-<section class="works" style="padding-top: clamp(60px,8vw,110px);">
+<!-- PROJECT GRID — grouped by category -->
+<section class="work-cat work-cat--sky" id="web">
   <div class="wrap">
+    <div class="work-cat__head reveal">
+      <span class="eyebrow">01 — Web &amp; SaaS</span>
+      <h2>Web &amp; SaaS<br />Products</h2>
+      <p>Full-stack platforms, SaaS products and marketing sites — built end to end, from data model and API through to the interface people actually use.</p>
+    </div>
+
     <div class="works__grid">
 
       <a class="work reveal" href="#" data-project="aipos">
         <div class="work__media">
-          <img src="images/proj-aipos-dashboard.jpeg" alt="AI POS App" />
+          <img src="images/proj-aipos-dashboard.jpeg" alt="AI POS App" width="1600" height="724" loading="eager" fetchpriority="high" decoding="async" />
           <div class="work__overlay"><span class="work__view">View</span></div>
         </div>
         <div class="work__meta">
@@ -179,45 +554,170 @@
         <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">An intelligent retail management ecosystem combining secure RBAC with deep AI-driven business intelligence. Features an executive analytics command centre with 20+ AI insight modules, real-time financial metrics, and a dark-mode UI built for fast-paced retail environments.</p>
       </a>
 
-      <a class="work reveal" href="#" data-project="globalvisa">
+      <a class="work reveal" href="#" data-project="cgwerp">
         <div class="work__media">
-          <img src="images/proj-globalvisa.jpeg" alt="GlobalVisa Services Platform" />
+          <img src="images/proj-cgw-erp-departments.png" alt="CGW Enterprise Suite" width="1915" height="1020" loading="lazy" decoding="async" />
           <div class="work__overlay"><span class="work__view">View</span></div>
         </div>
         <div class="work__meta">
-          <h3>GlobalVisa Services</h3>
-          <span>Web Design / Conversion / 2026</span>
+          <h3>CGW Enterprise Suite</h3>
+          <span>Desktop ERP / HRMS / 2026</span>
         </div>
-        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">A premium, trust-oriented consultancy platform engineered to drive appointment bookings at scale. Features data-driven credibility metrics (500K+ visas, 98% success rate), multi-tiered user funnels, and a cohesive navy-and-gold corporate identity.</p>
+        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">A desktop ERP and HRMS covering 66 modules across an entire enterprise - executive, HR, finance, sales, supply chain, procurement, manufacturing, regulatory and CRM - each department behind its own sign-in with its own dashboards, workflows and reporting.</p>
       </a>
 
-      <a class="work reveal" href="#" data-project="orbit">
+      <a class="work reveal" href="#" data-project="paperhugs">
         <div class="work__media">
-          <img src="images/proj-orbit.jpeg" alt="Orbit Technologies" />
+          <img src="images/proj-paperhugs-home.jpeg" alt="PaperHug" width="1440" height="900" loading="lazy" decoding="async" />
           <div class="work__overlay"><span class="work__view">View</span></div>
         </div>
         <div class="work__meta">
-          <h3>Orbit Technologies</h3>
-          <span>Front-End / UI/UX / 2026</span>
+          <h3>PaperHug</h3>
+          <span>E-Commerce / Handmade Brand / 2026</span>
         </div>
-        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">A high-performance corporate landing page for a digital solutions agency. Built with an immersive hero presentation, a structured service matrix for Digital Marketing, Web Development and SEO verticals, and a fully responsive architecture from mobile to desktop.</p>
+        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">A soft, hand-crafted brand storefront for a small-batch handmade gift maker - browsable shop, product pages, a working cart with order summary, a gallery of finished pieces, and a story page that sells the maker behind the product.</p>
       </a>
 
-      <a class="work reveal" href="#" data-project="nutech">
+      <a class="work reveal" href="#" data-project="shoppos">
         <div class="work__media">
-          <img src="images/proj-nutech-home.png" alt="NUTECH Virtual University Tour" />
+          <img src="images/proj-pos-dashboard.png" alt="POS Point of Sale - shop dashboard" width="1917" height="1030" loading="lazy" decoding="async" />
           <div class="work__overlay"><span class="work__view">View</span></div>
         </div>
         <div class="work__meta">
-          <h3>NUTECH Virtual Tour</h3>
-          <span>Web App / 2026</span>
+          <h3>POS Point of Sale</h3>
+          <span>Desktop App / SaaS / 2026</span>
         </div>
-        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">A modern virtual tour platform for NUTECH Islamabad, letting users explore the entire campus online through interactive pages, images, and videos. Showcases 11 distinct campus locations with a clean, responsive UI and scalable architecture.</p>
+        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">A desktop point-of-sale system for a phone and accessories retailer. Fast product search and live billing, invoice history with customer analytics, stock and low-stock tracking, expenses, returns, and sales reports exportable to Excel - all in one keyboard-driven shop counter app.</p>
       </a>
+
+      <a class="work reveal" href="#" data-project="mamascookies">
+        <div class="work__media">
+          <img src="images/proj-mamas-cookies-home.jpeg" alt="Mama's Cookies - premium cookie e-commerce storefront" width="1440" height="900" loading="lazy" decoding="async" />
+          <div class="work__overlay"><span class="work__view">View</span></div>
+        </div>
+        <div class="work__meta">
+          <h3>Mama's Cookies</h3>
+          <span>E-Commerce / Brand Storefront / 2026</span>
+        </div>
+        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">A full e-commerce storefront for a premium cookie brand delivering across Rawalpindi and Islamabad. Filterable product catalogue, live cart and checkout, same-day delivery and pickup scheduling, nationwide courier shipping, and corporate gifting - all on one fast, mobile-first storefront.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="work-cat work-cat--white" id="cyber">
+  <div class="wrap">
+    <div class="work-cat__head reveal">
+      <span class="eyebrow">02 — Cybersecurity</span>
+      <h2>Cybersecurity<br />&amp; Pentesting</h2>
+      <p>Offensive security engagements — network mapping, vulnerability management and automated reconnaissance, each delivered with a full findings and remediation report.</p>
+    </div>
+
+    <div class="works__grid">
+
+      <a class="work reveal" href="#" data-project="nmap">
+        <div class="work__media">
+          <img src="images/proj-nmap.jpeg" alt="Nmap Network Asset Mapping" style="object-position:center;" width="940" height="1155" loading="lazy" decoding="async" />
+          <div class="work__overlay"><span class="work__view">View</span></div>
+        </div>
+        <div class="work__meta">
+          <h3>Nmap Network Mapping</h3>
+          <span>Cybersecurity / 2026</span>
+        </div>
+        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">Full-range (0-65535) stealth SYN port scanning via Nmap 7.98 against a target host. Catalogued thousands of closed and filtered ports while revealing 20+ active services including legacy vulnerability vectors (FTP, SSH, Telnet) across a comprehensive 2,511-second automated cycle.</p>
+      </a>
+
+      <a class="work reveal" href="#" data-project="openvas">
+        <div class="work__media">
+          <img src="images/proj-openvas.jpeg" alt="OpenVAS Vulnerability Dashboard" width="1020" height="524" loading="lazy" decoding="async" />
+          <div class="work__overlay"><span class="work__view">View</span></div>
+        </div>
+        <div class="work__meta">
+          <h3>OpenVAS Dashboard</h3>
+          <span>Cybersecurity / 2026</span>
+        </div>
+        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">Centralized risk management deployment using Greenbone OS 24.10.9. Tracks an enterprise collection of 170,109 continuous vulnerability tests, organising discoveries into clear severity action streams - 33K+ Critical and 66K+ High threat classifications surfaced and triaged.</p>
+      </a>
+
+      <a class="work reveal" href="#" data-project="sn1per">
+        <div class="work__media">
+          <img src="images/proj-sn1per.jpeg" alt="Automated Perimeter Footprinting" style="object-position:center;" width="975" height="1033" loading="lazy" decoding="async" />
+          <div class="work__overlay"><span class="work__view">View</span></div>
+        </div>
+        <div class="work__meta">
+          <h3>Sn1per Footprinting</h3>
+          <span>Cybersecurity / 2026</span>
+        </div>
+        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">Automated reconnaissance pipeline via Sn1per v9.2 performing combined host pinging, DNS tracking and subdomain hijacking checks. Isolated multiple critical exposure vectors including open administrative remote shell entries across ports 512-514 on the target network.</p>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="work-cat work-cat--sky" id="games">
+  <div class="wrap">
+    <div class="work-cat__head reveal">
+      <span class="eyebrow">03 — Game Development</span>
+      <h2>Game<br />Development</h2>
+      <p>Custom 2D games written from scratch — custom game loops, sprite animation and collision systems, with clean OOP source handed over on delivery.</p>
+    </div>
+
+    <div class="works__grid works__grid--single">
+
+      <a class="work reveal" href="#" data-project="driftracer">
+        <div class="work__media">
+          <img src="images/proj-drift-1.jpeg" alt="Unity Drift Racer" width="1280" height="720" loading="lazy" decoding="async" />
+          <div class="work__overlay"><span class="work__view">View</span></div>
+        </div>
+        <div class="work__meta">
+          <h3>Unity Drift Racer</h3>
+          <span>Unity / 3D Game Development / 2026</span>
+        </div>
+        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">A 3D driving and drifting game built in Unity 6 with a hand-tuned car controller - wheel colliders, torque and brake curves, steer smoothing and a dedicated drift model with grip assist, drift stability and yaw-rate limits.</p>
+      </a>
+
+      <a class="work reveal" href="#" data-project="spaceshooter">
+        <div class="work__media">
+          <img src="images/proj-shooter-1.jpeg" alt="Wave Shooter" width="601" height="404" loading="lazy" decoding="async" />
+          <div class="work__overlay"><span class="work__view">View</span></div>
+        </div>
+        <div class="work__meta">
+          <h3>Wave Shooter</h3>
+          <span>Python / Pygame / 2026</span>
+        </div>
+        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">A wave-based arcade space shooter written in Python with Pygame - escalating enemy waves, scoring with a persistent high score, a limited-use dash, lives, and pixel-art enemies on a starfield.</p>
+      </a>
+
+      <a class="work reveal" href="#" data-project="fightinggame">
+        <div class="work__media">
+          <img src="images/proj-fighting-game.png" alt="Java Fighting Game" width="1536" height="864" loading="lazy" decoding="async" />
+          <div class="work__overlay"><span class="work__view">View</span></div>
+        </div>
+        <div class="work__meta">
+          <h3>Java Fighting Game</h3>
+          <span>Java / Game Dev / 2026</span>
+        </div>
+        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">A 2D fighting game inspired by Street Fighter and Tekken, built with Java and Swing. Supports two human-controlled characters with attack animations, pixel-art samurai sprites, a hand-painted battlefield background, and a pause screen - all using a custom game loop.</p>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="work-cat work-cat--white" id="tools">
+  <div class="wrap">
+    <div class="work-cat__head reveal">
+      <span class="eyebrow">04 — Software &amp; Tools</span>
+      <h2>Software<br />&amp; Tools</h2>
+      <p>Systems programming and developer tooling — console applications, editors and monitoring utilities where performance and memory behaviour are the whole point.</p>
+    </div>
+
+    <div class="works__grid">
 
       <a class="work reveal" href="#" data-project="apimonitor">
         <div class="work__media">
-          <img src="images/proj-api-monitor.png" alt="API Response Time Monitor" style="object-position:center;" />
+          <img src="images/proj-api-monitor.png" alt="API Response Time Monitor" style="object-position:center;" width="949" height="1040" loading="lazy" decoding="async" />
           <div class="work__overlay"><span class="work__view">View</span></div>
         </div>
         <div class="work__meta">
@@ -229,7 +729,7 @@
 
       <a class="work reveal" href="#" data-project="texteditor">
         <div class="work__media">
-          <img src="images/proj-texteditor.png" alt="C++ Text Editor" />
+          <img src="images/proj-texteditor.png" alt="C++ Text Editor" width="1906" height="1040" loading="lazy" decoding="async" />
           <div class="work__overlay"><span class="work__view">View</span></div>
         </div>
         <div class="work__meta">
@@ -239,90 +739,6 @@
         <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">A lightning-fast, memory-efficient text editor built entirely from scratch without STL containers. Achieves O(1) insertion and deletion via a custom gap buffer, unlimited undo/redo through a manual linked-list stack, and a Vim-inspired modal editing interface.</p>
       </a>
 
-      <a class="work reveal" href="#" data-project="fightinggame">
-        <div class="work__media">
-          <img src="images/proj-fighting-game.png" alt="Java Fighting Game" />
-          <div class="work__overlay"><span class="work__view">View</span></div>
-        </div>
-        <div class="work__meta">
-          <h3>Java Fighting Game</h3>
-          <span>Java / Game Dev / 2026</span>
-        </div>
-        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">A 2D fighting game inspired by Street Fighter and Tekken, built with Java and Swing. Supports two human-controlled characters with attack animations, pixel-art samurai sprites, a hand-painted battlefield background, and a pause screen — all using a custom game loop.</p>
-      </a>
-
-      <a class="work reveal" href="#" data-project="nmap">
-        <div class="work__media">
-          <img src="images/proj-nmap.jpeg" alt="Nmap Network Asset Mapping" style="object-position:center;" />
-          <div class="work__overlay"><span class="work__view">View</span></div>
-        </div>
-        <div class="work__meta">
-          <h3>Nmap Network Mapping</h3>
-          <span>Cybersecurity / 2026</span>
-        </div>
-        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">Full-range (0–65535) stealth SYN port scanning via Nmap 7.98 against a target host. Catalogued thousands of closed and filtered ports while revealing 20+ active services including legacy vulnerability vectors (FTP, SSH, Telnet) across a comprehensive 2,511-second automated cycle.</p>
-      </a>
-
-      <a class="work reveal" href="#" data-project="openvas">
-        <div class="work__media">
-          <img src="images/proj-openvas.jpeg" alt="OpenVAS Vulnerability Dashboard" />
-          <div class="work__overlay"><span class="work__view">View</span></div>
-        </div>
-        <div class="work__meta">
-          <h3>OpenVAS Dashboard</h3>
-          <span>Cybersecurity / 2026</span>
-        </div>
-        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">Centralized risk management deployment using Greenbone OS 24.10.9. Tracks an enterprise collection of 170,109 continuous vulnerability tests, organising discoveries into clear severity action streams — 33K+ Critical and 66K+ High threat classifications surfaced and triaged.</p>
-      </a>
-
-      <a class="work reveal" href="#" data-project="sn1per">
-        <div class="work__media">
-          <img src="images/proj-sn1per.jpeg" alt="Automated Perimeter Footprinting" style="object-position:center;" />
-          <div class="work__overlay"><span class="work__view">View</span></div>
-        </div>
-        <div class="work__meta">
-          <h3>Sn1per Footprinting</h3>
-          <span>Cybersecurity / 2026</span>
-        </div>
-        <p style="color:var(--taupe);font-size:13px;line-height:1.65;margin-top:10px;">Automated reconnaissance pipeline via Sn1per v9.2 performing combined host pinging, DNS tracking and subdomain hijacking checks. Isolated multiple critical exposure vectors including open administrative remote shell entries across ports 512–514 on the target network.</p>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- FEATURED CASE STUDY — AI POS App -->
-<section class="featured" style="padding: clamp(80px,11vw,160px) 0;">
-  <div class="wrap featured__grid">
-    <div class="featured__media reveal">
-      <div class="featured__square"></div>
-      <img src="images/proj-aipos-login.jpeg" alt="AI POS App — Secure Role Selection Portal" />
-    </div>
-    <div class="featured__copy reveal">
-      <span class="featured__label">Featured Case Study</span>
-      <h2>AI-Powered Point of Sale</h2>
-      <p>A next-generation retail management ecosystem combining rigid operational security with deep AI-driven business intelligence. We built a complete RBAC gatekeeper interface tailoring access for Admin, Manager, Cashier, and Inventory Staff roles — then paired it with a comprehensive executive analytics command centre.</p>
-      <p style="color:var(--taupe); font-size:14px; line-height:1.75; margin-top:16px;">The AI Brain dashboard surfaces real-time financial metrics — automated basket sizes, inventory forecasting, cash flow engines and credit risk analysis — across 20+ specialised analytical modules, all wrapped in a high-fidelity dark-mode UI built for fast-paced retail and corporate decision-making.</p>
-      <div style="display:flex; gap:44px; margin-top:30px; margin-bottom:10px;">
-        <div>
-          <div style="font-family:var(--display); font-size:clamp(28px,3.5vw,48px); line-height:0.9;">4</div>
-          <div style="color:var(--taupe); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; margin-top:6px;">User Roles</div>
-        </div>
-        <div>
-          <div style="font-family:var(--display); font-size:clamp(28px,3.5vw,48px); line-height:0.9;">20+</div>
-          <div style="color:var(--taupe); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; margin-top:6px;">AI Insight Modules</div>
-        </div>
-        <div>
-          <div style="font-family:var(--display); font-size:clamp(28px,3.5vw,48px); line-height:0.9;">Live</div>
-          <div style="color:var(--taupe); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; margin-top:6px;">Real-Time Metrics</div>
-        </div>
-      </div>
-      <a href="contact.html" class="featured__link">
-        Start a Similar Project
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </a>
     </div>
   </div>
 </section>
@@ -335,7 +751,6 @@
     <h2 class="display reveal" style="font-size:clamp(40px,6vw,96px);">Your project<br />next</h2>
     <p class="reveal" style="color:var(--taupe); max-width:460px; text-align:center; line-height:1.7; font-size:15px;">We take three or four projects a year. If the timing and brief are right, we would love to hear from you.</p>
     <a href="contact.html" class="neon-btn reveal" data-text="Start a Project" style="display:inline-flex; margin-top:8px;">
-      <span class="neon-btn__dot"></span>
       <span class="neon-btn__label">Start a Project</span>
     </a>
   </div>
@@ -349,9 +764,8 @@
     <div class="footer__bottom">
       <span>© 2026 CGW</span>
       <div class="footer__legal">
-        <a href="#">Instagram</a>
-        <a href="#">Dribbble</a>
-        <a href="#">LinkedIn</a>
+        <a href="https://www.instagram.com/cgwofficial_ai" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.linkedin.com/company/cgw-ai/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </div>
   </div>
@@ -367,8 +781,15 @@
       </svg>
     </button>
     <div class="pmodal__images" id="pmodal-images">
-      <img class="pmodal__img-main" id="pmodal-img1" src="" alt="" />
-      <img class="pmodal__img-thumb" id="pmodal-img2" src="" alt="" style="display:none;" />
+      <img class="pmodal__img-main" id="pmodal-img" src="" alt="" />
+      <video class="pmodal__img-main" id="pmodal-video" controls playsinline preload="metadata" hidden></video>
+      <button type="button" class="pmodal__nav pmodal__nav--prev" id="pmodal-prev" aria-label="Previous image" hidden>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7" /></svg>
+      </button>
+      <button type="button" class="pmodal__nav pmodal__nav--next" id="pmodal-next" aria-label="Next image" hidden>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7" /></svg>
+      </button>
+      <span class="pmodal__counter" id="pmodal-counter" hidden></span>
     </div>
     <div class="pmodal__content">
       <span class="pmodal__category" id="pmodal-category"></span>
@@ -386,6 +807,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="api-config.js"></script>
 <script src="store.js"></script>
 <script src="site.js"></script>
 <script src="techno.js"></script>
@@ -396,29 +818,36 @@
       title: 'AI POS App',
       category: 'Full-Stack SaaS / AI / 2026',
       images: ['images/proj-aipos-dashboard.jpeg', 'images/proj-aipos-login.jpeg'],
-      desc: 'An intelligent retail management ecosystem combining secure Role-Based Access Control (RBAC) with deep AI-driven business intelligence. The gatekeeper portal tailors access for Admin (full access), Manager (reports & AI), Cashier (POS & sales), and Inventory Staff (stock management). The AI Brain executive dashboard surfaces real-time financial metrics — automated basket sizes, inventory optimisation forecasting, cash flow engines and credit risk analysis — across 20+ specialised analytical modules, all wrapped in a high-fidelity dark-mode UI built for fast-paced retail and corporate decision-making.',
+      desc: 'An intelligent retail management ecosystem combining secure Role-Based Access Control (RBAC) with deep AI-driven business intelligence. The gatekeeper portal tailors access for Admin (full access), Manager (reports & AI), Cashier (POS & sales), and Inventory Staff (stock management). The AI Brain executive dashboard surfaces real-time financial metrics - automated basket sizes, inventory optimisation forecasting, cash flow engines and credit risk analysis - across 20+ specialised analytical modules, all wrapped in a high-fidelity dark-mode UI built for fast-paced retail and corporate decision-making.',
       tags: ['Full-Stack', 'AI-Powered', 'RBAC', 'Dark Mode UI', 'SaaS', 'Claude AI'],
     },
-    globalvisa: {
-      title: 'GlobalVisa Services',
-      category: 'Web Design / Conversion Optimisation / 2026',
-      images: ['images/proj-globalvisa.jpeg'],
-      desc: 'A premium, trust-oriented consultancy platform engineered to handle high traffic and drive client appointment bookings. Data-driven credibility metrics are showcased immediately below the fold — 500K+ visas processed, 98% success rate, 150+ countries covered, 20+ years experience — to build instant user trust. Features a persistent "Book Appointment" CTA in the navbar alongside multi-tiered user funnels (Apply for Visa, Track Application). Built with a cohesive navy-and-gold corporate palette that signals institutional reliability.',
-      tags: ['Web Design', 'UI/UX', 'Conversion Optimisation', 'Corporate Branding', 'Responsive'],
+    cgwerp: {
+      title: 'CGW Enterprise Suite',
+      category: 'Desktop ERP / HRMS / 2026',
+      images: ['images/proj-cgw-erp-departments.png', 'images/proj-cgw-erp-hr-dashboard.png', 'images/proj-cgw-erp-sales-modules.png', 'images/proj-cgw-erp-sales-dashboard.png', 'images/proj-cgw-erp-login.png'],
+      desc: "An enterprise resource planning suite that runs a whole organisation from one desktop application. The entry point is a department selector covering 66 modules, searchable and grouped by function, with a separate sign-in for each portal so finance staff never land in HR and vice versa. The Human Resources portal runs the full employee lifecycle as a visible pipeline - plan, requisition, recruit, verify, offer, onboard, attend and pay, develop, perform, engage, discipline, exit and settle - on top of an executive dashboard reporting headcount, absences, the open ATS pipeline, salary disposal and monthly payroll, with headcount by department, attrition trend, a hiring funnel and an AI flight-risk watchlist that scores who is likely to leave. Underneath sit organisation setup, workforce planning, recruitment, interviews, verification and medical, offer letters, onboarding, attendance, leave, payroll and benefits. Sales is equally deep: master data for customers, products, pricing and territories, then planning, lead management, quotations, sales orders, approval workflows, order fulfilment and delivery, all feeding a revenue dashboard with pipeline value by stage, won deals, target attainment and a revenue trend, filterable by country and branch. Finance carries double-entry GL, journals, trial balance, P&L, AR/AP, fixed assets and GST/WHT tax; supply chain tracks requisitions, POs, letters of credit and containers through Karachi Port; manufacturing covers formulations, batch production, QC and CAPA. Built for a group operating across multiple sites where one system has to hold every department at once.",
+      tags: ['Desktop App', 'ERP', 'HRMS', 'CRM', 'Finance', 'Enterprise'],
     },
-    orbit: {
-      title: 'Orbit Technologies',
-      category: 'Front-End Engineering / UI/UX / 2026',
-      images: ['images/proj-orbit.jpeg', 'images/proj-orbit-services.jpeg'],
-      desc: 'A high-performance corporate landing page designed for a modern digital solutions and IT agency to cleanly display services and capture inbound B2B leads. Features an immersive hero with high-contrast typography over a video/image overlay and absolute-positioned CTAs. The offerings section uses an asymmetrical grid hierarchy to map service verticals — Digital Marketing, Web Development, and SEO — with optimised imagery. Fully responsive from mobile to desktop with smooth scrolling and dynamic container layouts.',
-      tags: ['Front-End', 'UI/UX', 'Responsive Design', 'B2B', 'Landing Page', 'SEO'],
+    paperhugs: {
+      title: 'PaperHug',
+      category: 'E-Commerce / Handmade Brand / 2026',
+      images: ['images/proj-paperhugs-home.jpeg', 'images/proj-paperhugs-shop.jpeg', 'images/proj-paperhugs-product.jpeg', 'images/proj-paperhugs-cart.jpeg', 'images/proj-paperhugs-gallery.jpeg', 'images/proj-paperhugs-about.jpeg', 'images/proj-paperhugs-contact.jpeg'],
+      desc: "A boutique e-commerce storefront built for a maker who sells handmade pieces in small batches, where the brand story matters as much as the catalogue. The home page opens on a full-bleed hero with the collection one tap away, followed by stockist logos and featured pieces. The shop lists everything currently available, and each product page carries its own photography, price in PKR, quantity selection and add-to-cart. The cart is a real checkout flow, not a mock-up: line items with quantity steppers and remove links, a sticky order summary with subtotal, shipping noted as calculated after ordering, a running total, checkout and a clear-cart action, with the cart count kept live in the header across every page. A gallery page shows finished work beyond the current catalogue, an our-story page carries the maker's voice, and contact handles custom order enquiries. The whole build is static and fast, styled in soft pinks and greens with rounded type, and reads as carefully made as the products it sells.",
+      tags: ['E-Commerce', 'Storefront', 'Cart & Checkout', 'Brand Design', 'Responsive', 'Handmade'],
     },
-    nutech: {
-      title: 'NUTECH Virtual Tour',
-      category: 'Web Application / 2026',
-      images: ['images/proj-nutech-home.png', 'images/proj-nutech-tour.png'],
-      desc: 'A modern virtual tour web application for NUTECH Islamabad — National University of Technology — designed to let prospective students explore the campus online through interactive pages, images, and videos. Simulates a real campus visit across 11 distinct locations: Main Campus, Smart Classrooms, Research & Teaching Labs, Central Library, University Cafeteria, Student Residences, Sports & Fitness, Auditorium, NEIC Innovation Center, Media Studio, and Medical Center. Built with a clean, responsive UI and scalable architecture.',
-      tags: ['Web App', 'Interactive', 'Responsive', 'Academic', 'Virtual Tour'],
+    shoppos: {
+      title: 'POS Point of Sale',
+      category: 'Desktop App / Retail SaaS / 2026',
+      images: ['images/proj-pos-dashboard.png', 'images/proj-pos-newsale.png', 'images/proj-pos-invoices.png', 'images/proj-pos-products.png', 'images/proj-pos-reports.png'],
+      desc: "A complete point-of-sale system built for the counter of a phone and accessories shop, where every second at the till matters. The New Sale screen pairs instant product search - by name, code or barcode - with a live Current Bill panel that totals as items are tapped in, so a customer can be served without leaving the keyboard. Behind the till, the Dashboard reports the day as it happens: sales so far, invoice count, out-of-stock warnings, an hourly sales curve, a category split between mobiles and accessories, today's invoice list and the top five products by value. The Invoices workspace keeps every sale ever made, with receipt history, customer totals, a six-month invoice volume chart, top customers by value, and search, sort and custom date-range statements for reconciliation. Products & Stock manages the catalogue with product codes, QR and barcode fields, prices, live stock counts and stock top-ups, while Low Stock flags anything running out. Reports roll the numbers up by day, week, month or year with bill counts and average bill value, exportable straight to Excel. Returns, expenses, staff profiles, a built-in calculator, global search and a dark mode round out a tool designed to be run all day by shop staff, not accountants.",
+      tags: ['Desktop App', 'Point of Sale', 'Inventory', 'Invoicing', 'Reporting', 'Retail SaaS'],
+    },
+    mamascookies: {
+      title: "Mama's Cookies",
+      category: 'E-Commerce / Brand Storefront / 2026',
+      images: ['images/proj-mamas-cookies-home.jpeg', 'images/proj-mamas-cookies-shop.jpeg', 'images/proj-mamas-cookies-shipping.jpeg', 'images/proj-mamas-cookies-delivery.jpeg', 'images/proj-mamas-cookies-corporate.jpeg', 'images/proj-mamas-cookies-events.jpeg', 'images/proj-mamas-cookies-about.jpeg', 'images/proj-mamas-cookies-contact.jpeg', 'images/proj-mamas-cookies-cart.jpeg', 'images/proj-mamas-cookies-account.jpeg'],
+      desc: 'A complete direct-to-consumer e-commerce experience built for a premium small-batch cookie brand serving Rawalpindi and Islamabad. The storefront pairs an appetite-led hero with a working shop: customers filter the catalogue by Originals, Specials and Premium, search by name, sort the grid, and add boxes to a live cart with PKR pricing driven from a central product source. Beyond the catalogue, the build covers the full ordering journey - same-day delivery and pickup with a daily cut-off across DHA Phase 2, nationwide courier shipping for customers outside the twin cities, corporate gifting and bulk enquiries, an events and catering funnel, and direct WhatsApp ordering for customers who prefer to talk. Bestseller badges, social proof and a persistent cart keep the path to checkout short, and the whole storefront is responsive and fast on mobile, where most food orders actually happen.',
+      tags: ['E-Commerce', 'Storefront', 'Cart & Checkout', 'Responsive', 'Brand Design', 'Food & Beverage'],
     },
     apimonitor: {
       title: 'API Response Monitor',
@@ -434,18 +863,32 @@
       desc: 'A lightning-fast, memory-efficient text editor built entirely from scratch in C++ without any STL containers. Demonstrates how professional editors achieve blazing performance through purpose-built data structures: a Gap Buffer for O(1) cursor insertion and deletion (vs O(n) in naive editors), a custom manual linked-list stack for unlimited undo/redo operations, dynamic arrays with automatic resizing, and a Vim-inspired modal editing interface (Normal/Insert modes). A showcase of low-level systems programming and manual memory management.',
       tags: ['C++', 'Gap Buffer', 'Data Structures', 'Modal Editing', 'Systems Programming', 'Memory Management'],
     },
+    driftracer: {
+      title: 'Unity Drift Racer',
+      category: 'Unity / 3D Game Development / 2026',
+      images: ['images/proj-drift-video.mp4', 'images/proj-drift-1.jpeg', 'images/proj-drift-2.jpeg', 'images/proj-drift-3.jpeg'],
+      desc: "A 3D drift racing game built in Unity 6, where the whole project is really one problem solved properly: making a car feel good to drive. The vehicle runs on a custom CarController script over Unity's wheel collider system - four wheel colliders bound to their visual meshes, a 1200 kg rigidbody with interpolated motion and a tuned centre of mass so the car settles rather than flips. Driving feel is exposed as tunable dials rather than magic numbers: motor torque, brake torque, maximum steer angle, top speed and steer smoothing on the handling side, then a separate drift model with grip assist, drift stability and a maximum drift yaw rate that decides how far the back end is allowed to step out before physics reels it back in. A DriftEffects script layers the feedback - tyre marks, particle spray and audio - on top of the physics, so a slide reads as a slide. Built and tuned live in the Unity editor with the inspector open, which is exactly how a driving model gets to feel right.",
+      tags: ['Unity', 'C#', '3D Game', 'Vehicle Physics', 'Drift Model', 'Game Feel'],
+    },
+    spaceshooter: {
+      title: 'Wave Shooter',
+      category: 'Python / Pygame / 2026',
+      images: ['images/proj-shooter-video.mp4', 'images/proj-shooter-1.jpeg', 'images/proj-shooter-2.jpeg', 'images/proj-shooter-3.jpeg'],
+      desc: "An arcade space shooter built from scratch in Python with Pygame, structured around escalating waves rather than a single endless run. Each wave announces itself on screen and adds more enemies with tighter movement patterns, so difficulty climbs at a readable pace. The HUD carries the whole game state without clutter: live score at the left, current wave centred, and a persistent high score at the right that survives between runs. Remaining lives sit as small ship icons in the bottom corner, and a dash meter recharges over time, giving the player a burst of movement to escape a crowded screen - a limited resource to spend rather than a button to hold. Enemies, projectiles and the player ship are all hand-drawn pixel art over a parallax starfield, with collision detection, spawn timing and wave pacing written directly against the Pygame game loop.",
+      tags: ['Python', 'Pygame', '2D Game', 'Arcade', 'Pixel Art', 'Game Loop'],
+    },
     fightinggame: {
       title: 'Java Fighting Game',
       category: 'Java / Game Development / 2026',
-      images: ['images/proj-fighting-game.png'],
-      desc: 'A 2D fighting game inspired by classic titles like Street Fighter and Tekken, built with Java and Swing. Supports two human-controlled characters battling locally, featuring pixel-art samurai sprites, a beautifully hand-painted open-field battlefield background, attack animations, and a pause screen — all driven by a custom game loop. Demonstrates Java\'s 2D rendering pipeline and event-driven input handling. While the project is a work in progress, it showcases a solid foundation for a full fighting system.',
+      images: ['images/proj-fighting-video.mp4', 'images/proj-fighting-game.png', 'images/proj-fighting-1.jpeg', 'images/proj-fighting-2.jpeg', 'images/proj-fighting-3.jpeg'],
+      desc: 'A 2D fighting game inspired by classic titles like Street Fighter and Tekken, built with Java and Swing. Supports two human-controlled characters battling locally, featuring pixel-art samurai sprites, a beautifully hand-painted open-field battlefield background, attack animations, and a pause screen - all driven by a custom game loop. Demonstrates Java\'s 2D rendering pipeline and event-driven input handling. While the project is a work in progress, it showcases a solid foundation for a full fighting system.',
       tags: ['Java', 'Swing', '2D Game', 'Pixel Art', 'Game Development', 'Custom Game Loop'],
     },
     nmap: {
       title: 'Nmap Network Mapping',
       category: 'Cybersecurity / Network Reconnaissance / 2026',
       images: ['images/proj-nmap.jpeg'],
-      desc: 'Full-range (0–65535) stealth SYN port scan executed via Nmap 7.98 against a target host on a local network. Successfully catalogued 53,398 closed and 12,115 filtered TCP ports while revealing 20+ active open services — including FTP (21), SSH (22), Telnet (23), SMTP (25), HTTP (80), MySQL (3306), PostgreSQL (5432), VNC (5900), X11 (6000), and IRC (6667). Legacy vulnerability exposure vectors identified and mapped across a comprehensive 2,511-second automated scanning cycle. All results exported to a structured text report.',
+      desc: 'Full-range (0-65535) stealth SYN port scan executed via Nmap 7.98 against a target host on a local network. Successfully catalogued 53,398 closed and 12,115 filtered TCP ports while revealing 20+ active open services - including FTP (21), SSH (22), Telnet (23), SMTP (25), HTTP (80), MySQL (3306), PostgreSQL (5432), VNC (5900), X11 (6000), and IRC (6667). Legacy vulnerability exposure vectors identified and mapped across a comprehensive 2,511-second automated scanning cycle. All results exported to a structured text report.',
       tags: ['Nmap', 'Port Scanning', 'SYN Stealth Scan', 'Network Recon', 'Cybersecurity', 'Linux'],
     },
     openvas: {
@@ -459,7 +902,7 @@
       title: 'Sn1per Automated Footprinting',
       category: 'Cybersecurity / Automated Reconnaissance / 2026',
       images: ['images/proj-sn1per.jpeg'],
-      desc: 'Automated reconnaissance pipeline via Sn1per v9.2 performing combined host pinging, DNS information gathering, and subdomain hijacking checks against a target. The integrated Nmap TCP scan revealed 20+ open services including critical administrative remote shell ports: exec (512), login (513), and shell (514) — along with FTP, SSH, Telnet, SMTP, MySQL, PostgreSQL, and VNC. Multiple severe exposure vectors isolated and documented. All reconnaissance loot saved automatically to a structured workspace directory for further analysis.',
+      desc: 'Automated reconnaissance pipeline via Sn1per v9.2 performing combined host pinging, DNS information gathering, and subdomain hijacking checks against a target. The integrated Nmap TCP scan revealed 20+ open services including critical administrative remote shell ports: exec (512), login (513), and shell (514) - along with FTP, SSH, Telnet, SMTP, MySQL, PostgreSQL, and VNC. Multiple severe exposure vectors isolated and documented. All reconnaissance loot saved automatically to a structured workspace directory for further analysis.',
       tags: ['Sn1per', 'Automated Recon', 'DNS Enumeration', 'Subdomain Hijacking', 'Penetration Testing', 'Cybersecurity'],
     },
   };
@@ -467,8 +910,14 @@
   var modal    = document.getElementById('pmodal');
   var backdrop = document.getElementById('pmodal-backdrop');
   var closeBtn = document.getElementById('pmodal-close');
-  var img1     = document.getElementById('pmodal-img1');
-  var img2     = document.getElementById('pmodal-img2');
+  var imgWrap  = document.getElementById('pmodal-images');
+  var imgEl    = document.getElementById('pmodal-img');
+  var videoEl  = document.getElementById('pmodal-video');
+  var prevBtn  = document.getElementById('pmodal-prev');
+  var nextBtn  = document.getElementById('pmodal-next');
+  var counter  = document.getElementById('pmodal-counter');
+  var shots    = [];   // images of the project currently open
+  var shotIdx  = 0;
   var titleEl  = document.getElementById('pmodal-title');
   var catEl    = document.getElementById('pmodal-category');
   var descEl   = document.getElementById('pmodal-desc');
@@ -483,20 +932,45 @@
     tagsEl.innerHTML    = p.tags.map(function(t) {
       return '<span class="pmodal__tag">' + t + '</span>';
     }).join('');
-    img1.src = p.images[0];
-    img1.alt = p.title;
-    if (p.images[1]) {
-      img2.src = p.images[1];
-      img2.alt = p.title;
-      img2.style.display = 'block';
-    } else {
-      img2.style.display = 'none';
-    }
+    shots = p.images || [];
+    showShot(0, true);
     modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
   }
 
+  // one image at a time; the arrows step through the rest and wrap around
+  function showShot(i, instant) {
+    if (!shots.length) return;
+    shotIdx = (i + shots.length) % shots.length;
+    var multiple = shots.length > 1;
+    prevBtn.hidden = nextBtn.hidden = counter.hidden = !multiple;
+    counter.textContent = (shotIdx + 1) + ' / ' + shots.length;
+
+    function paint() {
+      var src = shots[shotIdx];
+      if (/\.(mp4|webm|mov)$/i.test(src)) {          // gameplay clip
+        imgEl.hidden = true;
+        videoEl.hidden = false;
+        if (videoEl.getAttribute('src') !== src) videoEl.src = src;
+      } else {
+        videoEl.pause();
+        videoEl.hidden = true;
+        imgEl.hidden = false;
+        imgEl.src = src;
+        imgEl.alt = titleEl.textContent + ' - image ' + (shotIdx + 1);
+      }
+      imgWrap.classList.remove('is-swapping');
+    }
+    if (instant) { paint(); return; }
+    imgWrap.classList.add('is-swapping');
+    setTimeout(paint, 180);
+  }
+
+  prevBtn.addEventListener('click', function(e) { e.stopPropagation(); showShot(shotIdx - 1); });
+  nextBtn.addEventListener('click', function(e) { e.stopPropagation(); showShot(shotIdx + 1); });
+
   function closeModal() {
+    videoEl.pause();
     modal.classList.remove('is-open');
     document.body.style.overflow = '';
   }
@@ -511,7 +985,10 @@
   backdrop.addEventListener('click', closeModal);
   closeBtn.addEventListener('click', closeModal);
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeModal();
+    if (!modal.classList.contains('is-open')) return;
+    if (e.key === 'Escape')     closeModal();
+    if (e.key === 'ArrowLeft')  showShot(shotIdx - 1);
+    if (e.key === 'ArrowRight') showShot(shotIdx + 1);
   });
 }());
 </script>

@@ -1,13 +1,6 @@
 /* ============================================================
-   TECHNO — Backend Server
-   ============================================================
-   Phase 1: WhatsApp AI Agent  → /whatsapp
-   Phase 2: Email AI Agent     → /api/chat (Gemini fallback)
-   Phase 3: Voice Call Agent   → /voice
-   Central AI Brain            → ai-brain.js (shared)
-
+   CGW — Backend Server
    Run:  npm install && npm start
-   Expose locally: npx ngrok http 3000
    ============================================================ */
 const express = require('express');
 const fs      = require('fs');
@@ -17,6 +10,11 @@ require('dotenv').config();
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
+
+// Behind a host's load balancer (Render, Railway, Nginx) req.ip is the proxy's
+// own address unless we trust the forwarding header — without this the rate
+// limiter would treat every visitor on the site as one single client.
+app.set('trust proxy', 1);
 
 // ── Resume uploads (job applications) ──────────────────────────
 const RESUME_DIR = path.join(__dirname, 'uploads', 'resumes');
@@ -38,6 +36,14 @@ const resumeUpload = multer({
 const LEADS_FILE   = path.join(__dirname, 'leads.json');
 const PRICING_FILE = path.join(__dirname, 'pricing.json');
 
+// ── Cross-origin API access ────────────────────────────────────
+// Empty by default: the Node server serves the pages itself, so every
+// /api/* call is same-origin and no CORS headers are needed. Set
+// ALLOWED_ORIGINS (comma-separated) only when the static site is hosted
+// somewhere else, e.g. ALLOWED_ORIGINS=https://cgw-ai.com,https://www.cgw-ai.com
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '')
+  .split(',').map(o => o.trim()).filter(Boolean);
+
 // ── Security headers ───────────────────────────────────────────
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -51,21 +57,46 @@ app.use((req, res, next) => {
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
     "font-src 'self' https://fonts.gstatic.com; " +
     "img-src 'self' data: blob:; " +
-    "connect-src 'self'; " +
+    `connect-src 'self'${ALLOWED_ORIGINS.length ? ' ' + ALLOWED_ORIGINS.join(' ') : ''}; ` +
     "frame-ancestors 'none';"
   );
   res.removeHeader('X-Powered-By');
   next();
 });
 
+// ── CORS for /api/* when the frontend lives on another origin ──
+app.use('/api', (req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Admin-Token');
+    res.setHeader('Access-Control-Max-Age', '86400');
+  }
+  if (req.method === 'OPTIONS') return res.status(204).end();
+  next();
+});
+
 // ── Block sensitive files from being served statically ─────────
 const BLOCKED_FILES = [
-  'leads.json','applications.json','brain-memory.json',
-  'pricing.json','jobs.json','.env','store.json','messages.json'
+  // runtime data — visitor PII
+  'leads.json','applications.json','brain-memory.json','messages.json',
+  'store.json','pricing.json','jobs.json','whatsapp-logs.json',
+  // server source and config — must never reach a browser
+  'server.js','mailer.js','ai-brain.js','package.json','package-lock.json',
+  '.env','.env.example','run.md','server.log','server.err.log'
 ];
+const BLOCKED_DIRS = ['uploads','node_modules'];
+
 app.use((req, res, next) => {
-  const base = path.basename(req.path).toLowerCase();
-  if (BLOCKED_FILES.includes(base)) return res.status(403).end();
+  let decoded;
+  try { decoded = decodeURIComponent(req.path); } catch (e) { return res.status(400).end(); }
+  const segments = decoded.toLowerCase().replace(/\\/g, '/').split('/').filter(Boolean);
+  // hidden files and folders: .env, .git/config, .gitignore …
+  if (segments.some(seg => seg.startsWith('.'))) return res.status(403).end();
+  if (segments.some(seg => BLOCKED_DIRS.includes(seg))) return res.status(403).end();
+  if (BLOCKED_FILES.includes(segments[segments.length - 1] || '')) return res.status(403).end();
   next();
 });
 
@@ -96,26 +127,42 @@ function sanitize(str, maxLen = 2000) {
 }
 
 // ── Admin token auth (for destructive/write API routes) ────────
-const ADMIN_SECRET = process.env.ADMIN_SECRET || '6K68M4Jq6-8wa29QflP0cWpFAFoQuXwe';
+// Credentials come from the environment only — nothing is hardcoded here and
+// nothing reaches the browser until someone logs in successfully.
+const ADMIN_SECRET   = process.env.ADMIN_SECRET   || '';
+const ADMIN_USER     = process.env.ADMIN_USER     || 'admin';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
+
 function requireAdmin(req, res, next) {
+  if (!ADMIN_SECRET) {
+    return res.status(503).json({ error: 'Admin API disabled — ADMIN_SECRET is not set on the server.' });
+  }
   const token = req.headers['x-admin-token'] || req.query._token;
   if (token !== ADMIN_SECRET) return res.status(401).json({ error: 'Unauthorised' });
   next();
 }
-
-// ── Mount agents BEFORE json body parser (Twilio uses urlencoded) ──
-const voiceAgent     = require('./voice-agent');
-const whatsappAgent  = require('./whatsapp-agent');
-
-app.use('/voice',     voiceAgent);
-app.use('/whatsapp',  whatsappAgent);
 
 app.use(express.json({ limit: '50kb' }));
 app.use(express.urlencoded({ extended: true, limit: '50kb' }));
 
 // ── Static site ────────────────────────────────────────────────
 app.use(express.static(__dirname, { extensions: ['html'] }));
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'Techno.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+// the homepage used to live at /Techno.html - keep old links alive
+app.get('/Techno.html', (req, res) => res.redirect(301, '/'));
+
+// ── Admin login ────────────────────────────────────────────────
+app.post('/api/admin/login', rateLimit(300000, 10), (req, res) => {
+  const { username, password } = req.body || {};
+  if (!ADMIN_SECRET || !ADMIN_PASSWORD) {
+    return res.status(503).json({ error: 'Admin login is not configured on the server.' });
+  }
+  if (username !== ADMIN_USER || password !== ADMIN_PASSWORD) {
+    console.log('[admin] failed login attempt from ' + req.ip);
+    return res.status(401).json({ error: 'Incorrect username or password.' });
+  }
+  res.json({ token: ADMIN_SECRET });
+});
 
 // ── Leads DB ───────────────────────────────────────────────────
 function readLeads()      { try { return JSON.parse(fs.readFileSync(LEADS_FILE,'utf8')); } catch(e) { return []; } }
@@ -241,6 +288,69 @@ app.post('/api/messages', rateLimit(60000, 10), (req, res) => {
   res.json({ ok: true, id: entry.id });
 });
 
+// ── Contact form → email notification ─────────────────────────
+// Stores the enquiry AND emails it to CONTACT_TO with the visitor
+// set as Reply-To. Credentials stay server-side (see mailer.js).
+const mailer = require('./mailer');
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+app.post('/api/contact', rateLimit(60000, 5), async (req, res) => {
+  const { name, email, budget, message, company, elapsed } = req.body || {};
+
+  // Anti-spam 1: honeypot — real visitors never see or fill this field
+  if (typeof company === 'string' && company.trim() !== '') {
+    console.log('[contact] honeypot triggered — dropped');
+    return res.json({ ok: true, id: null });   // look successful to the bot
+  }
+  // Anti-spam 2: time trap — humans need more than 2s to fill the form
+  if (typeof elapsed !== 'number' || !isFinite(elapsed) || elapsed < 2000) {
+    console.log('[contact] time trap triggered — dropped');
+    return res.status(400).json({ error: 'Submission rejected. Please try again.' });
+  }
+
+  // Validation
+  const clean = {
+    name:    sanitize(name, 100),
+    email:   sanitize(email, 200),
+    budget:  sanitize(budget || '', 100),
+    message: sanitize(message, 3000),
+  };
+  if (clean.name.length < 2)    return res.status(400).json({ error: 'Please enter your name.' });
+  if (!EMAIL_RE.test(clean.email)) return res.status(400).json({ error: 'Please enter a valid email address.' });
+  if (clean.message.length < 5) return res.status(400).json({ error: 'Please tell us about the project.' });
+
+  const submittedAt = new Date();
+
+  // Keep the admin inbox working even if email delivery fails
+  const entry = {
+    id: 'M' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+    ...clean,
+    source:  'contact',
+    sentAt:  submittedAt.toISOString(),
+    read:    false,
+    emailed: false,
+    replies: []
+  };
+  const list = readMessages(); list.unshift(entry); writeMessages(list);
+
+  if (!mailer.isConfigured()) {
+    console.error('[contact] email transport not configured — set SMTP_USER/SMTP_PASS or RESEND_API_KEY');
+    return res.status(503).json({ error: 'Email service unavailable.' });
+  }
+
+  try {
+    const result = await mailer.sendContactEmail({ ...clean, submittedAt });
+    const saved = readMessages();
+    const row = saved.find(m => m.id === entry.id);
+    if (row) { row.emailed = true; writeMessages(saved); }
+    console.log(`[contact] emailed to ${mailer.recipient} via ${result.provider} — ${clean.name} <${clean.email}>`);
+    res.json({ ok: true, id: entry.id });
+  } catch (err) {
+    console.error('[contact] send failed:', err.message);
+    res.status(502).json({ error: 'Could not send your message.' });
+  }
+});
+
 app.post('/api/messages/:id/reply', requireAdmin, (req, res) => {
   const { text } = req.body || {};
   if (!text) return res.status(400).json({ error: 'text required' });
@@ -356,7 +466,6 @@ app.patch('/api/applications/:id/read', requireAdmin, (req, res) => {
 app.listen(PORT, () => {
   const openaiReady  = !!(process.env.OPENAI_API_KEY  && process.env.OPENAI_API_KEY  !== 'your_openai_key_here');
   const geminiReady  = !!(process.env.GEMINI_API_KEY  && process.env.GEMINI_API_KEY  !== 'your_free_gemini_key_here');
-  const twilioReady  = !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN);
 
   console.log('\n ╔══════════════════════════════════════════════╗');
   console.log(` ║  CGW AI Platform  →  http://localhost:${PORT}  ║`);
@@ -364,10 +473,7 @@ app.listen(PORT, () => {
   console.log(` ║  Central Brain  →  /api/brain/status`);
   console.log(` ║  AI Model       →  ${openaiReady ? 'OpenAI ' + (process.env.OPENAI_MODEL||'gpt-4o-mini') + ' ✓' : geminiReady ? 'Gemini ✓ (fallback)' : '⚠ No AI key configured'}`);
   console.log(' ╠══════════════════════════════════════════════╣');
-  console.log(` ║  📱 WhatsApp    →  /whatsapp/incoming  ${twilioReady ? '✓' : '⚠ needs Twilio'}`);
-  console.log(` ║  ✉️  Email       →  /api/chat`);
-  console.log(` ║  📞 Voice       →  /voice/incoming     ${twilioReady ? '✓' : '⚠ needs Twilio'}`);
-  console.log(' ╠══════════════════════════════════════════════╣');
+  console.log(` ║  ✉️  Email / Chat  →  /api/chat`);
   console.log(' ╚══════════════════════════════════════════════╝\n');
 
   if (!openaiReady && !geminiReady) {

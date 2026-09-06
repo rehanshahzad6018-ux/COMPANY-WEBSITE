@@ -1,0 +1,45 @@
+# Render blueprint — https://render.com/docs/blueprint-spec
+# Import this repo at https://dashboard.render.com/blueprints and Render
+# reads the service definition from here. Values marked sync:false are
+# left blank on purpose: set them in the Render dashboard so no secret
+# ever lives in the repository.
+services:
+  - type: web
+    name: cgw-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api/jobs
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      # Origins allowed to call this API from the browser
+      - key: ALLOWED_ORIGINS
+        value: https://cgw-ai.com,https://www.cgw-ai.com
+      # ── set these in the Render dashboard (never committed) ──
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        sync: false
+      - key: CONTACT_TO
+        sync: false
+      - key: MAIL_FROM_NAME
+        sync: false
+      - key: MAIL_TIMEZONE
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: ADMIN_USER
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_SECRET
+        sync: false
